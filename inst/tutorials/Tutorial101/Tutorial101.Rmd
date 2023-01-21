@@ -1,5 +1,5 @@
 ---
-title: "**INDICADORES ESTADÍSTICOS**"
+title: "**CORRELACIÓN Y REGRESION SIMPLE**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -27,77 +27,24 @@ c4="#686868" # GRIS COLOR TEXTO
 ## **PRESENTACIÓN**
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/banner2.png")
+knitr::include_graphics("images/modulo1.png")
 ```
 
-El presente tutorial contiene preguntas relacionadas con , el resumen de datos a través de indicadores. A continuación se presentan un resumen  con los principales conceptos:
+El presente tutorial contiene preguntas relacionadas con  el análisis de correlación y el modelo regresión lineal simple. A continuación se presentan un resumen  con los principales conceptos:
 
-</br></br>
+</br>
 
 ### **CONCEPTOS**
 
-Cuando realizamos un análisis datos es necesario el cálculo de indicadores que faciliten su interpretación
+A continuación se relacinan los principales conceptos sobre correlación y el modelo de regresión lineal simple
 
-</br></br>
+</br>
 
-#### **INDICADORES DE POSICIÓN**
+#### **COEFICIENTE DE CORRELACION**
 
-Estan conformado por un grupo de datos que permiten realizar comparaciones de un dato con respecto al grupo. Dentro de ellos se destacan : percentiles., deciles, quintiles, cuartiles  Con los cuartiles se construye el diagrama de cajas
+Mide la magnitud de la **asociación lineal** entre dos variables.  
 
-|Indicador               | fórmula                               | código R                      |
-|:-----------------------|:--------------------------------------|:------------------------------|
-|$Q_{1}$ percentil 25    |$X_{n \times 0.25}$                    |`quantile(x,0.25)`             |
-|$Q_{2}$ percentil 50    |$X_{n \times 0.50}$                    |`quantile(x,0.50)`             |
-|$Q_{3}$ percentil 75    |$X_{n \times 0.75}$                    |`quantile(x,0.75)`             |
-|rango intercuartílico   |$Q_{3}-Q_{1}$                          |                               |
-
-</br></br>
-
-#### **INDICADORES DE CENTRO**
-
-Los indicadores de centro resumen en un solo número el conjunto de datos. Dentre de ellos se destacan : la media, mediana, moda, rango medio, media truncada
-
-|Indicador               | fórmula                               | código R                      |
-|:-----------------------|:--------------------------------------|:------------------------------|
-|media aritmética        | $\displaystyle\dfrac{1}{n}\sum_{i=1}^{n} x_{i}$    | `mean(x)`        |
-|mediana                 | $Me = P_{50} = X_{n+1/2}$             | `median(x)`                   |
-|moda                    | $Mo$ dato que más se repite           |                               |
-|media truncada | media calculada con el 90% central de los datos|`mean(x,trim=10/100)`          |
-|rango medio             | $rm=\dfrac{min\{x\}-max\{x\}}{2}$     | `max(x)-min(x)`               |
-|media geométrica        | $(x_{1} \times x_{2} \times x_{3} .... x_{n})^{1/n}$  |               |
-|media armónica          | $\dfrac{n}{\dfrac{1}{x_{1}}+\dfrac{1}{x_{2}}+\dfrac{1}{x_{3}}+...+\dfrac{1}{x_{n}}}$ |  |
-
-</br></br>
-
-#### **INDICADORES DE DISPERSIÓN**
-
-Conformado por un grupo de indicadores que nos muestran la variabilidad de los datos. Los principales indicadores de dispersión son : el rango, la varianza, la desviación estandar y el coeficiente de variación.
-
-
-|Indicador               | fórmula                               | código R                      |
-|:-----------------------|:--------------------------------------|:------------------------------|
-|rango                   |$r= max\{x\}-min\{x\}$                 |`max(x)-min(x)`                |
-|varianza                |$s^{2} = \dfrac{1}{n-1} \displaystyle\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}$  |`var(x)` 
-|desviación estandar     |$s = \sqrt{s^{2}}$                     |`sd(x)`                        |
-|coeficiente de variación|$cv= \dfrac{s}{\bar{x}} \times 100$ %  |`sd(x)/mean(x)*100`            |
-
-</br></br>
-
-#### **INDICADORES DE FORMA**
-
-Los indicadores de forma permiten analizar los datos respecto a su distribución que tiene dos dimensiones : el apuntamiento o curtosis y la asimetria o sesgo
-
-|Indicador               | fórmula                               | código R                      |
-|:-----------------------|:--------------------------------------|:------------------------------|
-|coeficiente de curtosis |$\displaystyle\dfrac{Q_{3}-Q_{1}}{P_{90}-P_{10}}$ |`rapportools::kurtosis(bpe$promedio)`|
-|coeficiente de asimetría|$\displaystyle\dfrac{3(\bar{x}-Me)}{s}$|`rapportools::skewness(bpe$promedio)`|
-
-
-Las siguientes funciones permiten un un conjunto de indicadores :
-
-* `summary(x)`
-* `summarytools::descr(x)`
-* `psych::describe(x)`
+$$r = \dfrac{cov(x,y)}{\sqrt{s_{x}^{2}\hspace{0.1cm} s_{y}^{2}}}$$
 
 #### **MAPA** 
 
@@ -124,7 +71,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -146,7 +93,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -168,7 +115,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -189,7 +136,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = "  "
 )
 
 ```
@@ -211,7 +158,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = "  "
 )
 
 ```
@@ -233,7 +180,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
