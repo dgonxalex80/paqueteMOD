@@ -40,7 +40,7 @@ y<- rho*x + sqrt(1-rho^2)*z
 result <-cbind(y,x)
 return(result)
 }
-
+library(paqueteMOD)
 data("arboles")
 ##  <div class="content-box-blue">    </div> ## caja azul
 ```
@@ -249,8 +249,6 @@ data("arboles")
 ```{r p1-hint}
 library(paqueteMOD)
 data("arboles")
-i=c(3,4,5)
-arboles[ , i] <- apply(arboles[ , i], 2, function(x) as.numeric(as.character(x)))
 cor(,)
 
 ```
@@ -259,10 +257,8 @@ cor(,)
 ```{r p1-solution}
 library(paqueteMOD)
 data("arboles")
-i=c(3,4,5)
-arboles=arboles[ , i] <- apply(arboles[ , i], 2, function(x) as.numeric(as.character(x)))
-cor.test(arboles[,3:5])
-
+cor(arboles$peso,arboles$diametro)
+cor(arboles$peso,arboles$altura)
 ```
 
 
@@ -282,7 +278,7 @@ data("arboles")
 ```{r p2-hint}
 library(paqueteMOD)
 data("arboles")
-arboles=as.data.frame(arboles)
+cor.test()
 
 ```
 
@@ -293,179 +289,5 @@ data("arboles")
 arboles=as.data.frame(arboles)
 cor.test(arboles$peso,arboles$diametro)
 cor.test(arboles$peso, arboles$altura)
-```
-
-
-### **Problema 3**
-
-Enunciado
-
-```{r p3, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p3-hint}
-
-
-```
-
-
-```{r p3-solution}
-
-```
-
-
-
-### **Problema 4**
-
-Enunciado
-
-```{r p4, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p4-hint}
-
-
-```
-
-
-```{r p4-solution}
-
-```
-
-
-
-### **Problema 5**
-
-Enunciado
-
-```{r p5, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p5-hint}
-
-
-```
-
-
-```{r p5-solution}
-
-```
-
-
-
-### **Problema 6**
-Enunciado
-
-```{r p6, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p6-hint}
-
-
-```
-
-
-```{r p6-solution}
-
-```
-
-
-
-### **Problema 7**
-
-Enunciado
-
-```{r p7, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p7-hint}
-
-
-```
-
-
-```{r p7-solution}
-
-```
-
-
-
-### **Problema 8**
-
-Enunciado
-
-```{r p8, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p8-hint}
-
-
-```
-
-
-```{r p8-solution}
-
-```
-
-
-
-### **Problema 9**
-
-Enunciado
-
-```{r p9, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p9-hint}
-
-
-```
-
-
-```{r p9-solution}
-
-```
-
-
-
-### **Problema 10**
-
-Enunciado
-
-```{r p10, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p10-hint}
-
-
-```
-
-
-```{r p10-solution}
-
 ```
 
