@@ -21,7 +21,7 @@ c1="#FF7F00" # NARANJA COLOR PRINCIPAL
 c2="#034a94" # AZUL FUERTE COLOR SECUNDARIO  
 c3="#0eb0c6" # AZUL CLARO COLOR TERCEARIO  
 c4="#686868" # GRIS COLOR TEXTO 
-
+##  <div class="content-box-blue">    </div> ## caja azul
 ```
 
 ## **PRESENTACIÓN**
