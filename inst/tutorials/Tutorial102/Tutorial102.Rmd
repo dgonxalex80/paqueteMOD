@@ -1,5 +1,5 @@
 ---
-title: "**PROBABILIDAD**"
+title: "**REGRESIÓN LINEAL SIMPLE**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -30,42 +30,115 @@ c4="#686868" # GRIS COLOR TEXTO
 knitr::include_graphics("images/banner2.png")
 ```
 
-El presente tutorial contiene preguntas relacionadas con , 
-conceptos importantes en 
+El presente tutorial contiene preguntas relacionadas con regresión lineal simple, sus  conceptos más importantes y problemas que se plantean para alcanzar los objetivos planteados en esta unidad 
 
 </br>
   
 ### **CONCEPTOS**
   
+#### **MODELO DE REGRESIÓN **
+
+$$Y= \beta_{0} + \beta_{1} X + \varepsilon$$
+Donde:
+
+* ${Y}$: Variable respuesta o dependiente.
+* ${X}$: Variable predictora, independiente o regresora.
+* ${\varepsilon}$: Error aleatorio
+* ${\beta_0}$ es el intercepto y 
+${\beta_1}$ es la pendiente de la línea recta.
+
+
+
+#### **SUPUESTOS DE MODELO DE REGRESIÓN LINEAL SIMPLE**
+
+S1. La variable respuesta $Y$ es una variable aleatoria cuyos valores para valores específicos de una variable $X$
+
+S2. La variable $X$ no se considera una variable aleatoria
+
+S3. Los datos observados ${(x_i,y_i),\ i=1,\ldots,n}$ son tomados en un rango, por fuera del cual no se deben realizar inferencias (no realizar extrapolación)
+
+S4. El modelo de regresión es lineal en los parámetros
+
+S5. Si la ecuación de regresión es correcta, las variaciones que no se explican por la ecuación corresponden a errores aleatorios
+
+S6. No existe correlación de errores $Cor[\varepsilon_{i},\varepsilon_{j}]= 0$
+
+S7. El modelo de regresión es: $Y_i = Y\vert X_i = E\left[Y \vert X_i\right] + \varepsilon_i \hspace{.8cm} i=1,2,\ldots,n$
+
+S8. Los errores se distribuyen $\large \varepsilon_{i}\sim N(0,\sigma^{2}), \hspace{0.8cm} i=1,2,\ldots,n$
+
+S9. Los errores aleatorios $\large \varepsilon_i$ son estadísticamente independientes.
+
+S10. La varianza de los errores es contante : $V[\varepsilon_{i}] = \sigma^{2}$
+
+En resumen :
+$$
+\varepsilon_i\overset{\text{iid}}{\sim} N(0,\sigma^2), \hspace{.8cm}i=1,2,\ldots,n
+$$
+
 </br></br>
 
-#### **MAPA** 
-  
+#### **RESUMEN**
+
+
+|                                |                           código R                           |
+|:-------------------------------|:-------------------------------------------------------------|
+| datos                          | `x = c(24.3,12.5,31.2,28,35.1,10.5,23.2,10,8.5,15.9,14.7,15)`  |
+|                                | `y = c(16.2,8.5,15,17,24.2,11.2,15,7.1,3.5,11.5,10.7,9.2)`     |
+|                                | `data = data.frame(x,y)`                                       |
+| diagrama dispersión            | `library(ggplot2)` ; `ggplot(data, aes(x,y))+ geom_point()`      |
+| correlación                    | `cor(x,y)`                                                     |
+| test de correlación Ho: Rho=0  | `cor.test(x,y)`                                                |
+| estimacion MCO                 | `modelo1 <- lm(y~x)`                                           |
+| estimación MV                  | `modelo2 <- lm(y~x)$coefficients;emv`                          |
+| visualización de resultados    | `summary(modelo1)`                                             |
+| gráfico de regresión           | `ggplot(data, aes(x,y))+ geom_point() +`                       |
+|                                |        ` geom_smooth(method ="lm", level=0.95, formula = y~x)` |
+| yhat                           | `predict(modelo1)`                                             |
+| interbalos de confianza $\beta_0$,$\beta_1$ | `confint(modelo1)`                                |
+| ANOVA                          | `anova(modelo1)`                                               |
+| residuos                       | `rstandard(modelo1)`                                           |
+| valores ajustados              | `fitted(modelo1)`                                              |
+| gráfico normalidad             | `qqnorm(modelo1)` ; `qqline(modelo1)`                          |
+| test de DW -autocorrelación    | `library("lmtest")` ; `dwtest(modelo1)`                        |
+| test de Goldfeld-Quandt - varianza constante | `gqtest(modelo1)`                                |
+| test de especificacion - Prueba RESET | `resettest(y~x, power=2, type="regressor")`             |
+| test de  White - varianza cosntante   | `modelo1=lm(residuos~x)`                                |
+
 
 ```{r, echo=FALSE, , out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/tablas.png")  
+# knitr::include_graphics("images/tablas.png")  
 
 ```
 
 ## **CUESTIONARIO**
 
 ### **Pregunta 1**
+ 
+ El siguiente resultado corresponde  a la estimación de un modelo de regresión lineal simple.
+<pre>
+lm(formula = ventas ~ clientes, data = ventas)
+
+Coefficients:  Estimate      Std. Error t value   Pr(>|t|)    
+(Intercept)    19.9800       4.3897     4.552     0.000544 
+clientes        0.2606       0.0420     6.205     3.19e-05 
+
+</pre>
 
 ```{r quiz_1}
-
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("La ecuación resultante de la estimación es. ", 
+           correct = "Correcto!.", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("clientes = 19.9800 + 0.2606 ventas", message = "No...intentalo de nuevo!"),
+           answer("ventas = 19.9800 + 0.2606 clientes", correct = TRUE),    
+           answer("ventas = 0.2606 clientes", message = "Incorrecto. Intenta de nuevo!."),
+           answer("clientes = 4.3897 + 0.0420 ventas", message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -73,21 +146,31 @@ quiz(
 
 ### **Pregunta 2**
 
+El siguiente resultado corresponde  a la estimación de un modelo de regresión lineal simple.
+
+<pre>
+lm(formula = ventas ~ clientes, data = ventas)
+
+Coefficients:  Estimate   Std. Error t value   Pr(>|t|)    
+(Intercept)    19.9800    4.3897     4.552     0.000544 
+ clientes       0.2606    0.1820     1.431780  0.175808
+</pre>
+
 ```{r quiz_2}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("El modelo resultante de la estimación es:", 
+           correct = "Correcto!, el valor-p para la prueba de hipótesis relacionada con el intercepto indica que este valor es diferente de cero, mientras que para la prueba de la pendiente indica que no se rechaza que este valor sea cero.", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("ventas = 19.9800", correct = TRUE),
+           answer("ventas = 0.2606 clientes", message = "No...intentalo de nuevo!"),
+           answer("ventas = 19.9800 + 0.2606 clientes", message = "Incorrecto. Intenta de nuevo!."),
+           answer("ventas =0.2606 + 19.9800 clientes", message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -98,13 +181,13 @@ quiz(
 ```{r quiz_3}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("Del método de estimación MCO  no es posible afirmar que", 
+           correct = "Correcto!, el método de MCO es un método de optimización matemático que encuentra los valores de los parámetros que minimicen los residuales.", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Las estimaciones de los parámetros son insesgadas", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("Las estimaciones son las mismasa que se encuentran por el método de máxima verosimilitud", message = "Nop...intentalo de nuevo!"),
+           answer("Son validos siempre y cuando se cumplan los supuestos sobre los errores", message = "Incorrecto. Intenta de nuevo!."),
+           answer("Si los datos no tienen una forma lineal, el método de MCO no puede encontrar valores estimados para el intercepto y la pendiente de la linea de regresión", correct = TRUE),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -130,7 +213,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -152,7 +235,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -174,7 +257,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -196,7 +279,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -218,7 +301,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -240,7 +323,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -262,7 +345,7 @@ quiz(
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
