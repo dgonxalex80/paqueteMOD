@@ -24,6 +24,8 @@ c4="#686868" # GRIS COLOR TEXTO
 ##  <div class="content-box-blue">    </div> ## caja azul
 ```
 
+</br>
+
 ## **PRESENTACIÓN**
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
@@ -32,7 +34,7 @@ knitr::include_graphics("images/banner2.png")
 
 El presente tutorial contiene preguntas relacionadas con regresión lineal simple, sus  conceptos más importantes y problemas que se plantean para alcanzar los objetivos planteados en esta unidad 
 
-</br>
+</br></br>
   
 ### **CONCEPTOS**
   
@@ -48,6 +50,7 @@ Donde:
 ${\beta_1}$ es la pendiente de la línea recta.
 
 
+</br></br>
 
 #### **SUPUESTOS DE MODELO DE REGRESIÓN LINEAL SIMPLE**
 
@@ -199,16 +202,30 @@ quiz(
 
 ### **Pregunta 4**
 
+
+Al evaluar la forma funcional del modelo empleando la transformación Box-Cox, arroja el siguiente resultado
+
+```{r}
+library(paqueteMOD)
+library(MASS)
+data(beer) 
+bc=boxcox(lm(beer$precio ~ beer$poralcoh), lambda = -2:2)
+#Se repite el proceso pero esta vez entrechando el rango de valores de lambda 
+(lambda <- bc$x[which.max(bc$y)])
+
+```
+
+
 ```{r quiz_4}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("El resultado indica que la mejor transformación de la variable respuesta es: ", 
+           correct = "Correcto!", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Inverso del cuadrado de Y", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("Inverso de la raiz cuadrada de  Y", message = "Nop...intentalo de nuevo!"),
+           answer("La raiz cuadrada de Y", message = "Incorrecto. Intenta de nuevo!."),
+           answer("El cuadro de Y", correct = TRUE),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -224,13 +241,13 @@ quiz(
 ```{r quiz_5}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("No es un supuesto del modelo de regresión lineal", 
+           correct = "Correcto!, aunque la varianza debe ser constante, no necesariamente será igual a uno.", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Valor esperado de los errores  igual a cero", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("Errores con distribución normal", message = "Nop...intentalo de nuevo!"),
+           answer("Varianza de los errores igual a uno", correct = TRUE),
+           answer("Independencia de los errores ", message = "Incorrecto. Intenta de nuevo!."),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -240,115 +257,6 @@ quiz(
 
 ```
 
-
-### **Pregunta 6**
-
-```{r quiz_6}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
-)
-
-```
-
-
-### **Pregunta 7**
-
-```{r quiz_7}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
-)
-
-```
-
-
-### **Pregunta 8**
-
-```{r quiz_8}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
-)
-
-```
-
-
-### **Pregunta 9**
-
-```{r quiz_9}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
-)
-
-```
-
-
-### **Pregunta 10**
-
-```{r quiz_10}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
-)
-
-```
 
 
 ## **PROBLEMAS**
@@ -356,87 +264,130 @@ quiz(
 
 ### **Problema 1**
 
-Enunciado
+La data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  Estime el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ mediate el método de mínimos cuadrados ordinarios (MCO)
 
-```{r p1, exercise=TRUE, exercise.lines = 5}
-
+```{r p1, exercise=TRUE, exercise.lines = 10}
+library(paqueteMOD)
+data("biomasa")
 
 ```
 
 
 ```{r p1-hint}
-
+library(paqueteMOD)
+data("biomasa")
+lm
 
 ```
 
 
 ```{r p1-solution}
-
+library(paqueteMOD)
+data("biomasa")
+modelo=lm(biomasa$bio_total ~ biomasa$altura)
+summary(modelo)
 ```
 
 
 
 ### **Problema 2*
+A partir de la data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  se puede estimar el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ . A partir de los resultados obtenidos en la estimación valide los supuestos sobre los errores:
 
-Enunciado
+* $\varepsilon \sim Normal$
+* $V[\varepsilon] = \sigma^{2}$
+* $Cor[\varepsilon_{i},\varepsilon_{j}] = 0$
+* $E[\varepsilon] = 0$
 
-```{r p2, exercise=TRUE, exercise.lines = 5}
-
+```{r p2, exercise=TRUE, exercise.lines = 20}
+library(paqueteMOD)
+library(lmtest)
+data(biomas)
 
 ```
 
 
 ```{r p2-hint}
-
-
+library(paqueteMOD)
+library(lmtest)
+data(biomas)
+shapiro.test()
+gqtest()
+dwtest()
+t.test()
 ```
 
 
 ```{r p2-solution}
+library(paqueteMOD)
+library(lmtest)
+data(biomas)
+modelo=lm(biomasa$bio_total ~ biomasa$altura)
+shapiro.test(modelo$residuals)
+gqtest(modelo)
+dwtest(modelo)
+t.test(modelo$residuals)
+
+
 
 ```
 
 
 ### **Problema 3**
 
-Enunciado
+La data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  Verifique el valor de $\lambda$ para la constante de la transformación Box-Cox para establecer la transformación apropiada de la variable dependiente en el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ 
 
-```{r p3, exercise=TRUE, exercise.lines = 5}
-
+```{r p3, exercise=TRUE, exercise.lines = 20}
+library(paqueteMOD)
+data(biomasa)
 
 ```
 
 
 ```{r p3-hint}
+library(paqueteMOD)
+data(biomasa)
+boxcox()
 
 
 ```
 
 
 ```{r p3-solution}
-
+library(paqueteMOD)
+data(biomasa)
+bc=boxcox(lm(biomasa$bio_total ~ biomasa$altura), lambda = -1:1)
+(lambda <- bc$x[which.max(bc$y)])
 ```
 
 
 
 ### **Problema 4**
 
-Enunciado
+Para el modelo  $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ , obtenido a partir de la data  `biomasa` contenida en `paqueteMOD` , verifique gráficamente el cumplimiento de los supuestos sobre los errores.
 
-```{r p4, exercise=TRUE, exercise.lines = 5}
 
+```{r p4, exercise=TRUE, exercise.lines = 20}
+library(paqueteMOD)
+data(biomasa)
+modelo=lm(biomasa$bio_total ~ biomasa$altura)
 
 ```
 
 
 ```{r p4-hint}
-
+library(paqueteMOD)
+data(biomasa)
+modelo=lm(biomasa$bio_total ~ biomasa$altura)
 
 ```
 
 
 ```{r p4-solution}
-
+library(paqueteMOD)
+data(biomasa)
+modelo=lm(biomasa$bio_total ~ biomasa$altura)
+par(mfrow = c(2,2))
+plot(modelo)
 ```
 
 
@@ -479,94 +430,6 @@ Enunciado
 
 
 ```{r p6-solution}
-
-```
-
-
-
-### **Problema 7**
-
-Enunciado
-
-```{r p7, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p7-hint}
-
-
-```
-
-
-```{r p7-solution}
-
-```
-
-
-
-### **Problema 8**
-
-Enunciado
-
-```{r p8, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p8-hint}
-
-
-```
-
-
-```{r p8-solution}
-
-```
-
-
-
-### **Problema 9**
-
-Enunciado
-
-```{r p9, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p9-hint}
-
-
-```
-
-
-```{r p9-solution}
-
-```
-
-
-
-### **Problema 10**
-
-Enunciado
-
-```{r p10, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-```{r p10-hint}
-
-
-```
-
-
-```{r p10-solution}
 
 ```
 
