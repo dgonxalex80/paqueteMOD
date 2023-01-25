@@ -167,7 +167,7 @@ quiz(
 ```{r quiz_3}
 
 quiz(
-  question("El coeficiente de corelación toma si signio positivo o negativo", 
+  question("El coeficiente de correlación toma si signio positivo o negativo", 
            correct = "Correcto!, el coeficiente se obtiena al dividir la cov(x,y) con la raiz cuadra de la multiplicación de las varianzas de X y Y. , . Donde las varianza son siempre positivas. El signo entonces está asociado con la covarianza. Cov(X,Y)=E(XY)-E(X)E(Y)", 
            allow_retry = TRUE,
            answer("Del valor esperado de X", message = "No...intentalo de nuevo!"),
