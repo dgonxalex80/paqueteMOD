@@ -185,7 +185,7 @@ quiz(
 
 quiz(
   question("Del método de estimación MCO  no es posible afirmar que", 
-           correct = "Correcto!, el método de MCO es un método de optimización matemático que encuentra los valores de los parámetros que minimicen los residuales.", 
+           correct = "Correcto!, el método de MCO es un método de optimización matemático que encuentra los valores de los parámetros que minimicen los residuales, sin importar la relación existente entre las variables X y Y.", 
            allow_retry = TRUE,
            answer("Las estimaciones de los parámetros son insesgadas", message = "Cerca, pero no...intentalo de nuevo!"),
            answer("Las estimaciones son las mismasa que se encuentran por el método de máxima verosimilitud", message = "Nop...intentalo de nuevo!"),
