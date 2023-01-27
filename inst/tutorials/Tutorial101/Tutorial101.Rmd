@@ -57,7 +57,7 @@ El presente tutorial contiene preguntas relacionadas con  el análisis de correl
 
 ### **CONCEPTOS**
 
-A continuación se relacinan los principales conceptos sobre correlación y el modelo de regresión lineal simple
+A continuación se relacionan los principales conceptos sobre correlación y el modelo de regresión lineal simple
 
 </br>
 
