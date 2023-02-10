@@ -167,7 +167,7 @@ quiz(
 ```{r quiz_3}
 
 quiz(
-  question("El coeficiente de correlación toma si signio positivo o negativo", 
+  question("El coeficiente de correlación toma su signo positivo o negativo", 
            correct = "Correcto!, el coeficiente se obtiena al dividir la cov(x,y) con la raiz cuadra de la multiplicación de las varianzas de X y Y. , . Donde las varianza son siempre positivas. El signo entonces está asociado con la covarianza. Cov(X,Y)=E(XY)-E(X)E(Y)", 
            allow_retry = TRUE,
            answer("Del valor esperado de X, E[X]", message = "No...intentalo de nuevo!"),
@@ -193,7 +193,7 @@ knitr::include_graphics("images/RplotRho3.png")
 ```{r quiz_4}
 
 quiz(
-  question("De la gáfica se puede afirmar", 
+  question("De la gráfica se puede afirmar", 
            correct = "Correcto!, existe una relación cuadrática entre las variables.", 
            allow_retry = TRUE,
            answer("Existe una relación lineal positiva", message = "Cerca, pero no...intentalo de nuevo!"),
@@ -263,7 +263,7 @@ cor(arboles$peso,arboles$altura)
 
 
 
-### **Problema 2*
+### **Problema 2**
 
 Realice las pruebas de hipótesis con las que pueda verificar si las correlaciones entre las variables : peso, diametro y altura son diferentes de cero
 
