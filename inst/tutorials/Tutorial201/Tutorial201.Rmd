@@ -31,6 +31,8 @@ c4="#686868" # GRIS COLOR TEXTO
 knitr::include_graphics("images/banner2.png")
 ```
 
+# **EN CONSTRUCCIÓN**
+
 El presente tutorial contiene preguntas relacionadas con , 
 conceptos importantes en 
 
@@ -52,21 +54,31 @@ conceptos importantes en
 
 ### **Pregunta 1**
 
+¿Cuál de las siguientes es la forma general de la ecuación del modelo de regresión múltiple? <br>
+
+$( a ) \hspace{.3cm}$ $X_{i1} + \beta_2X_{i2} + \dots+ \beta_kX_{ik} + \varepsilon_i$ </br>
+
+$( b ) \hspace{.3cm}$ $Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \dots+ \beta_kX_{ik} + \varepsilon_i$</br>
+
+$( c ) \hspace{.3cm}$ $Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \dots+ \beta_kX_{ik}$</br>
+
+$( d ) \hspace{.3cm}$ $Y_i = \beta_0^{2} + \beta_1^{2}X_{i1} + \beta_2^{2}X_{i2} + \dots+ \beta_k^{2}X_ {ik} + \varepsilon_i$</br>
+
 ```{r quiz_1}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("La respuesta correcta es", 
+           correct = " Correcto!, .", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("( a )", message = "No...intentalo de nuevo!"),
+           answer("( b )", correct = TRUE),
+           answer("( c )", message = "Incorrecto. Intenta de nuevo!."),
+           answer("( d )", message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = ""
 )
 
 ```
@@ -74,21 +86,32 @@ quiz(
 
 ### **Pregunta 2**
 
+¿Cuál es la distribución de probabilidad de los errores de un modelo de regresión lineal? </br>
+
+$( a ) \hspace{.3cm}$  $\epsilon_{i} \sim Normal(0, 1)$</br>
+
+$( b ) \hspace{.3cm}$  $\epsilon_{i} \sim Uniforme(0, 1)$</br>
+
+$( c ) \hspace{.3cm}$  $\epsilon_{i} \sim Normal(0, \sigma^2)$</br>
+
+$( d ) \hspace{.3cm}$  Puede tomar cualquier distribución.</br>
+
+
 ```{r quiz_2}
 
 quiz(
   question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+           correct = "Correcto! ", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("( a )", message = "No...intentalo de nuevo!"),
+           answer("( b )", message = "Incorrecto. Intenta de nuevo!."),
+           answer("( c )", correct = TRUE), 
+           answer("( d )", message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -96,42 +119,54 @@ quiz(
 
 ### **Pregunta 3**
 
+
 ```{r quiz_3}
 
 quiz(
-  question("¿Pregunta?", 
+  question("¿Cuales son los supuestos sobre los errores de un modelo de regresión lineal múltiple?", 
            correct = "Respuesta y explicación!, .", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Normalidad, independencia, varianza constante y media cero", correct = TRUE),
+           answer("Normalidad, varianza heterogenea, independencia y media cero", message = "Nop...intentalo de nuevo!"),
+           answer("No tienen supuestos ", message = "Incorrecto. Intenta de nuevo!."),
+           answer("Normalidad y varianza constante", message = "Cerca, pero no...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
 
 ### **Pregunta 4**
 
+La forma correcta de interpretar los coeficientes de regresión ${ \beta_j ~~donde\hspace{.3cm} j = 1, 2, \dots, k}$ es: </br>
+
+$( a ) \hspace{.3cm}$ Indican el cambio en la respuesta media de ${Y}$ por unidad de incremento en el logaritmo de la respectiva variable ${X_j}$, cuando las demás predictoras permanecieron constantes. </br>
+
+$( b ) \hspace{.3cm}$ Indican el cambio en la respuesta media de ${Y}$ por unidad de incremento en la respectiva variable ${X_j}$, cuando las demás predictoras permanecen constantes. </br>
+
+$( c ) \hspace{.3cm}$ Indican el cambio en la respuesta media de ${Y}$ por unidad de incremento en la respectiva variable ${X_j}$, cuando las demás predictoras toman distintos valores no constantes.</br>
+
+$( d ) \hspace{.3cm}$  Indican el cambio en la respuesta media de ${Y}$ por incremento del 200% en la respectiva variable ${X_j}$, cuando las demás 
+predictoras permanecieron constantes. </br>
+
 ```{r quiz_4}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question(" ", 
+           correct = "Correcto! .", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("( a )", message = "No...intentalo de nuevo!"),
+           answer("( b )", correct = TRUE),  
+           answer("( c )", message = "Incorrecto. Intenta de nuevo!."),
+           answer("( d )", message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = ""
 )
 
 ```
@@ -142,18 +177,18 @@ quiz(
 ```{r quiz_5}
 
 quiz(
-  question("¿Pregunta?", 
+  question("¿Qué sucede si existen relaciones lineales fuertes entre las variables predictoras? ", 
            correct = "Respuesta y explicación!, .", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Provocaria multicolinealidad dentro del modelo", correct = TRUE),
+           answer("Se presentaría heterogeneidad en los residuos", message = "No...intentalo de nuevo!"),
+           answer("Los coeficientes de regresión no tendrán interpretación", message = "Incorrecto. Intenta de nuevo!."),
+           answer("Los errores no tendrán distribución normal" , message = "No...intentalo de nuevo!"),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -161,21 +196,31 @@ quiz(
 
 ### **Pregunta 6**
 
+Una forma cuadrática se puede expresar matricialmente como:</br>
+
+$( a ) \hspace{.3cm}$ $\boldsymbol{xA}'\boldsymbol{x}$ </br>
+
+$( b ) \hspace{.3cm}$ $\boldsymbol{xA}'\boldsymbol{xx}$ </br>
+
+$( c ) \hspace{.3cm}$ $I\boldsymbol{Ax}$ </br>
+
+$( d ) \hspace{.3cm}$ $\boldsymbol{x}'\boldsymbol{Ax}$</br>
+
 ```{r quiz_6}
 
 quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
+  question("", 
+           correct = "Correcto!", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("( a )", message = "No...intentalo de nuevo!"),
+           answer("( b )" , message = "No...intentalo de nuevo!"),
+           answer("( c )", message = "Incorrecto. Intenta de nuevo!."),
+           answer("( d )", correct = TRUE), 
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
   # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+  caption = " "
 )
 
 ```
@@ -183,16 +228,19 @@ quiz(
 
 ### **Pregunta 7**
 
+
+
+
 ```{r quiz_7}
 
 quiz(
-  question("¿Pregunta?", 
+  question("Por fuera de la diagonal de la matriz de varianzas-covarianzas asociadas a un vector aleatorio están :?", 
            correct = "Respuesta y explicación!, .", 
            allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
+           answer("Las variaciones asociadas a cada elemento del vector aleatorio.", message = "No...intentalo de nuevo!"),
+           answer("Las esperanzas condicionales entre los pares de elementos del vector aleatorio.", message = "No...intentalo de nuevo!"),
+           answer("Los coeficientes de correlaciones asociados a cada elemento del vector aleatorio.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("Las covarianzas entre los pares de elementos del vector aleatorio.", correct = TRUE),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -204,6 +252,7 @@ quiz(
 
 
 ### **Pregunta 8**
+
 
 ```{r quiz_8}
 

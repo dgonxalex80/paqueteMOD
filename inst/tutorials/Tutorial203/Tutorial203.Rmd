@@ -30,6 +30,8 @@ c4="#686868" # GRIS COLOR TEXTO
 knitr::include_graphics("images/banner2.png")
 ```
 
+# **EN CONSTRUCCIÓN**
+
 El presente tutorial contiene preguntas relacionadas con , 
 conceptos importantes en 
 
