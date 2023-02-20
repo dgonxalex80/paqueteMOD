@@ -14,6 +14,11 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(paqueteMOD)
+library(boot)
+library(ggplot2)
+library(gridExtra)
+
 knitr::opts_chunk$set(echo = FALSE,
                  exercise.warn_invisible = FALSE)
 # colores
@@ -519,25 +524,87 @@ summary(forward)
 
 
 
-<!-- ### **Problema 4** -->
+### **Problema 4**
 
-<!-- Enunciado -->
+La base de datos `vivienda`, contenida en `paqueteMOD`, contiene variables cuantitativas :
 
-<!-- ```{r p4, exercise=TRUE, exercise.lines = 15} -->
+* **preciom**      : precio de la vivienda
+* **areaconst**    : area construida
+* **parqueaderos** : número de parqueaderos
+* **banios**       : número de baños
+* **habitaciones** : número de habitaciones
+* **zona** : ubicación del apartamento
+* **piso** : piso de ubicación del apartamento
+* **estrato** : estrato socio económico donde se encuentra la vivienda
+
+Realice una estimación de los coeficientes del modelo :
+`preciom ~ parqueaderos + banios + habitaciones + tipo + estrato, data=vivienda` 
+
+Utilizando para ello el método de remuestreo bootstrapping
 
 
-<!-- ``` -->
+```{r p4, exercise=TRUE, exercise.lines = 25}
+library(paqueteMOD)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+
+```
 
 
-<!-- ```{r p4-hint} -->
+```{r p4-hint}
+library(paqueteMOD)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+modelo1=lm(preciom ~ parqueaderos + banios + habitaciones , data=vivienda)
+```
 
 
-<!-- ``` -->
+```{r p4-solution}
+library(paqueteMOD)
+library(boot)
+library(ggplot2)
+library(gridExtra)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+modelo1=lm(preciom ~ parqueaderos + banios + habitaciones + tipo + estrato, data=vivienda)
 
 
-<!-- ```{r p4-solution} -->
+# Se define la función que devuelve los coeficientes de regresión
+fun_coeficientes <- function(data, index){
+  return(coef(lm(preciom ~ parqueaderos + banios + habitaciones , data = vivienda, subset = index)))
+}
+beta_0 <- rep(NA,9999)
+beta_1 <- rep(NA,9999)
+beta_2 <- rep(NA,9999)
+beta_3 <- rep(NA,9999)
 
-<!-- ``` -->
+for(i in 1:9999) {
+  coeficientes <- fun_coeficientes(data = arboles1,
+                                   index = sample(1:90, 90, replace = TRUE))
+  beta_0[i] <- coeficientes[1]
+  beta_1[i] <- coeficientes[2]
+  beta_2[i] <- coeficientes[3]
+  beta_3[i] <- coeficientes[4]
+  }
+# Se grafica la distribución de los coeficientes
+p0 <- ggplot(data = data.frame(beta_0 = beta_0), aes(beta_0)) +
+  geom_histogram(colour = "firebrick3") + 
+  theme_bw()
+p1 <- ggplot(data = data.frame(beta_1 = beta_1), aes(beta_1)) +
+  geom_histogram(colour = "firebrick3") +
+  theme_bw()
+p2 <- ggplot(data = data.frame(beta_2 = beta_2), aes(beta_2)) +
+  geom_histogram(colour = "firebrick3") +
+  theme_bw()
+p3 <- ggplot(data = data.frame(beta_3 = beta_3), aes(beta_3)) +
+  geom_histogram(colour = "firebrick3") +
+  theme_bw()
+
+grid.arrange(p0,p1,p2, p3, ncol = 2, nrow=2,top = "Bootstrap distribution de los coeficientes")
+#  se calcula la media de los coeficientes estimados
+betas_boot=data.frame(beta_0,  beta_1,beta_2, beta_3)
+apply(betas_boot, 2,mean)
+```
 
 
 
