@@ -1,5 +1,5 @@
 ---
-title: "**REGRESIÓN LINEAL MULTIPLE**"
+title: "**ESTIMACION DE MODELO DE REGRESIÓN LINEAL MULTIPLE**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -31,14 +31,24 @@ knitr::include_graphics("images/banner2.png")
 ```
 
 
-# **EN CONSTRUCCIÓN**
-
-El presente tutorial contiene preguntas relacionadas con , 
-conceptos importantes en 
+El presente tutorial contiene preguntas relacionadas con l estimación del modelo y sus supuestos, conceptos importante para la compresión los proceso relacionados con la inferencia realizada sobre los resultados obtenidos por el método de MCO.   
 
 </br>
   
 #### **CONCEPTOS**
+  
+#### **Método de estimación MCO** 
+
+#### **Propuedades de los estimadores MCO**
+
+
+#### **Inferencia sobre los coeficientes**
+
+
+#### **Inferencia sobre un subconjunto de coeficientes**
+
+
+#### **Inferencia sobre pronósticos**
   
 </br></br>
 
@@ -46,13 +56,34 @@ conceptos importantes en
   
 
 ```{r, echo=FALSE, , out.width="100%", fig.align = "center"}
-# knitr::include_graphics("images/Inferencia.png")  
+knitr::include_graphics("images/mapa2.png")  
 
 ```
 
 ## **CUESTIONARIO**
 
 ### **Pregunta 1**
+
+La base de datos vivienda, contenida en paqueteMOD, contiene variables cuantitativas :
+
+* **preciom**      : precio de la vivienda
+* **areaconst**    : area construida
+* **parqueaderos** : número de parqueaderos
+* **banios**       : número de baños
+* **habitaciones** : número de habitaciones
+* **zona** : ubicación del apartamento
+* **piso** : piso de ubicación del apartamento
+* **estrato** : estrato socio económico donde se encuentra la vivienda
+
+A continuación se presenta los resultados de la estimacción MCO el modelo : `preciom = areaconst + parqueaderos + banios + habitaciones`
+
+```{r}
+library(paqueteMOD)
+data(vivienda)
+modelo = lm(preciom = areaconst + parqueaderos + banios + habitaciones, data=vivienda)
+```
+
+
 
 ```{r quiz_1}
 
@@ -276,9 +307,21 @@ quiz(
 
 ### **Problema 1**
 
-Enunciado
+La base de datos vivienda, contenida en paqueteMOD, contiene variables cuantitativas :
 
-```{r p1, exercise=TRUE, exercise.lines = 5}
+* **preciom**      : precio de la vivienda
+* **areaconst**    : area construida
+* **parqueaderos** : número de parqueaderos
+* **banios**       : número de baños
+* **habitaciones** : número de habitaciones
+* **zona** : ubicación del apartamento
+* **piso** : piso de ubicación del apartamento
+* **estrato** : estrato socio económico donde se encuentra la vivienda
+
+Calcule los estimadores para el modelo : preciom = areaconst + parqueaderos + banios + habitaciones
+
+
+```{r p1, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -300,7 +343,7 @@ Enunciado
 
 Enunciado
 
-```{r p2, exercise=TRUE, exercise.lines = 5}
+```{r p2, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -321,7 +364,7 @@ Enunciado
 
 Enunciado
 
-```{r p3, exercise=TRUE, exercise.lines = 5}
+```{r p3, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -343,7 +386,7 @@ Enunciado
 
 Enunciado
 
-```{r p4, exercise=TRUE, exercise.lines = 5}
+```{r p4, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -365,7 +408,7 @@ Enunciado
 
 Enunciado
 
-```{r p5, exercise=TRUE, exercise.lines = 5}
+```{r p5, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -386,7 +429,7 @@ Enunciado
 ### **Problema 6**
 Enunciado
 
-```{r p6, exercise=TRUE, exercise.lines = 5}
+```{r p6, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -408,7 +451,7 @@ Enunciado
 
 Enunciado
 
-```{r p7, exercise=TRUE, exercise.lines = 5}
+```{r p7, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -430,7 +473,7 @@ Enunciado
 
 Enunciado
 
-```{r p8, exercise=TRUE, exercise.lines = 5}
+```{r p8, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -452,7 +495,7 @@ Enunciado
 
 Enunciado
 
-```{r p9, exercise=TRUE, exercise.lines = 5}
+```{r p9, exercise=TRUE, exercise.lines = 15}
 
 
 ```
@@ -474,7 +517,7 @@ Enunciado
 
 Enunciado
 
-```{r p10, exercise=TRUE, exercise.lines = 5}
+```{r p10, exercise=TRUE, exercise.lines = 15}
 
 
 ```

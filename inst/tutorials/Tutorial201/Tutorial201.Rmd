@@ -1,6 +1,5 @@
-
 ---
-title: "**MODELO DE REGRESIÓN LINEAL MÚLTIPLE**"
+title: "**MODELO DE REGRESIÓN LINEAL MÚLTIPLE - CONCEPTOS**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -473,7 +472,7 @@ Para la base de datos vivienda, contenida en paqueteMOD, realice una descripció
 * **estrato** : estrato socio económico donde se encuentra la vivienda
 
 
-```{r p2, exercise=TRUE, exercise.lines = 5}
+```{r p2, exercise=TRUE, exercise.lines = 15}
 library(paqueteMOD)
 data(vivienda)
 apartamentos=subset(vivienda, tipo=="Apartamento")
