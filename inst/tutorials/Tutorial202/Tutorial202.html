@@ -124,33 +124,152 @@ obtenidos por el método de MCO.</p>
 </div>
 <div id="section-método-de-estimación-mco" class="section level4">
 <h4><strong>Método de estimación MCO</strong></h4>
+<p>Método de optimización matemático que permite encontrar como solución
+los valores de los coeficientes del modelo de regresión que minimizan la
+suma de cuadrados de los errores.</p>
+<p><span class="math display">\[\widehat{\beta} = (X′X)^{-1}
+X′y\]</span></p>
 </div>
-<div id="section-propuedades-de-los-estimadores-mco"
+<div id="section-propiedades-de-los-estimadores-mco"
 class="section level4">
-<h4><strong>Propuedades de los estimadores MCO</strong></h4>
+<h4><strong>Propiedades de los estimadores MCO</strong></h4>
+<p><span class="math display">\[\widehat{\beta} \sim N \Big( \beta
+,\sigma^{2} (X′X)^{−1} \Big)\]</span> Esto implica que los estimadores
+<span class="math inline">\(\widehat{\beta_{i}}\)</span> son:</p>
+<ul>
+<li>Insesgados</li>
+<li>Eficientes</li>
+<li>Se distribuyen normal</li>
+</ul>
 </div>
 <div id="section-inferencia-sobre-los-coeficientes"
 class="section level4">
 <h4><strong>Inferencia sobre los coeficientes</strong></h4>
+<p>Si los <span class="math inline">\(\widehat{\beta}_{i}\)</span> se
+distribujen normal, entonces</p>
+<p><span class="math display">\[
+{T_j} = {\frac{\widehat\beta_j -
+\beta_j}{\text{se}\left(\widehat\beta_j\right)} \sim t_{n - p}},
+\hspace{1cm} j = 0, 1, \ldots, k
+\]</span> y</p>
+<p>El intervalo de confianza para <span
+class="math inline">\(\beta_{i}\)</span> esta dado por :</p>
+<p><span class="math display">\[
+\widehat\beta_j \pm t_{\alpha/2, n - p}\,
+\text{se}\left(\widehat\beta_j\right)
+\]</span></p>
+<p>y el estadistico de prueba para <span class="math inline">\(Ho:
+\beta_{j} = B_{0}\)</span> vs <span class="math inline">\(Ho: \beta_{j}
+\neq B_{0}\)</span> es</p>
+<p><span class="math display">\[T_{j,0} = \dfrac{\widehat\beta_j -
+B_{j,0}}{\text{se}\left(\widehat\beta_j\right)} \overset{\text{bajo
+}H_0}{\sim} t_{v: n - p}\]</span></p>
 </div>
 <div id="section-inferencia-sobre-un-subconjunto-de-coeficientes"
 class="section level4">
 <h4><strong>Inferencia sobre un subconjunto de
 coeficientes</strong></h4>
+<p>En ocasiones es necesario realizar pruebas de hipótesis sobre un
+subconjunto de parámetros, en estos caso se utiliza la prueba F,
+comparando el modelo completo contra el modelo reducido.</p>
 </div>
 <div id="section-inferencia-sobre-pronósticos" class="section level4">
 <h4><strong>Inferencia sobre pronósticos</strong></h4>
+<p>El pronóstico de <span class="math inline">\(Y|x_{0}\)</span>, está
+dado por :</p>
+<p><span class="math display">\[\widehat{Y}_0 =
+\boldsymbol{x_0\widehat\beta} = \widehat\beta_0 + \widehat\beta_1x_{01}
++ \widehat\beta_2x_{02} + \cdots + \widehat\beta_kx_{0k},\]</span> Se
+reemplaza los valores del vector <span
+class="math inline">\(x_{0}\)</span> en el modelo estimados</p>
+<p>Donde <span class="math inline">\(\widehat{Y}_0\)</span></p>
+<p><span class="math display">\[\widehat{Y}_0 \sim N\left(E\left[
+Y\vert\boldsymbol{x_0}\right],
+\sigma^2\,\boldsymbol{x_0}\left(\boldsymbol{X}&#39;\boldsymbol{X}\right)^{-1}\boldsymbol{x_0}&#39;\right)\]</span>
+y su intervalo de confianza está dado por :</p>
+<p><span class="math display">\[\widehat{y}_0 \pm t_{\alpha/2, n - p}
+\,\text{se}(\widehat{Y}_0).\]</span></p>
 <p></br></br></p>
 </div>
 <div id="section-mapa" class="section level4">
 <h4><strong>MAPA</strong></h4>
 <p><img src="images/mapa2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p></br></br></p>
+</div>
+<div id="section-código-r" class="section level4">
+<h4><strong>CÓDIGO R</strong></h4>
+<table>
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">concepto</th>
+<th align="left">código</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">estimacion MCO</td>
+<td
+align="left"><code>lm(y ~ x1 + x2 + x3 , data = namedata)</code></td>
+</tr>
+<tr class="even">
+<td align="left">estimación Steppwise</td>
+<td
+align="left"><code>modelo_b0&lt;- lm(y ~ 1, data=namedata)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td
+align="left"><code>modelo_all &lt;- lm(y ~ x1 + x2 + x3, data=namedata)</code></td>
+</tr>
+<tr class="even">
+<td align="left">visualización de resultados</td>
+<td align="left"><code>summary(modelo)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">estimación paso a paso</td>
+<td
+align="left"><code>modelo_b0&lt;- lm(y ~ 1, data=namedata)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td
+align="left"><code>modelo_all &lt;-lm(y ~ x1 + x2 + ... + xk, data=namedata)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td
+align="left"><code>forward &lt;- step(modelo_b0, direction='forward', scope=formula(modelo_all), trace=0)</code></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="section-cuestionario" class="section level2">
 <h2><strong>CUESTIONARIO</strong></h2>
 <div id="section-pregunta-1" class="section level3">
 <h3><strong>Pregunta 1</strong></h3>
+<p>La base de datos vivienda, contenida en paqueteMOD, contiene
+variables cuantitativas :</p>
+<ul>
+<li><strong>preciom</strong> : precio de la vivienda</li>
+<li><strong>areaconst</strong> : area construida</li>
+<li><strong>parqueaderos</strong> : número de parqueaderos</li>
+<li><strong>banios</strong> : número de baños</li>
+<li><strong>habitaciones</strong> : número de habitaciones</li>
+<li><strong>zona</strong> : ubicación del apartamento</li>
+<li><strong>piso</strong> : piso de ubicación del apartamento</li>
+<li><strong>estrato</strong> : estrato socio económico donde se
+encuentra la vivienda</li>
+</ul>
+<p>A continuación se presenta los resultados de la estimacción MCO el
+modelo :
+<code>preciom = areaconst + parqueaderos + banios + habitaciones</code></p>
+<pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;preciom&#39; will be disregarded</code></pre>
 <div class="panel-heading tutorial-quiz-title">Visualización</div>
 <div class="panel panel-default tutorial-question-container">
 <div data-label="quiz_1-1" class="tutorial-question panel-body">
@@ -274,9 +393,23 @@ coeficientes</strong></h4>
 <h2><strong>PROBLEMAS</strong></h2>
 <div id="section-problema-1" class="section level3">
 <h3><strong>Problema 1</strong></h3>
-<p>Enunciado</p>
+<p>La base de datos vivienda, contenida en paqueteMOD, contiene
+variables cuantitativas :</p>
+<ul>
+<li><strong>preciom</strong> : precio de la vivienda</li>
+<li><strong>areaconst</strong> : area construida</li>
+<li><strong>parqueaderos</strong> : número de parqueaderos</li>
+<li><strong>banios</strong> : número de baños</li>
+<li><strong>habitaciones</strong> : número de habitaciones</li>
+<li><strong>zona</strong> : ubicación del apartamento</li>
+<li><strong>piso</strong> : piso de ubicación del apartamento</li>
+<li><strong>estrato</strong> : estrato socio económico donde se
+encuentra la vivienda</li>
+</ul>
+<p>Calcule los estimadores para el modelo : preciom = areaconst +
+parqueaderos + banios + habitaciones</p>
 <div class="tutorial-exercise" data-label="p1" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p1-hint"
@@ -294,7 +427,7 @@ data-lines="0">
 <h3>**Problema 2*</h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p2" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p2-hint"
@@ -312,7 +445,7 @@ data-lines="0">
 <h3><strong>Problema 3</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p3" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p3-hint"
@@ -330,7 +463,7 @@ data-lines="0">
 <h3><strong>Problema 4</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p4" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p4-hint"
@@ -348,7 +481,7 @@ data-lines="0">
 <h3><strong>Problema 5</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p5" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p5-hint"
@@ -366,7 +499,7 @@ data-lines="0">
 <h3><strong>Problema 6</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p6" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p6-hint"
@@ -384,7 +517,7 @@ data-lines="0">
 <h3><strong>Problema 7</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p7" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p7-hint"
@@ -402,7 +535,7 @@ data-lines="0">
 <h3><strong>Problema 8</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p8" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p8-hint"
@@ -420,7 +553,7 @@ data-lines="0">
 <h3><strong>Problema 9</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p9" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p9-hint"
@@ -438,7 +571,7 @@ data-lines="0">
 <h3><strong>Problema 10</strong></h3>
 <p>Enunciado</p>
 <div class="tutorial-exercise" data-label="p10" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="5">
+data-diagnostics="1" data-startover="1" data-lines="15">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p10-hint"
@@ -486,19 +619,19 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_31ce162", 
+"character")), answers = list(structure(list(id = "lnr_ans_928b29c", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d8bd24f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bfba847", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f39d075", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_18f0c4d", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ccde1f4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_234fb08", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -508,7 +641,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_1-1-answer", question = "quiz_1-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 332212657.345301, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 231254843.392314, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -516,19 +649,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_2-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_421e098", 
+"character")), answers = list(structure(list(id = "lnr_ans_8c42de4", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a6d2306", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_467e345", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7c923a2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2cc281d", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_17abfba", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_51d1a8", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -538,26 +671,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_2-1-answer", question = "quiz_2-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2111662733.51668, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1561480521.77288, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_7217f48", 
+"character")), answers = list(structure(list(id = "lnr_ans_2e3ef7e", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_41b4855", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9ca96aa", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_208fb8", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc51882", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c10be8e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f231afb", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -567,7 +700,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_3-1-answer", question = "quiz_3-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1551208292.27766, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 686859356.680156, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -575,19 +708,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_4-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c30e7e8", 
+"character")), answers = list(structure(list(id = "lnr_ans_61820bd", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d2d5eb6", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a397858", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a1d930a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e5c678b", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ea5c1ad", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c285371", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -597,26 +730,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_4-1-answer", question = "quiz_4-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 471126777.780614, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 735755128.657387, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_5-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_4f17cb", 
+"character")), answers = list(structure(list(id = "lnr_ans_54f2ddb", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c3359ec", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2227a0", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_aa2a6fa", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ce265f7", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7734571", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_76fbe53", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -626,7 +759,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_5-1-answer", question = "quiz_5-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 450600852.790173, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 145782334.932115, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -634,19 +767,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_6-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_50ea5ac", 
+"character")), answers = list(structure(list(id = "lnr_ans_7d888e1", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ea8450d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a643cda", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_16c5fcb", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d003e9", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b2a381f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_387e262", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -656,26 +789,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_6-1-answer", question = "quiz_6-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1214407621.4345, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2007656463.06511, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_7-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d1f306e", 
+"character")), answers = list(structure(list(id = "lnr_ans_e9597ed", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1fb4e0b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ba814ae", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d6f845f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1c74f2c", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_852acc4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8191045", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -685,7 +818,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_7-1-answer", question = "quiz_7-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1535578962.28494, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1512059299.79589, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -693,19 +826,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_8-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_6edbe27", 
+"character")), answers = list(structure(list(id = "lnr_ans_907f257", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_13bd222", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_913ae6d", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_294072", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6721b59", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ea32c96", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6cf4f0e", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -715,26 +848,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_8-1-answer", question = "quiz_8-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1806047499.65899, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 279953606.369636, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_9-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f1ec498", 
+"character")), answers = list(structure(list(id = "lnr_ans_a79678c", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_eb7469c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6b38785", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_92e7f37", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e5f8ba3", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e36a7", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_948d1b2", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -744,7 +877,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_9-1-answer", question = "quiz_9-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1576955679.26567, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1793895621.66465, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -752,19 +885,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_10-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c548b8", 
+"character")), answers = list(structure(list(id = "lnr_ans_4a5a397", 
     option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c0a031b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b6a52e6", 
     option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bbade26", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3ba64e", 
     option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e468c9b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_61b3f46", 
     option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
@@ -774,7 +907,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_10-1-answer", question = "quiz_10-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1970032077.08263, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1980565459.57773, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -795,7 +928,7 @@ learnr:::store_exercise_cache(structure(list(label = "p1", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p1", code = "\n", opts = list(
-        label = "\"p1\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p1\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p1-solution")), tests = NULL, options = list(
@@ -815,8 +948,8 @@ learnr:::store_exercise_cache(structure(list(label = "p1", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p1", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p1, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p1, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -838,7 +971,7 @@ learnr:::store_exercise_cache(structure(list(label = "p2", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p2", code = "\n", opts = list(
-        label = "\"p2\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p2\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p2-solution")), tests = NULL, options = list(
@@ -858,8 +991,8 @@ learnr:::store_exercise_cache(structure(list(label = "p2", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p2", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p2, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p2, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -881,7 +1014,7 @@ learnr:::store_exercise_cache(structure(list(label = "p3", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p3", code = "\n", opts = list(
-        label = "\"p3\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p3\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p3-solution")), tests = NULL, options = list(
@@ -901,8 +1034,8 @@ learnr:::store_exercise_cache(structure(list(label = "p3", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p3", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p3, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p3, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -924,7 +1057,7 @@ learnr:::store_exercise_cache(structure(list(label = "p4", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p4", code = "\n", opts = list(
-        label = "\"p4\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p4\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p4-solution")), tests = NULL, options = list(
@@ -944,8 +1077,8 @@ learnr:::store_exercise_cache(structure(list(label = "p4", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p4", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p4, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p4, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -967,7 +1100,7 @@ learnr:::store_exercise_cache(structure(list(label = "p5", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p5", code = "\n", opts = list(
-        label = "\"p5\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p5\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p5-solution")), tests = NULL, options = list(
@@ -987,8 +1120,8 @@ learnr:::store_exercise_cache(structure(list(label = "p5", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p5", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p5, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p5, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1010,7 +1143,7 @@ learnr:::store_exercise_cache(structure(list(label = "p6", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p6", code = "\n", opts = list(
-        label = "\"p6\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p6\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p6-solution")), tests = NULL, options = list(
@@ -1030,8 +1163,8 @@ learnr:::store_exercise_cache(structure(list(label = "p6", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p6", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p6, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p6, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1053,7 +1186,7 @@ learnr:::store_exercise_cache(structure(list(label = "p7", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p7", code = "\n", opts = list(
-        label = "\"p7\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p7\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p7-solution")), tests = NULL, options = list(
@@ -1073,8 +1206,8 @@ learnr:::store_exercise_cache(structure(list(label = "p7", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p7", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p7, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p7, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1096,7 +1229,7 @@ learnr:::store_exercise_cache(structure(list(label = "p8", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p8", code = "\n", opts = list(
-        label = "\"p8\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p8\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p8-solution")), tests = NULL, options = list(
@@ -1116,8 +1249,8 @@ learnr:::store_exercise_cache(structure(list(label = "p8", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p8", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p8, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p8, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1139,7 +1272,7 @@ learnr:::store_exercise_cache(structure(list(label = "p9", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p9", code = "\n", opts = list(
-        label = "\"p9\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p9\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p9-solution")), tests = NULL, options = list(
@@ -1159,8 +1292,8 @@ learnr:::store_exercise_cache(structure(list(label = "p9", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p9", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p9, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p9, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1182,7 +1315,7 @@ learnr:::store_exercise_cache(structure(list(label = "p10", global_setup = struc
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p10", code = "\n", opts = list(
-        label = "\"p10\"", exercise = "TRUE", exercise.lines = "5"), 
+        label = "\"p10\"", exercise = "TRUE", exercise.lines = "15"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure("", chunk_opts = list(
         label = "p10-solution")), tests = NULL, options = list(
@@ -1202,8 +1335,8 @@ learnr:::store_exercise_cache(structure(list(label = "p10", global_setup = struc
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p10", 
-        exercise = TRUE, exercise.lines = 5, code = c("", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "p10, exercise=TRUE, exercise.lines = 5", 
+        exercise = TRUE, exercise.lines = 15, code = c("", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "p10, exercise=TRUE, exercise.lines = 15", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1216,7 +1349,7 @@ learnr:::store_exercise_cache(structure(list(label = "p10", global_setup = struc
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","commonmark","compiler","curl","datasets","digest","ellipsis","evaluate","fastmap","graphics","grDevices","highr","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","markdown","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.2.2","0.4.2.9000","1.0.6","2.1.0","3.6.0","1.8.1","4.2.2","5.0.0","4.2.2","0.6.31","0.3.2","0.20","1.1.0","4.2.2","4.2.2","0.10","0.5.4","1.6.1","1.6.8","0.1.4","1.8.4","1.42","1.3.0","0.11.2","1.0.3","2.0.3","1.4","4.2.2","0.12","1.2.0.1","2.5.1","1.0.10","1.0.6","2.20","2.0.3","0.14","0.4.5","1.7.4","4.2.2","4.2.2","4.2.2","2.5.0","0.36","1.8-4","2.3.7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","commonmark","compiler","curl","datasets","digest","ellipsis","evaluate","fastmap","graphics","grDevices","highr","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","markdown","methods","mime","paqueteMOD","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.2.2","0.4.2.9000","1.0.6","2.1.0","3.6.0","1.8.1","4.2.2","5.0.0","4.2.2","0.6.31","0.3.2","0.20","1.1.0","4.2.2","4.2.2","0.10","0.5.4","1.6.1","1.6.8","0.1.4","1.8.4","1.42","1.3.0","0.11.2","1.0.3","2.0.3","1.4","4.2.2","0.12","0.1.0","1.2.0.1","2.5.1","1.0.10","1.0.6","2.20","2.0.3","0.14","0.4.5","1.7.4","4.2.2","4.2.2","4.2.2","2.5.0","0.36","1.8-4","2.3.7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

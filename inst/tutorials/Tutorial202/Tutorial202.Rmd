@@ -39,16 +39,57 @@ El presente tutorial contiene preguntas relacionadas con l estimación del model
   
 #### **Método de estimación MCO** 
 
-#### **Propuedades de los estimadores MCO**
+Método de optimización matemático que permite encontrar como solución los valores de los coeficientes del modelo de regresión que minimizan la suma de cuadrados de los errores.
 
+$$\widehat{\beta} = (X′X)^{-1} X′y$$
+
+#### **Propiedades de los estimadores MCO**
+
+$$\widehat{\beta} \sim N \Big( \beta ,\sigma^{2} (X′X)^{−1} \Big)$$
+Esto implica que los estimadores $\widehat{\beta_{i}}$ son:
+
+* Insesgados
+* Eficientes 
+* Se distribuyen normal
 
 #### **Inferencia sobre los coeficientes**
 
+Si los $\widehat{\beta}_{i}$ se distribujen normal, entonces
+
+$$
+{T_j} = {\frac{\widehat\beta_j - \beta_j}{\text{se}\left(\widehat\beta_j\right)} \sim t_{n - p}}, \hspace{1cm} j = 0, 1, \ldots, k
+$$
+y 
+
+El intervalo de confianza para $\beta_{i}$ esta dado por :
+
+$$
+\widehat\beta_j \pm t_{\alpha/2, n - p}\, \text{se}\left(\widehat\beta_j\right)
+$$
+
+y el estadistico de prueba para $Ho: \beta_{j} = B_{0}$ vs $Ho: \beta_{j} \neq B_{0}$ es
+
+$$T_{j,0} = \dfrac{\widehat\beta_j - B_{j,0}}{\text{se}\left(\widehat\beta_j\right)} \overset{\text{bajo }H_0}{\sim} t_{v: n - p}$$
 
 #### **Inferencia sobre un subconjunto de coeficientes**
 
+En ocasiones es necesario realizar pruebas de hipótesis sobre un subconjunto de parámetros, en estos caso se utiliza la prueba F, comparando el modelo completo contra el modelo reducido.
+
 
 #### **Inferencia sobre pronósticos**
+
+El pronóstico de $Y|x_{0}$, está dado por :
+
+$$\widehat{Y}_0 = \boldsymbol{x_0\widehat\beta} = \widehat\beta_0 + \widehat\beta_1x_{01} + \widehat\beta_2x_{02} + \cdots + \widehat\beta_kx_{0k},$$
+Se reemplaza los valores del vector $x_{0}$ en el modelo estimados
+
+Donde $\widehat{Y}_0$
+
+$$\widehat{Y}_0 \sim N\left(E\left[ Y\vert\boldsymbol{x_0}\right], \sigma^2\,\boldsymbol{x_0}\left(\boldsymbol{X}'\boldsymbol{X}\right)^{-1}\boldsymbol{x_0}'\right)$$
+y su intervalo de confianza está dado por :
+
+$$\widehat{y}_0 \pm t_{\alpha/2, n - p} \,\text{se}(\widehat{Y}_0).$$
+  
   
 </br></br>
 
@@ -59,6 +100,22 @@ El presente tutorial contiene preguntas relacionadas con l estimación del model
 knitr::include_graphics("images/mapa2.png")  
 
 ```
+
+
+</br></br>
+
+#### **CÓDIGO R**
+
+| concepto                   | código                                             |
+|:---------------------------|:---------------------------------------------------|
+| estimacion MCO             |`lm(y ~ x1 + x2 + x3 , data = namedata)`            |
+| estimación Steppwise       | `modelo_b0<- lm(y ~ 1, data=namedata)`             |
+|                            | `modelo_all <- lm(y ~ x1 + x2 + x3, data=namedata)`|
+|visualización de resultados | `summary(modelo)`                                  |
+| estimación paso a paso     |` modelo_b0<- lm(y ~ 1, data=namedata)`             |
+|                            |` modelo_all <-lm(y ~ x1 + x2 + ... + xk, data=namedata)`|
+||`forward <- step(modelo_b0, direction='forward', scope=formula(modelo_all), trace=0) `|
+
 
 ## **CUESTIONARIO**
 
@@ -85,451 +142,451 @@ modelo = lm(preciom = areaconst + parqueaderos + banios + habitaciones, data=viv
 
 
 
-```{r quiz_1}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
-
-```
-
-
-### **Pregunta 2**
-
-```{r quiz_2}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
-
-```
-
-
-### **Pregunta 3**
-
-```{r quiz_3}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
-
-```
-
-### **Pregunta 4**
-
-```{r quiz_4}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
-
-```
-
-
-### **Pregunta 5**
-
-```{r quiz_5}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
-
-```
-
-
-### **Pregunta 6**
-
-```{r quiz_6}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
+<!-- ```{r quiz_1} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 2** -->
+
+<!-- ```{r quiz_2} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 3** -->
+
+<!-- ```{r quiz_3} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+<!-- ### **Pregunta 4** -->
+
+<!-- ```{r quiz_4} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 5** -->
+
+<!-- ```{r quiz_5} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 6** -->
+
+<!-- ```{r quiz_6} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 
-### **Pregunta 7**
-
-```{r quiz_7}
-
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
+<!-- ### **Pregunta 7** -->
+
+<!-- ```{r quiz_7} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 
-### **Pregunta 8**
+<!-- ### **Pregunta 8** -->
 
-```{r quiz_8}
+<!-- ```{r quiz_8} -->
 
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 
-### **Pregunta 9**
+<!-- ### **Pregunta 9** -->
 
-```{r quiz_9}
+<!-- ```{r quiz_9} -->
 
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 
-### **Pregunta 10**
+<!-- ### **Pregunta 10** -->
 
-```{r quiz_10}
+<!-- ```{r quiz_10} -->
 
-quiz(
-  question("¿Pregunta?", 
-           correct = "Respuesta y explicación!, .", 
-           allow_retry = TRUE,
-           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("opción 2", message = "Nop...intentalo de nuevo!"),
-           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
-           answer("opción 4", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
-)
+<!-- quiz( -->
+<!--   question("¿Pregunta?",  -->
+<!--            correct = "Respuesta y explicación!, .",  -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 
-## **PROBLEMAS**
+<!-- ## **PROBLEMAS** -->
 
 
-### **Problema 1**
+<!-- ### **Problema 1** -->
 
-La base de datos vivienda, contenida en paqueteMOD, contiene variables cuantitativas :
+<!-- La base de datos vivienda, contenida en paqueteMOD, contiene variables cuantitativas : -->
 
-* **preciom**      : precio de la vivienda
-* **areaconst**    : area construida
-* **parqueaderos** : número de parqueaderos
-* **banios**       : número de baños
-* **habitaciones** : número de habitaciones
-* **zona** : ubicación del apartamento
-* **piso** : piso de ubicación del apartamento
-* **estrato** : estrato socio económico donde se encuentra la vivienda
+<!-- * **preciom**      : precio de la vivienda -->
+<!-- * **areaconst**    : area construida -->
+<!-- * **parqueaderos** : número de parqueaderos -->
+<!-- * **banios**       : número de baños -->
+<!-- * **habitaciones** : número de habitaciones -->
+<!-- * **zona** : ubicación del apartamento -->
+<!-- * **piso** : piso de ubicación del apartamento -->
+<!-- * **estrato** : estrato socio económico donde se encuentra la vivienda -->
 
-Calcule los estimadores para el modelo : preciom = areaconst + parqueaderos + banios + habitaciones
+<!-- Calcule los estimadores para el modelo : preciom = areaconst + parqueaderos + banios + habitaciones -->
 
 
-```{r p1, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p1, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p1-hint}
+<!-- ```{r p1-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p1-solution}
+<!-- ```{r p1-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 2*
+<!-- ### **Problema 2* -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p2, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p2, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p2-hint}
+<!-- ```{r p2-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p2-solution}
+<!-- ```{r p2-solution} -->
 
-```
+<!-- ``` -->
 
 
-### **Problema 3**
+<!-- ### **Problema 3** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p3, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p3, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p3-hint}
+<!-- ```{r p3-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p3-solution}
+<!-- ```{r p3-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 4**
+<!-- ### **Problema 4** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p4, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p4, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p4-hint}
+<!-- ```{r p4-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p4-solution}
+<!-- ```{r p4-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 5**
+<!-- ### **Problema 5** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p5, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p5, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p5-hint}
+<!-- ```{r p5-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p5-solution}
+<!-- ```{r p5-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 6**
-Enunciado
+<!-- ### **Problema 6** -->
+<!-- Enunciado -->
 
-```{r p6, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p6, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p6-hint}
+<!-- ```{r p6-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p6-solution}
+<!-- ```{r p6-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 7**
+<!-- ### **Problema 7** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p7, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p7, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p7-hint}
+<!-- ```{r p7-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p7-solution}
+<!-- ```{r p7-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 8**
+<!-- ### **Problema 8** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p8, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p8, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p8-hint}
+<!-- ```{r p8-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p8-solution}
+<!-- ```{r p8-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 9**
+<!-- ### **Problema 9** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p9, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p9, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p9-hint}
+<!-- ```{r p9-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p9-solution}
+<!-- ```{r p9-solution} -->
 
-```
+<!-- ``` -->
 
 
 
-### **Problema 10**
+<!-- ### **Problema 10** -->
 
-Enunciado
+<!-- Enunciado -->
 
-```{r p10, exercise=TRUE, exercise.lines = 15}
+<!-- ```{r p10, exercise=TRUE, exercise.lines = 15} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p10-hint}
+<!-- ```{r p10-hint} -->
 
 
-```
+<!-- ``` -->
 
 
-```{r p10-solution}
+<!-- ```{r p10-solution} -->
 
-```
+<!-- ``` -->
 
