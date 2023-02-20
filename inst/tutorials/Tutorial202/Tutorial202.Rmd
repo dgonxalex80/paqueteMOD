@@ -18,6 +18,9 @@ library(paqueteMOD)
 library(boot)
 library(ggplot2)
 library(gridExtra)
+library(knitr)
+library(broom)
+library(stargazer)
 
 knitr::opts_chunk$set(echo = FALSE,
                  exercise.warn_invisible = FALSE)
@@ -433,7 +436,7 @@ summary(modelo1)
 
 
 
-### **Problema 2*
+### **Problema 2**
 
 La base de datos `vivienda`, contenida en `paqueteMOD`, contiene variables cuantitativas :
 
@@ -538,7 +541,7 @@ La base de datos `vivienda`, contenida en `paqueteMOD`, contiene variables cuant
 * **estrato** : estrato socio económico donde se encuentra la vivienda
 
 Realice una estimación de los coeficientes del modelo :
-`preciom ~ parqueaderos + banios + habitaciones + tipo + estrato, data=vivienda` 
+`preciom ~ parqueaderos + banios + habitaciones + tipo + estrato` 
 
 Utilizando para ello el método de remuestreo bootstrapping
 
@@ -608,25 +611,75 @@ apply(betas_boot, 2,mean)
 
 
 
-<!-- ### **Problema 5** -->
+### **Problema 5**
 
-<!-- Enunciado -->
+La base de datos `vivienda`, contenida en `paqueteMOD`, contiene variables cuantitativas :
 
-<!-- ```{r p5, exercise=TRUE, exercise.lines = 15} -->
+* **preciom**      : precio de la vivienda
+* **areaconst**    : area construida
+* **parqueaderos** : número de parqueaderos
+* **banios**       : número de baños
+* **habitaciones** : número de habitaciones
+* **zona** : ubicación del apartamento
+* **piso** : piso de ubicación del apartamento
+* **estrato** : estrato socio económico donde se encuentra la vivienda
+
+Compare los principales indicadores de ajustes de los modelos :
+
+1. `preciom ~ parqueaderos + banios + tipo ` 
+2. `preciom ~ parqueaderos + banios + tipo + estrato` 
+3. `preciom ~ parqueaderos + banios + habitaciones + tipo + estrato` 
+4. `preciom ~ parqueaderos + banios + habitaciones + areaconst + tipo + estrato` 
 
 
-<!-- ``` -->
+```{r p5, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+library(knitr)
+library(stargazer)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+
+```
 
 
-<!-- ```{r p5-hint} -->
+```{r p5-hint}
+library(paqueteMOD)
+library(knitr)
+library(broom)
+library(stargazer)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+modelo1<-lm(preciom ~ parqueaderos + banios +  tipo, data= vivienda)
+modelo2<-lm(preciom ~ parqueaderos + banios + tipo + estrato, data=vivienda)
+modelo3<-lm(preciom ~ parqueaderos + banios + habitaciones + tipo + estrato, data=vivienda)
+modelo4<-lm(preciom ~ parqueaderos + banios + habitaciones + areaconst + tipo + estrato, data=vivienda)
 
 
-<!-- ``` -->
+
+```
 
 
-<!-- ```{r p5-solution} -->
+```{r p5-solution}
+library(paqueteMOD)
+library(knitr)
+library(broom)
+library(stargazer)
+data(vivienda)
+vivienda <- na.omit(vivienda)
+modelo1<-lm(preciom ~ parqueaderos + banios +  tipo, data= vivienda)
+modelo2<-lm(preciom ~ parqueaderos + banios + tipo + estrato, data=vivienda)
+modelo3<-lm(preciom ~ parqueaderos + banios + habitaciones + tipo + estrato, data=vivienda)
+modelo4<-lm(preciom ~ parqueaderos + banios + habitaciones + areaconst + tipo + estrato, data=vivienda)
+#construcción de indicadores
+g1 <- glance(modelo1)
+g2 <- glance(modelo2)
+g3 <- glance(modelo3)
+g4 <- glance(modelo4)
 
-<!-- ``` -->
+kable(rbind(g1, g2, g3, g4), digits = 2)
+
+
+```
 
 
 
