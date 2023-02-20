@@ -583,24 +583,32 @@ ggpairs(vivienda[,4:8], title=" ")
 
 
 
-<!-- ### **Problema 6** -->
-<!-- Enunciado -->
+### **Problema 6**
 
-<!-- ```{r p6, exercise=TRUE, exercise.lines = 5} -->
+Alrevisar la  base de datos vivienda, contenida en paqueteMOD, Se detectó que en los registros se presenta una inconsistencia en la variable número de habitaciones. 
 
+```{r,echo=FALSE,comment=NA}
+summary(vivienda$habitaciones)
+```
 
-<!-- ``` -->
-
-
-<!-- ```{r p6-hint} -->
-
-
-<!-- ``` -->
+Solucione ambos problemas eliminando los registros con número de habitaciones  `habitaciones = 0`.
 
 
-<!-- ```{r p6-solution} -->
 
-<!-- ``` -->
+```{r p6, exercise=TRUE, exercise.lines = 5}
+library(paqueteMOD)
+data(vivienda)
+
+```
+
+
+```{r p6-hint}
+library(paqueteMOD)
+data(vivienda)
+vivienda=vivienda[vivienda$habitaciones!=0,]
+summary(vivienda$habitaciones)
+
+```
 
 
 

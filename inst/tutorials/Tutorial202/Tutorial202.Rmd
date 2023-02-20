@@ -39,11 +39,14 @@ El presente tutorial contiene preguntas relacionadas con l estimación del model
   
 #### **Método de estimación MCO** 
 
-Método de optimización matemático que permite encontrar como solución los valores de los coeficientes del modelo de regresión que minimizan la suma de cuadrados de los errores.
+Método de optimización matemático que permite encontrar como solución los valores de los coeficientes del modelo de regresión múltiple  que minimizan la suma de cuadrados de los errores. En forma matricial es:
 
 $$\widehat{\beta} = (X′X)^{-1} X′y$$
 
 #### **Propiedades de los estimadores MCO**
+
+Los estimadores de los coeficientes se distribuyen normal, con un vector de medias $\beta$ y matriz de varianzas-covarianzas $\sigma^{2} (X′X)^{−1}$.
+
 
 $$\widehat{\beta} \sim N \Big( \beta ,\sigma^{2} (X′X)^{−1} \Big)$$
 Esto implica que los estimadores $\widehat{\beta_{i}}$ son:
@@ -54,7 +57,7 @@ Esto implica que los estimadores $\widehat{\beta_{i}}$ son:
 
 #### **Inferencia sobre los coeficientes**
 
-Si los $\widehat{\beta}_{i}$ se distribujen normal, entonces
+Si los $\widehat{\beta}_{i}$ se distribuyen normal, entonces:
 
 $$
 {T_j} = {\frac{\widehat\beta_j - \beta_j}{\text{se}\left(\widehat\beta_j\right)} \sim t_{n - p}}, \hspace{1cm} j = 0, 1, \ldots, k
@@ -115,7 +118,9 @@ knitr::include_graphics("images/mapa2.png")
 | estimación paso a paso     |` modelo_b0<- lm(y ~ 1, data=namedata)`             |
 |                            |` modelo_all <-lm(y ~ x1 + x2 + ... + xk, data=namedata)`|
 ||`forward <- step(modelo_b0, direction='forward', scope=formula(modelo_all), trace=0) `|
-
+| predición de y             | `predict(modelo)` |
+|                            | `new_obs= data.frame(x1=#,x2=#,...,xk=#)` |
+|                            | `predict(modelo, new_obs)` |
 
 ## **CUESTIONARIO**
 
@@ -132,56 +137,59 @@ La base de datos vivienda, contenida en paqueteMOD, contiene variables cuantitat
 * **piso** : piso de ubicación del apartamento
 * **estrato** : estrato socio económico donde se encuentra la vivienda
 
-A continuación se presenta los resultados de la estimacción MCO el modelo : `preciom = areaconst + parqueaderos + banios + habitaciones`
+A continuación se presenta los resultados de la estimacción MCO el modelo1 : 
 
-```{r}
+```{r, echo=FALSE, comment=NA}
 library(paqueteMOD)
 data(vivienda)
-modelo = lm(preciom = areaconst + parqueaderos + banios + habitaciones, data=vivienda)
+modelo1=lm(preciom ~ areaconst + parqueaderos + banios + habitaciones, data=vivienda)
+summary(modelo1)
+```
+
+No es posible afirmar :
+
+```{r quiz_1}
+
+quiz(
+  question("",
+           correct = "Correcto!.El valor de la pendiente estimada es -41.83 , que corresponde al ajuste que hace el modelo cuando se adiciona una habitacion más a la vivienda",
+           allow_retry = TRUE,
+           answer("Un parqueadero adicional, incrementa el precio de la vivienda en 130.6 millonrd ", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("Una habitación adicional vale 48.8 millones", correct = TRUE), 
+           answer("Cada metro cuadrado adicional de área construida incrementa la vivienda en $ 3090", message = "Incorrecto. Intenta de nuevo!."),
+           answer("La razón por la que el coeficiente tenga un valor negativo, es que una vivenda por lo menos tiene un baño y una habitación y su área construida es superior a 30 m2", message = "No...intentalo de nuevo!"),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
 ```
 
 
-
-<!-- ```{r quiz_1} -->
-
-<!-- quiz( -->
-<!--   question("¿Pregunta?",  -->
-<!--            correct = "Respuesta y explicación!, .",  -->
-<!--            allow_retry = TRUE, -->
-<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
-<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
-<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
-<!--            answer("opción 4", correct = TRUE), -->
-<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
-<!--            submit_button = "Enviar respuesta", -->
-<!--            try_again_button = "Intentar de nuevo"), -->
-<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
-<!--   caption = "Visualización" -->
-<!-- ) -->
-
-<!-- ``` -->
+### **Pregunta 2**
 
 
-<!-- ### **Pregunta 2** -->
 
-<!-- ```{r quiz_2} -->
+```{r quiz_2}
 
-<!-- quiz( -->
-<!--   question("¿Pregunta?",  -->
-<!--            correct = "Respuesta y explicación!, .",  -->
-<!--            allow_retry = TRUE, -->
-<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
-<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
-<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
-<!--            answer("opción 4", correct = TRUE), -->
-<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
-<!--            submit_button = "Enviar respuesta", -->
-<!--            try_again_button = "Intentar de nuevo"), -->
-<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
-<!--   caption = "Visualización" -->
-<!-- ) -->
+quiz(
+  question("¿Pregunta?",
+           correct = "Respuesta y explicación!, .",
+           allow_retry = TRUE,
+           answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("opción 2", message = "Nop...intentalo de nuevo!"),
+           answer("opción 3", message = "Incorrecto. Intenta de nuevo!."),
+           answer("opción 4", correct = TRUE),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = "Visualización"
+)
 
-<!-- ``` -->
+```
 
 
 <!-- ### **Pregunta 3** -->
