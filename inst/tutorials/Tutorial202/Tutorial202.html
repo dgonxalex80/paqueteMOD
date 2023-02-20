@@ -284,8 +284,7 @@ variables cuantitativas :</p>
 encuentra la vivienda</li>
 </ul>
 <p>A continuación se presenta los resultados de la estimacción MCO el
-modelo :
-<code>preciom = areaconst + parqueaderos + banios + habitaciones</code></p>
+modelo1 :</p>
 <pre><code>
 Call:
 lm(formula = preciom ~ areaconst + parqueaderos + banios + habitaciones, 
@@ -309,7 +308,8 @@ Residual standard error: 209.7 on 6712 degrees of freedom
   (1605 observations deleted due to missingness)
 Multiple R-squared:  0.6085,    Adjusted R-squared:  0.6083 
 F-statistic:  2608 on 4 and 6712 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="panel-heading tutorial-quiz-title">Visualización</div>
+<p>No es posible afirmar :</p>
+<div class="panel-heading tutorial-quiz-title"></div>
 <div class="panel panel-default tutorial-question-container">
 <div data-label="quiz_1-1" class="tutorial-question panel-body">
 <div id="quiz_1-1-answer_container" class="shiny-html-output"></div>
@@ -318,40 +318,56 @@ F-statistic:  2608 on 4 and 6712 DF,  p-value: &lt; 2.2e-16</code></pre>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
-<!-- ### **Pregunta 2** -->
-<!-- ```{r quiz_2} -->
-<!-- quiz( -->
-<!--   question("¿Pregunta?",  -->
-<!--            correct = "Respuesta y explicación!, .",  -->
-<!--            allow_retry = TRUE, -->
-<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
-<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
-<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
-<!--            answer("opción 4", correct = TRUE), -->
-<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
-<!--            submit_button = "Enviar respuesta", -->
-<!--            try_again_button = "Intentar de nuevo"), -->
-<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
-<!--   caption = "Visualización" -->
-<!-- ) -->
-<!-- ``` -->
-<!-- ### **Pregunta 3** -->
-<!-- ```{r quiz_3} -->
-<!-- quiz( -->
-<!--   question("¿Pregunta?",  -->
-<!--            correct = "Respuesta y explicación!, .",  -->
-<!--            allow_retry = TRUE, -->
-<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
-<!--            answer("opción 2", message = "Nop...intentalo de nuevo!"), -->
-<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
-<!--            answer("opción 4", correct = TRUE), -->
-<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés   -->
-<!--            submit_button = "Enviar respuesta", -->
-<!--            try_again_button = "Intentar de nuevo"), -->
-<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
-<!--   caption = "Visualización" -->
-<!-- ) -->
-<!-- ``` -->
+</div>
+<div id="section-pregunta-2" class="section level3">
+<h3><strong>Pregunta 2</strong></h3>
+<p>Del siguiente procesamiento podemos afirmar:</p>
+<pre><code>
+Call:
+lm(formula = preciom ~ areaconst + parqueaderos + banios + habitaciones, 
+    data = vivienda)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1176.76  -104.54   -30.31    63.98  1281.30 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -33.489190   7.751976  -4.320 1.58e-05 ***
+areaconst      0.003090   0.001455   2.124   0.0337 *  
+parqueaderos 130.575628   2.779652  46.976  &lt; 2e-16 ***
+banios       126.766446   2.710537  46.768  &lt; 2e-16 ***
+habitaciones -41.839847   2.346279 -17.832  &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 209.7 on 6712 degrees of freedom
+  (1605 observations deleted due to missingness)
+Multiple R-squared:  0.6085,    Adjusted R-squared:  0.6083 
+F-statistic:  2608 on 4 and 6712 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="panel-heading tutorial-quiz-title"></div>
+<div class="panel panel-default tutorial-question-container">
+<div data-label="quiz_2-1" class="tutorial-question panel-body">
+<div id="quiz_2-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz_2-1-message_container" class="shiny-html-output"></div>
+<div id="quiz_2-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+</div>
+<div id="section-pregunta-3" class="section level3">
+<h3><strong>Pregunta 3</strong></h3>
+<p>En un modelo de Regresión Lineal Múltiple es necesario que se cumpla
+el supuesto de normalidad de los errores :</p>
+<div class="panel-heading tutorial-quiz-title"></div>
+<div class="panel panel-default tutorial-question-container">
+<div data-label="quiz_3-1" class="tutorial-question panel-body">
+<div id="quiz_3-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz_3-1-message_container" class="shiny-html-output"></div>
+<div id="quiz_3-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <!-- ### **Pregunta 4** -->
 <!-- ```{r quiz_4} -->
 <!-- quiz( -->
@@ -595,30 +611,111 @@ session$onSessionEnded(function() {
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_42405e4", 
-    option = "opción 1", value = "opción 1", label = structure("opción 1", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_75de641", 
+    option = "Un parqueadero adicional, incrementa el precio de la vivienda en 130.6 millones ", 
+    value = "Un parqueadero adicional, incrementa el precio de la vivienda en 130.6 millones ", 
+    label = structure("Un parqueadero adicional, incrementa el precio de la vivienda en 130.6 millones", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6305fa9", 
-    option = "opción 2", value = "opción 2", label = structure("opción 2", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Nop…intentalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9497b57", 
-    option = "opción 3", value = "opción 3", label = structure("opción 3", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_74b28c0", 
+    option = "Una habitación adicional vale 48.8 millones", 
+    value = "Una habitación adicional vale 48.8 millones", label = structure("Una habitación adicional vale 48.8 millones", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2c2fecd", 
+    option = "Cada metro cuadrado adicional de área construida incrementa la vivienda en $ 3 090", 
+    value = "Cada metro cuadrado adicional de área construida incrementa la vivienda en $ 3 090", 
+    label = structure("Cada metro cuadrado adicional de área construida incrementa la vivienda en $ 3 090", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8312fb8", 
-    option = "opción 4", value = "opción 4", label = structure("opción 4", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8b044a3", 
+    option = "La razón por la que el coeficiente tenga un valor negativo, es que una vivenda por lo menos tiene un baño y una habitación y su área construida es superior a 30 m2", 
+    value = "La razón por la que el coeficiente tenga un valor negativo, es que una vivenda por lo menos tiene un baño y una habitación y su área construida es superior a 30 m2", 
+    label = structure("La razón por la que el coeficiente tenga un valor negativo, es que una vivenda por lo menos tiene un baño y una habitación y su área construida es superior a 30 m2", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Respuesta y explicación!, .", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correcto!.El valor de la pendiente estimada es -41.83 , que corresponde al ajuste que hace el modelo cuando se adiciona una habitacion más a la vivienda", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_1-1-answer", question = "quiz_1-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 216383164.899239, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 173731661.4191, 
+    options = list()), class = c("learnr_radio", "tutorial_question"
+)), session = session)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_2-1", question = structure("¿Pregunta?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_392dbba", 
+    option = "El valor del estadístico F, indica que el modelo no es adecuado para la estimación del precio", 
+    value = "El valor del estadístico F, indica que el modelo no es adecuado para la estimación del precio", 
+    label = structure("El valor del estadístico F, indica que el modelo no es adecuado para la estimación del precio", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_508e836", 
+    option = "El valor de R2 indica que el modelo es apropiado para la explicación de la variabilidad del precio", 
+    value = "El valor de R2 indica que el modelo es apropiado para la explicación de la variabilidad del precio", 
+    label = structure("El valor de R2 indica que el modelo es apropiado para la explicación de la variabilidad del precio", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b721a8", 
+    option = "El valor-p correspondeinte a la prueba de significancia individual para la variable regresora areaconst indica que su valor no es significativo estadñísticamente", 
+    value = "El valor-p correspondeinte a la prueba de significancia individual para la variable regresora areaconst indica que su valor no es significativo estadñísticamente", 
+    label = structure("El valor-p correspondeinte a la prueba de significancia individual para la variable regresora areaconst indica que su valor no es significativo estadñísticamente", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6abdf72", 
+    option = "El modelo  explica un 60.85% de la variabilidad del precio", 
+    value = "El modelo  explica un 60.85% de la variabilidad del precio", 
+    label = structure("El modelo  explica un 60.85% de la variabilidad del precio", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
+"character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correcto!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz_2-1-answer", question = "quiz_2-1"), loading = NULL, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 476806894.777969, 
+    options = list()), class = c("learnr_radio", "tutorial_question"
+)), session = session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_8c3f5d4", 
+    option = "Para poder que el método de MCO encuentre una solución única ", 
+    value = "Para poder que el método de MCO encuentre una solución única ", 
+    label = structure("Para poder que el método de MCO encuentre una solución única", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_78af0ef", 
+    option = "Poder encontrar el valor de la variable respuesta,  dado un conjunto de valores de las variables regresoras", 
+    value = "Poder encontrar el valor de la variable respuesta,  dado un conjunto de valores de las variables regresoras", 
+    label = structure("Poder encontrar el valor de la variable respuesta,  dado un conjunto de valores de las variables regresoras", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_275bfeb", 
+    option = "Poder realizar inferencias sobre los coeficientes y la variable respuesta", 
+    value = "Poder realizar inferencias sobre los coeficientes y la variable respuesta", 
+    label = structure("Poder realizar inferencias sobre los coeficientes y la variable respuesta", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2004b82", 
+    option = "Poder obtener un valor mayor del R2", value = "Poder obtener un valor mayor del R2", 
+    label = structure("Poder obtener un valor mayor del R2", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
+"character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correcto!. Es necesario este supuesto para que la distribución de los estimadores de los coeficientes  y el estimador de Y, se distribuyan t-Student. Distribución base para la construcción de los intervalos de confianza y los estadístos de prueba asociados con las pruebas de hipótesis asociados", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz_3-1-answer", question = "quiz_3-1"), loading = NULL, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 529181676.253581, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
