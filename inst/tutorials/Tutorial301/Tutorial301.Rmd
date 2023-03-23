@@ -1,0 +1,1147 @@
+---
+title: "**MODELOS DE DISEÑO / LOGIT**"
+author: Modelos Estadística para la toma de decisiones
+output: 
+  learnr::tutorial:
+    css: css/learnr_metadocencia.css
+    progressive: true # los encabezados de tercer nivel (###) son revelados progresivamente
+    allow_skip: true # permite saltearse los ejercicios. 
+    language:
+      es: tutorial_es.json
+description: "Tutorial interactivo conceptos básicos de probabilidad" # Esta descripción se ve en el panel Tutorial de RStudio 
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(paqueteMOD)
+library(boot)
+library(ggplot2)
+library(gridExtra)
+library(knitr)
+library(broom)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = FALSE,
+                 exercise.warn_invisible = FALSE)
+# colores
+c1="#FF7F00" # NARANJA COLOR PRINCIPAL
+c2="#034a94" # AZUL FUERTE COLOR SECUNDARIO  
+c3="#0eb0c6" # AZUL CLARO COLOR TERCEARIO  
+c4="#686868" # GRIS COLOR TEXTO 
+##  <div class="content-box-blue">    </div> ## caja azul
+```
+
+## **PRESENTACIÓN**
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("images/banner2.png")
+```
+
+
+El presente tutorial contiene preguntas relacionadas con l estimación del modelo y sus supuestos, conceptos importante para la compresión los proceso relacionados con la inferencia realizada sobre los resultados obtenidos por el método de MCO.   
+
+</br>
+  
+#### **CONCEPTOS**
+  
+#### **Modelo de Diseño de Experimentos**
+
+<div class="content-box-blue">
+$$ 
+ Y  = \alpha_{0} +\alpha_{1} X_1 +\alpha_{2} X_2 + \dots +\alpha_{k} X_k  + \varepsilon
+$$
+</div>
+
+</br>
+
+Donde la variable dependiente $Y$ es una variable cuantitativa, mientras que las variables independientes $X_1, X_2, \dots$ corresponden a  variables cualitativas con valores que permiten dividir la variable $Y$ en subgrupos, llamados **tratamientos** que a su vez presentan categorías llamados **niveles**. 
+
+</br>
+
+#### **Modelo Logit**
+
+<div class="content-box-blue">
+$$
+Y = \beta_{0} + \beta_{1}X_{1} + \dots + \beta_{k} X_{k} + \varepsilon
+$$
+</div>
+
+</br>
+
+Donde la variable dependiente $Y$ es una variable binaria que toma dos posibles valores ($R_X =\{0,1\}$) en caso del modelo binomial  y más de dos valores ($R_X =\{0,1,2,\dots\}$) en el caso multinomial.
+
+Predice la probabilidad de que ocurra el evento mediante la combinación lineal de una o más variables independientes, para lo cual utiliza la trasnformación la función **logitica**.
+
+El modelo se transforma a través de la razón de probabilidades $Odds$ Ratio y se linealiza aplicando la función logarítmica.
+
+$$\Bigg(\dfrac{P(Y=k|X=x)}{1-P(Y=k|X=x)}\Bigg) =  \exp{\Big\{\beta_{0}+ \beta_{1} \hspace{.2cm}x_{i} \Big\}} + \varepsilon_{i}^{*}$$
+$$\ln \Bigg(\dfrac{P(Y=k|X=x)}{1-P(Y=k|X=x)}\Bigg) =  \beta_{0}+ \beta_{1} \hspace{.2cm}x_{i} + \varepsilon_{i}^{*}$$
+De esta forma se puede dá solución al sistema lineal, mediante el método de máxima verosimilitud
+<pre>
+glm(formula = honor ~ matematicas, 
+               family = binomial(link = "logit"),
+               data = matriculah)
+</pre>
+
+Para evaluar el modelo: 
+
+* Se parte en dos la data 
+  + data.train 60% a 80%)
+  + data.test
+
+* Se estima el modelo con la data.train
+
+* Se evalua el resultado con la data.test, utilizando la matriz de confusión
+
+</br></br>
+
+#### **Matriz de confisión**
+
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+knitr::include_graphics("images/matriz_confusion2.png")
+```
+
+</br></br>
+
+#### **Indicadores de evaluación**
+
+</br>
+
+
+* **Exactitud** = $\frac{(VP + VN)}{\text{Total}}$                                
+                                                                   
+* **Tasade_Error** = $\dfrac{(FP + FN)}{\text{Total}}$                              
+                                                                   
+* **Sensibilidad** = $\dfrac{VP}{\text{Total positivos}}$                            
+                                                                   
+* **Especificidad** = $\dfrac{VN/}{\text{Total negativos}}$                            
+                                                                   
+* **Precisión** = $\dfrac{VP}{\text{Total positivos pronosticados}}$                  
+                                                                   
+* **Valor predicción negativo** = $\dfrac{VN}{\text{Total negativos pronosticados}}$
+
+
+</br></br>
+
+
+
+#### **CÓDIGO R**
+
+##### **Estimación del modelo de diseño**
+<pre>
+modelo_d=glm(y ~ x1 + x2 , data=datos)
+summary(modelo_d)
+</pre>
+
+</br></br>
+
+##### **Estimación del modelo logit**
+<pre>
+library(tidyverse)
+matriculah %>% 
+glm(y ~ x1 + x2, family = binomial(link = "logit"), data = .) -> modelo 
+</pre>
+
+</br></br>
+
+##### **Evaluación del modelo**
+
+###### **Partición de la data**
+
+<pre>  
+ntrain <- nrow(matriculah)*0.6
+ntest <- nrow(matriculah)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(matriculah),size = ntrain)
+train<-matriculah[index_train,]  # muestra de entrenamiento
+test<-matriculah[-index_train,]  # muestra de prueba
+</pre>
+
+</br></br>
+
+##### **Estimación del modelo con data.train**
+
+<pre>
+glm(honor ~ matematicas , family = binomial(link = "logit"), data = train) -> modelo2  
+</pre>  
+
+</br></br>
+
+##### **Construcción de pronósticos con la data.test**
+  
+<pre>
+library(tidyverse)
+valor_pronosticado <- predict(modelo2,test,type = "response")
+niveles_pronosticados <- ifelse(valor_pronosticado >0.5, "Si","No") %>%
+                             factor(.)
+</pre>
+
+</br></br>
+
+##### **Construcción de matriz de confusión**
+
+<pre>  
+rendimiento_data<-data.frame(observados=test$honor,
+                             predicciones= niveles_pronosticados)
+
+Positivos <- sum(rendimiento_data$observados=="Si")
+Negativos <- sum(rendimiento_data$observados=="No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+Total <- nrow(rendimiento_data)
+VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
+VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
+FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
+FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+
+matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+
+rownames(matriz_confusion) = c(" Si ", " No    ")
+colnames(matriz_confusion) = c("Si", "No")
+matriz_confusion  
+</pre>  
+  
+</br></br>  
+  
+##### **Construcción indicadores**
+
+<pre>
+Exactitud <- (VP+VN)/Total
+Tasa_de_Error <- (FP+FN)/Total
+Sensibilidad <- VP/Positivos
+Especificidad <- VN/Negativos
+Precision <- VP/Positivos_pronosticados
+Valor_prediccion_negativo <- VN / Negativos_pronosticados
+
+indicadores <- t(data.frame(Exactitud,
+                            Tasa_de_Error,
+                            Sensibilidad,
+                            Especificidad,
+                            Precision,
+                            Valor_prediccion_negativo))
+
+colnames(indicadores)="indicadores" 
+rownames(indicadores) =c("Exactitud ", 
+                         "Tasa de Error ", 
+                         "Sensibilidad", 
+                         "Especificidad", 
+                         "Precisión", 
+                         "Valor predicción negativo")
+indicadores                         
+</pre>
+
+</br></br>  
+
+##### **Balanceo de datos**
+
+<pre>
+library(ROSE)
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+</pre>
+
+</br></br>  
+
+## **CUESTIONARIO**
+
+### **Pregunta 1**
+
+```{r quiz_1}
+
+quiz(
+  question("En un modelo de diseño de experimentos las variables independientes deben :",
+           correct = "Correctot!.",
+           allow_retry = TRUE,
+           answer("ser variables cualitativas", message = "Cerca, pero no...intentalo de nuevo!"),
+           answer("corresponder a los tratamientos realizados", message = "No...intentalo de nuevo!"),
+           answer("ser variables en escala nominal u ordinal", message = "Incorrecto. Intenta de nuevo!."),
+           answer("todas las anteriores", correct = TRUE),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+```
+
+### **Pregunta 2**
+
+```{r quiz_2}
+
+quiz(
+  question("La función que sirve de enlace en el modelo logit para la estimación de la probabilidad de ocurrencia de Y es:",
+           correct = "Respuesta y explicación!, .",
+           allow_retry = TRUE,
+           answer("función normal", message = "No...intentalo de nuevo!"),
+           answer("función binomial", message = "No...intentalo de nuevo!"),
+           answer("función logística", correct = TRUE),
+           answer("función logaritmica", message = "Incorrecto. Intenta de nuevo!."),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+``` 
+
+### **Pregunta 3**
+
+```{r quiz_3}
+
+quiz(
+  question("¿En un modelo logit binomial la variable dependiene debe ser:?",
+           correct = "Correcto!, la variable dependiente en el modelo logit es una variable que toma valores de 0 y 1 solamente ",
+           allow_retry = TRUE,
+           answer("una variable continua", message = "No...intentalo de nuevo!"),
+           answer("una variable discreta en escala ordinal", message = "No...intentalo de nuevo!"),
+           answer("una variable binaria", correct = TRUE),  
+           answer("todas las anteriores", message = "Incorrecto. Intenta de nuevo!."),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+```
+
+
+
+### **Pregunta 4**
+
+```{r quiz_4}
+
+quiz(
+  question("La función que permite linealizar la razón odds en el modelo logit es:",
+           correct = "Correcto!.",
+           allow_retry = TRUE,
+           answer("normal", message = "No...intentalo de nuevo!"),
+           answer("exponencial", message = "No...intentalo de nuevo!"),
+           answer("logaritmica", correct = TRUE),
+           answer("logistica", message = "Incorrecto. Intenta de nuevo!."),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+```
+
+
+### **Pregunta 5**factor 0,1 yes no
+
+El siguiente resultado corresponde a la estimación de un modelo logit, a partir de los datos contenidos en la `matriculah`, contenida en `paqueteMOD`
+
+El objetivo principal del modelo corresponde a la estimación de la probabilidad de que un estudiante lobre obtener una matricula de honor a partir de su nota de matematicas obtenida en una prueba de diagnóstica.
+
+<pre>
+Call:
+glm(formula = honor ~ matematicas, family = binomial(link = "logit"), 
+    data = .)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -9.04461    0.63678  -14.20   <2e-16 ***
+matematicas  0.14415    0.01113   12.95   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+</pre>
+
+```{r quiz_5}
+
+quiz(
+  question("El estimador b1=0.14415  se puede interpretar como: " ,
+           correct = "Correcto!.",
+           allow_retry = TRUE,
+           answer("Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", message = "No...intentalo de nuevo!"),
+           answer("Corresponde al incremento obtenido subre la variable dependiente en el modelo", message = "No...intentalo de nuevo!"),
+           answer("Corresponde al incremento de la varianza de los errores causados por un incremento en la nota obtenida en matemáticas", message = "Incorrecto. Intenta de nuevo!."),
+           answer("Para su interpretación es necesario transformar con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por el incremento unitario en la variable independiente", correct = TRUE),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+```
+
+
+### **Pregunta 6**
+
+El modelo estimado presenta la siguiente forma:
+
+$$\Bigg( \dfrac{\widehat{P_{i}}}{1-\widehat{P_{i}}} \Bigg) = \exp{\bigg\{ \widehat{\beta_{0}} + \widehat{\beta_{1}} \hspace{.2cm} x_{i}}\bigg\}$$
+
+
+```{r quiz_6}
+
+quiz(
+  question("El transformar esta igualdad sacando logaritmos en ambas partes proporciona:",
+           correct = "Correcot!.",
+           allow_retry = TRUE,
+           answer("La estimación de la probabilidad de que ocurra el evento objeto de estudio", message = "No...intentalo de nuevo!"),
+           answer("La estimación de la razón odds que relaciona las probabilidades de ocurrencia frente a la de no ocurrencia del evento objeto de estudio",  message = "Incorrecto. Intenta de nuevo!."),
+           answer("No hay necesidad de realizar ninguna transformación. Al reemplazar el valor correspondiente de x, se obtiene el valor de la razón odds",correct = TRUE), 
+           answer("Ninguna de las anteriores", message = "No...intentalo de nuevo!"),
+           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
+  caption = " "
+)
+
+```
+
+
+<!-- ### **Pregunta 7** -->
+
+<!-- ```{r quiz_7} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?", -->
+<!--            correct = "Respuesta y explicación!, .", -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "No...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 8** -->
+
+<!-- ```{r quiz_8} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?", -->
+<!--            correct = "Respuesta y explicación!, .", -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "No...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 9** -->
+
+<!-- ```{r quiz_9} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?", -->
+<!--            correct = "Respuesta y explicación!, .", -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "No...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+<!-- ### **Pregunta 10** -->
+
+<!-- ```{r quiz_10} -->
+
+<!-- quiz( -->
+<!--   question("¿Pregunta?", -->
+<!--            correct = "Respuesta y explicación!, .", -->
+<!--            allow_retry = TRUE, -->
+<!--            answer("opción 1", message = "Cerca, pero no...intentalo de nuevo!"), -->
+<!--            answer("opción 2", message = "No...intentalo de nuevo!"), -->
+<!--            answer("opción 3", message = "Incorrecto. Intenta de nuevo!."), -->
+<!--            answer("opción 4", correct = TRUE), -->
+<!--            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés -->
+<!--            submit_button = "Enviar respuesta", -->
+<!--            try_again_button = "Intentar de nuevo"), -->
+<!--   # Si no ponemos un caption aparecerá la palabra Quiz en inglés. -->
+<!--   caption = "Visualización" -->
+<!-- ) -->
+
+<!-- ``` -->
+
+
+## **PROBLEMAS**
+
+
+### **Problema 1**
+
+Para la base de datos `rotacion` contenida en `paqueteMOD` y  seleccione una nueva data que contenga solo  las 5 primera variables . Valide el resultado obtenido
+
+```{r p1, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+library(dplyr)
+data("rotacion")
+
+```
+
+
+```{r p1-hint}
+library(paqueteMOD)
+library(dplyr)
+data("rotacion")
+datos<-rotacion[, c(1,2,3,4,5)]
+```
+
+
+```{r p1-solution}
+library(paqueteMOD)
+data("rotacion")
+datos<-rotacion[, c(1,2,3,4,5)]
+summary(datos)
+```
+
+### **Problema 2**
+
+La siguiente información presenta la descripción de base de `datos` contenida en `paqueteMOD` tiene  1470 registros y 5 variables. 
+
+Cambie el nombre de las variables por:   
+
+* rotacion
+* edad
+* viaje.negocios_
+* departamento_
+* distancia.casa
+
+<pre>
+Rows: 1,470
+Columns: 5
+$ rotacion       <chr> "Si", "No", "Si", "No", "No", "No", "No", "No", "No", "No", "No", "No", "No", "No", "Si", "…
+$ edad           <dbl> 41, 49, 37, 33, 27, 32, 59, 30, 38, 36, 35, 29, 31, 34, 28, 29, 32, 22, 53, 38, 24, 36, 34,…
+$ viaje.negocios <chr> "Raramente", "Frecuentemente", "Raramente", "Frecuentemente", "Raramente", "Frecuentemente"…
+$ departamento   <chr> "Ventas", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD", "IyD…
+$ Ddstancia.casa <dbl> 1, 8, 2, 3, 2, 2, 3, 24, 23, 27, 16, 15, 26, 19, 24, 21, 5, 16, 2, 2, 11, 9, 7, 15, 6, 5, 1…
+</pre>
+
+
+```{r p2, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+data("datosR")
+
+
+```
+
+
+```{r p2-hint}
+library(paqueteMOD)
+data("datosR")
+names(datosR)
+
+```
+
+
+```{r p2-solution}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+names(datosR)
+```
+
+
+### **Problema 3**
+
+La base de `datosR` contenida en `paqueteMOD` tiene  1470 registros y 5 variables. 
+
+* `rotacion` : si el empleado 
+* `edad`
+* `viaje.negocios_`
+* `departamento_`
+* `distancia.casa`
+
+Estime un primer modelo (modelo1) que permita determinar la probabilidad de que un empleado rote (cambie de puesto) en la empresa en función de las variables disponibles en la base datosR.
+
+
+```{r 3, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+
+
+
+```
+
+
+```{r p3-hint}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+# modelo1=glm( )
+
+
+```
+
+
+```{r p3-solution}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+modelo1= 
+  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
+summary(modelo1)
+
+```
+
+
+
+### **Problema 4**
+
+Verifique la significancia global del modelo, es decir la validez del modelo 
+
+$H_0 : \beta_{1} = \beta_{2} = \beta_{3} = \dots = \beta_{6} =0 $
+$H_{a} : \text{algún} \hspace{.3cm}\beta_{i} \neq 0 $
+
+
+<pre>
+Call:
+glm(formula = rotacion ~ edad + viaje.negocios_ + departamento_ + 
+    distancia.casa, family = binomial(link = "logit"), data = datosR)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2660  -0.6344  -0.5051  -0.3523   2.5930  
+
+Coefficients:
+                          Estimate Std. Error z value Pr(>|z|)    
+(Intercept)               0.356061   0.352494   1.010 0.312438    
+edad                     -0.053292   0.008894  -5.992 2.08e-09 ***
+viaje.negocios_No_Viaja  -1.407973   0.336746  -4.181 2.90e-05 ***
+viaje.negocios_Raramente -0.645887   0.168069  -3.843 0.000122 ***
+departamento_RH           0.429838   0.346728   1.240 0.215087    
+departamento_Ventas       0.478018   0.154091   3.102 0.001921 ** 
+distancia.casa            0.027120   0.008632   3.142 0.001679 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1298.6  on 1469  degrees of freedom
+Residual deviance: 1215.6  on 1463  degrees of freedom
+AIC: 1229.6
+
+Number of Fisher Scoring iterations: 5
+</pre>
+
+```{r p4, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+modelo1= 
+  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
+
+```
+
+
+```{r p4-hint}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+modelo1= 
+  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
+estadistico_X2=modelo1$null.deviance-modelo1$deviance
+gl=modelo1$df.null-modelo1$df.residual
+```
+
+
+```{r p4-solution}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+modelo1= 
+  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
+estadistico_X2=modelo1$null.deviance-modelo1$deviance
+gl=modelo1$df.null-modelo1$df.residual
+valorp=1-pchisq(estadistico_X2, df=gl)
+valorp
+```
+
+
+
+### **Problema 5**
+
+La base de `datosR` contenida en `paqueteMOD` tiene  1470 registros y 5 variables. 
+
+* `rotacion` : si el empleado 
+* `edad`
+* `viaje.negocios_`
+* `departamento_`
+* `distancia.casa`
+
+Para el proceso de medir la validéz del modelo se debe segmentar la data en dos partes (train y test) que permitan construir la matriz de confusión para el modelo1
+
+<pre>
+glm(formula = rotacion ~ edad + viaje.negocios_ + departamento_ + 
+    distancia.casa, family = binomial(link = "logit"), data = datosR)
+</pre>
+
+Segmente la base datosR en dos partes (60%-40%) y verifique si las bases estan balanceadas
+
+```{r p5, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+```
+
+
+```{r p5-hint}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+# separacion de muetras
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+```
+
+
+```{r p5-solution}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+
+table(test$rotacion) %>% 
+  prop.table()
+
+table(train$rotacion) %>% 
+  prop.table()
+```
+
+
+
+
+### **Problema 6**
+
+Los siguientes cálculos indican que tanto la base `train` como la base `test` se encuentran desbalanceadas, lo cual afectará las estimaciones del modelo. 
+
+Realice un procedimiento que permita el balace los dos opciones en las bases de datos.
+
+<pre>
+table(test$rotacion) %>% pro.table()
+
+       No        Si 
+0.8316327 0.1683673 
+ 
+table(train$rotacion) %>%   prop.table()
+       No        Si 
+0.8435374 0.1564626 
+</pre>
+
+```{r p6, exercise=TRUE, exercise.lines = 35}
+library(paqueteMOD)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+
+```
+
+
+```{r p6-hint}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+
+```
+
+
+```{r p6-solution}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+table(test.blc$rotacion) %>% 
+  prop.table()
+
+table(train.blc$rotacion) %>% 
+  prop.table()
+
+```
+
+
+
+### **Problema 7**
+
+Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
+
+
+```{r p7, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+```
+
+
+```{r p7-hint}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+              family = binomial(link = "logit"), data = train.blc)
+
+# matriz de confucion
+valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+  factor(.)
+
+rendimiento_data<-data.frame(observados=test.blc$rotacion,
+                             predicciones= niveles_prnt.blc)
+
+```
+
+
+```{r p7-solution}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+              family = binomial(link = "logit"), data = train.blc)
+
+# matriz de confucion
+valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+  factor(.)
+
+rendimiento_data<-data.frame(observados=test.blc$rotacion,
+                             predicciones= niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados=="Si")
+Negativos <- sum(rendimiento_data$observados=="No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+Total <- nrow(rendimiento_data)
+VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
+VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
+FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
+FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+
+matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+
+rownames(matriz_confusion) = c(" Si ", " No    ")
+colnames(matriz_confusion) = c("Si", "No")
+matriz_confusion
+```
+
+
+
+### **Problema 8**
+
+Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
+
+
+```{r p8, exercise=TRUE, exercise.lines = 15}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+              family = binomial(link = "logit"), data = train.blc)
+
+# matriz de confucion
+valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+  factor(.)
+
+rendimiento_data<-data.frame(observados=test.blc$rotacion,
+                             predicciones= niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados=="Si")
+Negativos <- sum(rendimiento_data$observados=="No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+Total <- nrow(rendimiento_data)
+VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
+VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
+FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
+FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+
+matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+
+rownames(matriz_confusion) = c(" Si ", " No    ")
+colnames(matriz_confusion) = c("Si", "No")
+matriz_confusion
+
+```
+
+
+```{r p8-hint}
+library(paqueteMOD)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+              family = binomial(link = "logit"), data = train.blc)
+
+# matriz de confucion
+valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+  factor(.)
+
+rendimiento_data<-data.frame(observados=test.blc$rotacion,
+                             predicciones= niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados=="Si")
+Negativos <- sum(rendimiento_data$observados=="No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+Total <- nrow(rendimiento_data)
+VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
+VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
+FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
+FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+
+matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+
+rownames(matriz_confusion) = c(" Si ", " No    ")
+colnames(matriz_confusion) = c("Si", "No")
+matriz_confusion
+
+```
+
+
+```{r p8-solution}
+library(paqueteMOD)
+library(tidyverse)
+library(ROSE)
+data("datosR")
+names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion=factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train<-sample(1:nrow(datosR),size = ntrain)
+train<-datosR[index_train,]  # muestra de entrenamiento
+test<-datosR[-index_train,]  # muestra de prueba
+# oversampling
+train.blc <- ovun.sample(rotacion~., data=train, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+test.blc <- ovun.sample(rotacion~., data=test, 
+                         p=0.5, seed=1, 
+                         method="over")$data
+
+modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+              family = binomial(link = "logit"), data = train.blc)
+
+# matriz de confucion
+valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+  factor(.)
+
+rendimiento_data<-data.frame(observados=test.blc$rotacion,
+                             predicciones= niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados=="Si")
+Negativos <- sum(rendimiento_data$observados=="No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+Total <- nrow(rendimiento_data)
+VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
+VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
+FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
+FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+
+matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+
+rownames(matriz_confusion) = c(" Si ", " No    ")
+colnames(matriz_confusion) = c("Si", "No")
+matriz_confusion
+
+Exactitud <- (VP+VN)/Total
+Tasa_de_Error <- (FP+FN)/Total
+Sensibilidad <- VP/Positivos
+Especificidad <- VN/Negativos
+Precision <- VP/Positivos_pronosticados
+Valor_prediccion_negativo <- VN / Negativos_pronosticados
+
+indicadores <- t(data.frame(Exactitud,Tasa_de_Error,Sensibilidad,Especificidad,Precision,Valor_prediccion_negativo))
+
+colnames(indicadores)="indicadores" 
+rownames(indicadores) =c("Exactitud ", 
+                         "Tasa de Error ", 
+                         "Sensibilidad", 
+                         "Especificidad", 
+                         "Precisión", 
+                         "Valor predicción negativo")
+
+indicadores %>% 
+  round(.,3) 
+
+```
+
