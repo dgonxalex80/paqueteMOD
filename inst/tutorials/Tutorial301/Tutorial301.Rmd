@@ -300,7 +300,7 @@ quiz(
 ```{r quiz_3}
 
 quiz(
-  question("¿En un modelo logit binomial la variable dependiene debe ser:?",
+  question("¿En un modelo logit binomial la variable dependiene debe ser:",
            correct = "Correcto!, la variable dependiente en el modelo logit es una variable que toma valores de 0 y 1 solamente ",
            allow_retry = TRUE,
            answer("una variable continua", message = "No...intentalo de nuevo!"),
@@ -359,10 +359,11 @@ matematicas  0.14415    0.01113   12.95   <2e-16 ***
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 </pre>
 
+El estimador $\widehat{\beta}_1 = 0.14415$  se puede interpretar como:
 ```{r quiz_5}
 
 quiz(
-  question("El estimador b1=0.14415  se puede interpretar como: " ,
+  question(" " ,
            correct = "Correcto!.",
            allow_retry = TRUE,
            answer("Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", message = "No...intentalo de nuevo!"),
@@ -571,6 +572,15 @@ names(datosR)
 ```
 
 
+
+
+
+
+
+
+
+
+
 ### **Problema 3**
 
 La base de `datosR` contenida en `paqueteMOD` tiene  1470 registros y 5 variables. 
@@ -622,8 +632,8 @@ summary(modelo1)
 
 Verifique la significancia global del modelo, es decir la validez del modelo 
 
-$H_0 : \beta_{1} = \beta_{2} = \beta_{3} = \dots = \beta_{6} =0 $
-$H_{a} : \text{algún} \hspace{.3cm}\beta_{i} \neq 0 $
+$H_0 : \beta_{1} = \beta_{2} = \beta_{3} = \dots = \beta_{6} =0$
+$H_{a} : \text{algún} \hspace{.3cm}\beta_{i} \neq 0$
 
 
 <pre>
@@ -656,7 +666,7 @@ AIC: 1229.6
 Number of Fisher Scoring iterations: 5
 </pre>
 
-```{r p4, exercise=TRUE, exercise.lines = 15}
+```{r p4, exercise=TRUE, exercise.lines = 20}
 library(paqueteMOD)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
@@ -713,8 +723,9 @@ glm(formula = rotacion ~ edad + viaje.negocios_ + departamento_ +
 
 Segmente la base datosR en dos partes (60%-40%) y verifique si las bases estan balanceadas
 
-```{r p5, exercise=TRUE, exercise.lines = 15}
+```{r p5, exercise=TRUE, exercise.lines = 25}
 library(paqueteMOD)
+library(tidyverse)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion=factor(datosR$rotacion)
@@ -724,6 +735,7 @@ datosR$rotacion=factor(datosR$rotacion)
 
 ```{r p5-hint}
 library(paqueteMOD)
+library(tidyverse)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion=factor(datosR$rotacion)
@@ -737,6 +749,7 @@ ntest <- nrow(datosR)*0.4
 
 ```{r p5-solution}
 library(paqueteMOD)
+library(tidyverse)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion=factor(datosR$rotacion)
@@ -778,6 +791,7 @@ table(train$rotacion) %>%   prop.table()
 
 ```{r p6, exercise=TRUE, exercise.lines = 35}
 library(paqueteMOD)
+library(tidyverse)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion=factor(datosR$rotacion)
@@ -795,6 +809,7 @@ test<-datosR[-index_train,]  # muestra de prueba
 
 ```{r p6-hint}
 library(paqueteMOD)
+library(tidyverse)
 library(ROSE)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
@@ -813,6 +828,7 @@ test<-datosR[-index_train,]  # muestra de prueba
 
 ```{r p6-solution}
 library(paqueteMOD)
+library(tidyverse)
 library(ROSE)
 data("datosR")
 names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
@@ -849,7 +865,7 @@ table(train.blc$rotacion) %>%
 Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
 
 
-```{r p7, exercise=TRUE, exercise.lines = 15}
+```{r p7, exercise=TRUE, exercise.lines = 25}
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
@@ -969,7 +985,7 @@ matriz_confusion
 Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
 
 
-```{r p8, exercise=TRUE, exercise.lines = 15}
+```{r p8, exercise=TRUE, exercise.lines = 35}
 library(paqueteMOD)
 library(ROSE)
 data("datosR")

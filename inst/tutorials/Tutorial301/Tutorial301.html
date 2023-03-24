@@ -318,6 +318,7 @@ rownames(indicadores) =c("Exactitud ",
                          "Especificidad", 
                          "Precisión", 
                          "Valor predicción negativo")
+indicadores                         
 </pre>
 <p></br></br></p>
 </div>
@@ -409,6 +410,8 @@ matematicas  0.14415    0.01113   12.95   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 </pre>
+<p>El estimador <span class="math inline">\(\widehat{\beta}_1 =
+0.14415\)</span> se puede interpretar como:</p>
 <div class="panel-heading tutorial-quiz-title"></div>
 <div class="panel panel-default tutorial-question-container">
 <div data-label="quiz_5-1" class="tutorial-question panel-body">
@@ -634,8 +637,9 @@ names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&q
 <h3><strong>Problema 4</strong></h3>
 <p>Verifique la significancia global del modelo, es decir la validez del
 modelo</p>
-<p>$H_0 : <em>{1} = </em>{2} = <em>{3} = = </em>{6} =0 $ $H_{a} : _{i}
-$</p>
+<p><span class="math inline">\(H_0 : \beta_{1} = \beta_{2} = \beta_{3} =
+\dots = \beta_{6} =0\)</span> <span class="math inline">\(H_{a} :
+\text{algún} \hspace{.3cm}\beta_{i} \neq 0\)</span></p>
 <pre>
 Call:
 glm(formula = rotacion ~ edad + viaje.negocios_ + departamento_ + 
@@ -666,7 +670,7 @@ AIC: 1229.6
 Number of Fisher Scoring iterations: 5
 </pre>
 <div class="tutorial-exercise" data-label="p4" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="15">
+data-diagnostics="1" data-startover="1" data-lines="20">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
@@ -723,8 +727,9 @@ glm(formula = rotacion ~ edad + viaje.negocios_ + departamento_ +
 <p>Segmente la base datosR en dos partes (60%-40%) y verifique si las
 bases estan balanceadas</p>
 <div class="tutorial-exercise" data-label="p5" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="15">
+data-diagnostics="1" data-startover="1" data-lines="25">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
 datosR$rotacion=factor(datosR$rotacion)</code></pre>
@@ -734,6 +739,7 @@ datosR$rotacion=factor(datosR$rotacion)</code></pre>
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
 datosR$rotacion=factor(datosR$rotacion)
@@ -746,6 +752,7 @@ ntest &lt;- nrow(datosR)*0.4</code></pre>
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
 datosR$rotacion=factor(datosR$rotacion)
@@ -785,6 +792,7 @@ table(train$rotacion) %>%   prop.table()
 <div class="tutorial-exercise" data-label="p6" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="35">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
 datosR$rotacion=factor(datosR$rotacion)
@@ -802,6 +810,7 @@ test&lt;-datosR[-index_train,]  # muestra de prueba</code></pre>
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 library(ROSE)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
@@ -819,6 +828,7 @@ test&lt;-datosR[-index_train,]  # muestra de prueba</code></pre>
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
+library(tidyverse)
 library(ROSE)
 data(&quot;datosR&quot;)
 names(datosR)= c(&quot;rotacion&quot;, &quot;edad&quot;, &quot;viaje.negocios_&quot;, &quot;departamento_&quot;, &quot;distancia.casa&quot;)
@@ -852,7 +862,7 @@ table(train.blc$rotacion) %&gt;%
 <p>Realice la estimación y la determine la capacidad discriminante del
 modelo a partir de las bases balanceadas</p>
 <div class="tutorial-exercise" data-label="p7" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="15">
+data-diagnostics="1" data-startover="1" data-lines="25">
 <pre class="text"><code>library(paqueteMOD)
 library(ROSE)
 data(&quot;datosR&quot;)
@@ -969,7 +979,7 @@ matriz_confusion</code></pre>
 <p>Finalmente estime los indicadores para el modelo 2 estimado con las
 bases balanceadas</p>
 <div class="tutorial-exercise" data-label="p8" data-completion="1"
-data-diagnostics="1" data-startover="1" data-lines="15">
+data-diagnostics="1" data-startover="1" data-lines="35">
 <pre class="text"><code>library(paqueteMOD)
 library(ROSE)
 data(&quot;datosR&quot;)
@@ -1185,22 +1195,22 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("En un modelo de diseño de experimentos las variables independientes deben :", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_995baf5", 
+"character")), answers = list(structure(list(id = "lnr_ans_4a7e024", 
     option = "ser variables cualitativas", value = "ser variables cualitativas", 
     label = structure("ser variables cualitativas", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Cerca, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f5e045", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9a42457", 
     option = "corresponder a los tratamientos realizados", value = "corresponder a los tratamientos realizados", 
     label = structure("corresponder a los tratamientos realizados", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_43ae722", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4806b94", 
     option = "ser variables en escala nominal u ordinal", value = "ser variables en escala nominal u ordinal", 
     label = structure("ser variables en escala nominal u ordinal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5f71229", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d53f279", 
     option = "todas las anteriores", value = "todas las anteriores", 
     label = structure("todas las anteriores", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1211,7 +1221,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_1-1-answer", question = "quiz_1-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1931588530.60053, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 329727900.346458, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1219,20 +1229,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_2-1", question = structure("La función que sirve de enlace en el modelo logit para la estimación de la probabilidad de ocurrencia de Y es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_bb821e9", 
+"character")), answers = list(structure(list(id = "lnr_ans_69aee20", 
     option = "función normal", value = "función normal", label = structure("función normal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_30f9da7", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e7c7984", 
     option = "función binomial", value = "función binomial", 
     label = structure("función binomial", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ec64f9b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_17dee9a", 
     option = "función logística", value = "función logística", 
     label = structure("función logística", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_62cb5c3", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c2d5de3", 
     option = "función logaritmica", value = "función logaritmica", 
     label = structure("función logaritmica", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
@@ -1244,28 +1254,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_2-1-answer", question = "quiz_2-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1202357620.94011, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1056659573.00795, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("¿En un modelo logit binomial la variable dependiene debe ser:?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_58979a4", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("¿En un modelo logit binomial la variable dependiene debe ser:", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_79faa08", 
     option = "una variable continua", value = "una variable continua", 
     label = structure("una variable continua", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_583ea8a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f5e7213", 
     option = "una variable discreta en escala ordinal", value = "una variable discreta en escala ordinal", 
     label = structure("una variable discreta en escala ordinal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c0b437", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ffe70bf", 
     option = "una variable binaria", value = "una variable binaria", 
     label = structure("una variable binaria", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4d0fe91", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f93aa36", 
     option = "todas las anteriores", value = "todas las anteriores", 
     label = structure("todas las anteriores", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
@@ -1277,7 +1287,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_3-1-answer", question = "quiz_3-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1061996966.00547, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 904090720.079, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1285,18 +1295,18 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_4-1", question = structure("La función que permite linealizar la razón odds en el modelo logit es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_4d5e466", 
+"character")), answers = list(structure(list(id = "lnr_ans_9f7171c", 
     option = "normal", value = "normal", label = structure("normal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad2bfb4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e67905f", 
     option = "exponencial", value = "exponencial", label = structure("exponencial", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_548ad8d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ecad87", 
     option = "logaritmica", value = "logaritmica", label = structure("logaritmica", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5201d86", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fe2cd21", 
     option = "logistica", value = "logistica", label = structure("logistica", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1307,32 +1317,32 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_4-1-answer", question = "quiz_4-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 352810341.83571, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 22196079.9896641, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_5-1", question = structure("El estimador b1=0.14415  se puede interpretar como:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_af48ac1", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_5-1", question = structure("", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_f35fb8a", 
     option = "Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", 
     value = "Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", 
     label = structure("Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d36ae9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ea88932", 
     option = "Corresponde al incremento obtenido subre la variable dependiente en el modelo", 
     value = "Corresponde al incremento obtenido subre la variable dependiente en el modelo", 
     label = structure("Corresponde al incremento obtenido subre la variable dependiente en el modelo", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9610f1", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5341e6f", 
     option = "Corresponde al incremento de la varianza de los errores causados por un incremento en la nota obtenida en matemáticas", 
     value = "Corresponde al incremento de la varianza de los errores causados por un incremento en la nota obtenida en matemáticas", 
     label = structure("Corresponde al incremento de la varianza de los errores causados por un incremento en la nota obtenida en matemáticas", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_929055e", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_124abc0", 
     option = "Para su interpretación es necesario transformar con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por el incremento unitario en la variable independiente", 
     value = "Para su interpretación es necesario transformar con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por el incremento unitario en la variable independiente", 
     label = structure("Para su interpretación es necesario transformar con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por el incremento unitario en la variable independiente", html = TRUE, class = c("html", 
@@ -1344,7 +1354,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_5-1-answer", question = "quiz_5-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2023338480.05781, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1872475522.62806, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1352,24 +1362,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_6-1", question = structure("El transformar esta igualdad sacando logaritmos en ambas partes proporciona:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f49e19b", 
+"character")), answers = list(structure(list(id = "lnr_ans_9ab0a3a", 
     option = "La estimación de la probabilidad de que ocurra el evento objeto de estudio", 
     value = "La estimación de la probabilidad de que ocurra el evento objeto de estudio", 
     label = structure("La estimación de la probabilidad de que ocurra el evento objeto de estudio", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_78431f9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a228744", 
     option = "La estimación de la razón odds que relaciona las probabilidades de ocurrencia frente a la de no ocurrencia del evento objeto de estudio", 
     value = "La estimación de la razón odds que relaciona las probabilidades de ocurrencia frente a la de no ocurrencia del evento objeto de estudio", 
     label = structure("La estimación de la razón odds que relaciona las probabilidades de ocurrencia frente a la de no ocurrencia del evento objeto de estudio", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a32bcca", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_56cf4f9", 
     option = "No hay necesidad de realizar ninguna transformación. Al reemplazar el valor correspondiente de x, se obtiene el valor de la razón odds", 
     value = "No hay necesidad de realizar ninguna transformación. Al reemplazar el valor correspondiente de x, se obtiene el valor de la razón odds", 
     label = structure("No hay necesidad de realizar ninguna transformación. Al reemplazar el valor correspondiente de x, se obtiene el valor de la razón odds", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1656fd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f32366d", 
     option = "Ninguna de las anteriores", value = "Ninguna de las anteriores", 
     label = structure("Ninguna de las anteriores", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
@@ -1381,7 +1391,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_6-1-answer", question = "quiz_6-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 116436542.94578, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1371907045.36116, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1546,7 +1556,7 @@ learnr:::store_exercise_cache(structure(list(label = "p4", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p4", code = "library(paqueteMOD)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\nmodelo1= \n  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = \"logit\"), data = datosR)\n", 
-        opts = list(label = "\"p4\"", exercise = "TRUE", exercise.lines = "15"), 
+        opts = list(label = "\"p4\"", exercise = "TRUE", exercise.lines = "20"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
     "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
@@ -1571,11 +1581,11 @@ learnr:::store_exercise_cache(structure(list(label = "p4", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p4", 
-        exercise = TRUE, exercise.lines = 15, code = c("library(paqueteMOD)", 
+        exercise = TRUE, exercise.lines = 20, code = c("library(paqueteMOD)", 
         "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
         "datosR$rotacion=factor(datosR$rotacion)", "modelo1= ", 
         "  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = \"logit\"), data = datosR)", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "p4, exercise=TRUE, exercise.lines = 15", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "p4, exercise=TRUE, exercise.lines = 20", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1598,11 +1608,11 @@ learnr:::store_exercise_cache(structure(list(label = "p5", global_setup = struct
 "c3=\"#0eb0c6\" # AZUL CLARO COLOR TERCEARIO  ", "c4=\"#686868\" # GRIS COLOR TEXTO ", 
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "p5", code = "library(paqueteMOD)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n", 
-        opts = list(label = "\"p5\"", exercise = "TRUE", exercise.lines = "15"), 
+    chunks = list(list(label = "p5", code = "library(paqueteMOD)\nlibrary(tidyverse)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n", 
+        opts = list(label = "\"p5\"", exercise = "TRUE", exercise.lines = "25"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
-    "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
+    "library(tidyverse)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
     "datosR$rotacion=factor(datosR$rotacion)", "", "ntrain <- nrow(datosR)*0.6", 
     "ntest <- nrow(datosR)*0.4", "", "set.seed(123)", "index_train<-sample(1:nrow(datosR),size = ntrain)", 
     "train<-datosR[index_train,]  # muestra de entrenamiento", 
@@ -1626,10 +1636,10 @@ learnr:::store_exercise_cache(structure(list(label = "p5", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p5", 
-        exercise = TRUE, exercise.lines = 15, code = c("library(paqueteMOD)", 
-        "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
+        exercise = TRUE, exercise.lines = 25, code = c("library(paqueteMOD)", 
+        "library(tidyverse)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
         "datosR$rotacion=factor(datosR$rotacion)", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "p5, exercise=TRUE, exercise.lines = 15", 
+        out.height.px = 384, params.src = "p5, exercise=TRUE, exercise.lines = 25", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1652,11 +1662,12 @@ learnr:::store_exercise_cache(structure(list(label = "p6", global_setup = struct
 "c3=\"#0eb0c6\" # AZUL CLARO COLOR TERCEARIO  ", "c4=\"#686868\" # GRIS COLOR TEXTO ", 
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "p6", code = "library(paqueteMOD)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n\nntrain <- nrow(datosR)*0.6\nntest <- nrow(datosR)*0.4\n\nset.seed(123)\nindex_train<-sample(1:nrow(datosR),size = ntrain)\ntrain<-datosR[index_train,]  # muestra de entrenamiento\ntest<-datosR[-index_train,]  # muestra de prueba\n", 
+    chunks = list(list(label = "p6", code = "library(paqueteMOD)\nlibrary(tidyverse)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n\nntrain <- nrow(datosR)*0.6\nntest <- nrow(datosR)*0.4\n\nset.seed(123)\nindex_train<-sample(1:nrow(datosR),size = ntrain)\ntrain<-datosR[index_train,]  # muestra de entrenamiento\ntest<-datosR[-index_train,]  # muestra de prueba\n", 
         opts = list(label = "\"p6\"", exercise = "TRUE", exercise.lines = "35"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
-    "library(ROSE)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
+    "library(tidyverse)", "library(ROSE)", "data(\"datosR\")", 
+    "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
     "datosR$rotacion=factor(datosR$rotacion)", "", "ntrain <- nrow(datosR)*0.6", 
     "ntest <- nrow(datosR)*0.4", "", "set.seed(123)", "index_train<-sample(1:nrow(datosR),size = ntrain)", 
     "train<-datosR[index_train,]  # muestra de entrenamiento", 
@@ -1684,7 +1695,7 @@ learnr:::store_exercise_cache(structure(list(label = "p6", global_setup = struct
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p6", 
         exercise = TRUE, exercise.lines = 35, code = c("library(paqueteMOD)", 
-        "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
+        "library(tidyverse)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
         "datosR$rotacion=factor(datosR$rotacion)", "", "ntrain <- nrow(datosR)*0.6", 
         "ntest <- nrow(datosR)*0.4", "", "set.seed(123)", "index_train<-sample(1:nrow(datosR),size = ntrain)", 
         "train<-datosR[index_train,]  # muestra de entrenamiento", 
@@ -1713,7 +1724,7 @@ learnr:::store_exercise_cache(structure(list(label = "p7", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p7", code = "library(paqueteMOD)\nlibrary(ROSE)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n\nntrain <- nrow(datosR)*0.6\nntest <- nrow(datosR)*0.4\n\nset.seed(123)\nindex_train<-sample(1:nrow(datosR),size = ntrain)\ntrain<-datosR[index_train,]  # muestra de entrenamiento\ntest<-datosR[-index_train,]  # muestra de prueba\n# oversampling\ntrain.blc <- ovun.sample(rotacion~., data=train, \n                         p=0.5, seed=1, \n                         method=\"over\")$data\n\ntest.blc <- ovun.sample(rotacion~., data=test, \n                         p=0.5, seed=1, \n                         method=\"over\")$data\n", 
-        opts = list(label = "\"p7\"", exercise = "TRUE", exercise.lines = "15"), 
+        opts = list(label = "\"p7\"", exercise = "TRUE", exercise.lines = "25"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
     "library(ROSE)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
@@ -1759,7 +1770,7 @@ learnr:::store_exercise_cache(structure(list(label = "p7", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p7", 
-        exercise = TRUE, exercise.lines = 15, code = c("library(paqueteMOD)", 
+        exercise = TRUE, exercise.lines = 25, code = c("library(paqueteMOD)", 
         "library(ROSE)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
         "datosR$rotacion=factor(datosR$rotacion)", "", "ntrain <- nrow(datosR)*0.6", 
         "ntest <- nrow(datosR)*0.4", "", "set.seed(123)", "index_train<-sample(1:nrow(datosR),size = ntrain)", 
@@ -1769,7 +1780,7 @@ learnr:::store_exercise_cache(structure(list(label = "p7", global_setup = struct
         "                         p=0.5, seed=1, ", "                         method=\"over\")$data", 
         "", "test.blc <- ovun.sample(rotacion~., data=test, ", 
         "                         p=0.5, seed=1, ", "                         method=\"over\")$data", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "p7, exercise=TRUE, exercise.lines = 15", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "p7, exercise=TRUE, exercise.lines = 25", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1793,7 +1804,7 @@ learnr:::store_exercise_cache(structure(list(label = "p8", global_setup = struct
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
     chunks = list(list(label = "p8", code = "library(paqueteMOD)\nlibrary(ROSE)\ndata(\"datosR\")\nnames(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")\ndatosR$rotacion=factor(datosR$rotacion)\n\nntrain <- nrow(datosR)*0.6\nntest <- nrow(datosR)*0.4\n\nset.seed(123)\nindex_train<-sample(1:nrow(datosR),size = ntrain)\ntrain<-datosR[index_train,]  # muestra de entrenamiento\ntest<-datosR[-index_train,]  # muestra de prueba\n# oversampling\ntrain.blc <- ovun.sample(rotacion~., data=train, \n                         p=0.5, seed=1, \n                         method=\"over\")$data\n\ntest.blc <- ovun.sample(rotacion~., data=test, \n                         p=0.5, seed=1, \n                         method=\"over\")$data\n\nmodelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, \n              family = binomial(link = \"logit\"), data = train.blc)\n\n# matriz de confucion\nvalor_prnt.blc <- predict(modelo2,test.blc,type = \"response\")\nniveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, \"Si\",\"No\") %>%\n  factor(.)\n\nrendimiento_data<-data.frame(observados=test.blc$rotacion,\n                             predicciones= niveles_prnt.blc)\nPositivos <- sum(rendimiento_data$observados==\"Si\")\nNegativos <- sum(rendimiento_data$observados==\"No\")\nPositivos_pronosticados <- sum(rendimiento_data$predicciones==\"Si\")\nNegativos_pronosticados <- sum(rendimiento_data$predicciones==\"No\")\nTotal <- nrow(rendimiento_data)\nVP<-sum(rendimiento_data$observados==\"Si\" & rendimiento_data$predicciones==\"Si\")\nVN<-sum(rendimiento_data$observados==\"No\" & rendimiento_data$predicciones==\"No\")\nFP<-sum(rendimiento_data$observados==\"No\" & rendimiento_data$predicciones==\"Si\")\nFN<-sum(rendimiento_data$observados==\"Si\" & rendimiento_data$predicciones==\"No\")\n\nmatriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)\n\nrownames(matriz_confusion) = c(\" Si \", \" No    \")\ncolnames(matriz_confusion) = c(\"Si\", \"No\")\nmatriz_confusion\n", 
-        opts = list(label = "\"p8\"", exercise = "TRUE", exercise.lines = "15"), 
+        opts = list(label = "\"p8\"", exercise = "TRUE", exercise.lines = "35"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
     "library(tidyverse)", "library(ROSE)", "data(\"datosR\")", 
@@ -1848,7 +1859,7 @@ learnr:::store_exercise_cache(structure(list(label = "p8", global_setup = struct
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p8", 
-        exercise = TRUE, exercise.lines = 15, code = c("library(paqueteMOD)", 
+        exercise = TRUE, exercise.lines = 35, code = c("library(paqueteMOD)", 
         "library(ROSE)", "data(\"datosR\")", "names(datosR)= c(\"rotacion\", \"edad\", \"viaje.negocios_\", \"departamento_\", \"distancia.casa\")", 
         "datosR$rotacion=factor(datosR$rotacion)", "", "ntrain <- nrow(datosR)*0.6", 
         "ntest <- nrow(datosR)*0.4", "", "set.seed(123)", "index_train<-sample(1:nrow(datosR),size = ntrain)", 
@@ -1875,7 +1886,7 @@ learnr:::store_exercise_cache(structure(list(label = "p8", global_setup = struct
         "", "matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)", 
         "", "rownames(matriz_confusion) = c(\" Si \", \" No    \")", 
         "colnames(matriz_confusion) = c(\"Si\", \"No\")", "matriz_confusion", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "p8, exercise=TRUE, exercise.lines = 15", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "p8, exercise=TRUE, exercise.lines = 35", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
