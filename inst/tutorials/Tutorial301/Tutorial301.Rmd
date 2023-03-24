@@ -21,15 +21,39 @@ library(gridExtra)
 library(knitr)
 library(broom)
 library(stargazer)
-
+library(ROSE)
+library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE,
                  exercise.warn_invisible = FALSE)
 # colores
-c1="#FF7F00" # NARANJA COLOR PRINCIPAL
-c2="#034a94" # AZUL FUERTE COLOR SECUNDARIO  
-c3="#0eb0c6" # AZUL CLARO COLOR TERCEARIO  
-c4="#686868" # GRIS COLOR TEXTO 
+c1 = "#FF7F00" # NARANJA COLOR PRINCIPAL
+c2 = "#034a94" # AZUL FUERTE COLOR SECUNDARIO  
+c3 = "#0eb0c6" # AZUL CLARO COLOR TERCEARIO  
+c4 = "#686868" # GRIS COLOR TEXTO 
 ##  <div class="content-box-blue">    </div> ## caja azul
+
+#------------------------------------------------------ 
+data("dataMat")
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
+
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
+
+ntrain <- nrow(datosR)*0.6
+ntest <- nrow(datosR)*0.4
+
+set.seed(123)
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
+# oversampling
+
+
+
+
+#-------------------------------------------------------
+
 ```
 
 ## **PRESENTACIÓN**
@@ -514,14 +538,14 @@ data("rotacion")
 library(paqueteMOD)
 library(dplyr)
 data("rotacion")
-datos<-rotacion[, c(1,2,3,4,5)]
+datos <- rotacion[, c(1,2,3,4,5)]
 ```
 
 
 ```{r p1-solution}
 library(paqueteMOD)
 data("rotacion")
-datos<-rotacion[, c(1,2,3,4,5)]
+datos <- rotacion[, c(1,2,3,4,5)]
 summary(datos)
 ```
 
@@ -551,8 +575,6 @@ $ Ddstancia.casa <dbl> 1, 8, 2, 3, 2, 2, 3, 24, 23, 27, 16, 15, 26, 19, 24, 21, 
 ```{r p2, exercise=TRUE, exercise.lines = 15}
 library(paqueteMOD)
 data("datosR")
-
-
 ```
 
 
@@ -567,18 +589,9 @@ names(datosR)
 ```{r p2-solution}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 names(datosR)
 ```
-
-
-
-
-
-
-
-
-
 
 
 ### **Problema 3**
@@ -591,39 +604,33 @@ La base de `datosR` contenida en `paqueteMOD` tiene  1470 registros y 5 variable
 * `departamento_`
 * `distancia.casa`
 
-Estime un primer modelo (modelo1) que permita determinar la probabilidad de que un empleado rote (cambie de puesto) en la empresa en función de las variables disponibles en la base datosR.
+Estime un primer modelo (modelo1) que permita determinar la probabilidad de que un empleado rote (cambie de puesto) en la empresa en función de las variables disponibles en la base `datosR`.
 
 
-```{r 3, exercise=TRUE, exercise.lines = 15}
+```{r p3, exercise=TRUE, exercise.lines = 15}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-
-
-
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 ```
 
 
 ```{r p3-hint}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) <- c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion <- factor(datosR$rotacion)
 # modelo1=glm( )
-
-
 ```
 
 
 ```{r p3-solution}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
-modelo1= 
+names(datosR) <- c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion <- factor(datosR$rotacion)
+modelo1 <- 
   glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
 summary(modelo1)
-
 ```
 
 
@@ -669,9 +676,9 @@ Number of Fisher Scoring iterations: 5
 ```{r p4, exercise=TRUE, exercise.lines = 20}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
-modelo1= 
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
+modelo1 = 
   glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
 
 ```
@@ -680,25 +687,25 @@ modelo1=
 ```{r p4-hint}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
-modelo1= 
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
+modelo1 =  
   glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
-estadistico_X2=modelo1$null.deviance-modelo1$deviance
-gl=modelo1$df.null-modelo1$df.residual
+estadistico_X2 = modelo1$null.deviance - modelo1$deviance
+gl = modelo1$df.null - modelo1$df.residual
 ```
 
 
 ```{r p4-solution}
 library(paqueteMOD)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
-modelo1= 
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
+modelo1 = 
   glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, family = binomial(link = "logit"), data = datosR)
-estadistico_X2=modelo1$null.deviance-modelo1$deviance
-gl=modelo1$df.null-modelo1$df.residual
-valorp=1-pchisq(estadistico_X2, df=gl)
+estadistico_X2 = modelo1$null.deviance - modelo1$deviance
+gl = modelo1$df.null - modelo1$df.residual
+valorp = 1 - pchisq(estadistico_X2, df = gl)
 valorp
 ```
 
@@ -727,8 +734,8 @@ Segmente la base datosR en dos partes (60%-40%) y verifique si las bases estan b
 library(paqueteMOD)
 library(tidyverse)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ```
 
@@ -737,8 +744,8 @@ datosR$rotacion=factor(datosR$rotacion)
 library(paqueteMOD)
 library(tidyverse)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 # separacion de muetras
 ntrain <- nrow(datosR)*0.6
@@ -751,19 +758,16 @@ ntest <- nrow(datosR)*0.4
 library(paqueteMOD)
 library(tidyverse)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
-
-table(test$rotacion) %>% 
-  prop.table()
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 
 table(train.dat$rotacion) %>% 
   prop.table()
@@ -793,16 +797,16 @@ table(train$rotacion) %>%   prop.table()
 library(paqueteMOD)
 library(tidyverse)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 
 ```
 
@@ -812,16 +816,16 @@ library(paqueteMOD)
 library(tidyverse)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 
 ```
 
@@ -831,24 +835,24 @@ library(paqueteMOD)
 library(tidyverse)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
 table(test.blc$rotacion) %>% 
   prop.table()
@@ -869,24 +873,24 @@ Realice la estimación y la determine la capacidad discriminante del modelo a pa
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion ~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion ~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
 ```
 
@@ -895,35 +899,35 @@ test.blc <- ovun.sample(rotacion~., data=test.dat,
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
 # matriz de confucion
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
   factor(.)
 
-rendimiento_data<-data.frame(observados=test.blc$rotacion,
-                             predicciones= niveles_prnt.blc)
+rendimiento_data <- data.frame(observados = test.blc$rotacion,
+                             predicciones = niveles_prnt.blc)
 
 ```
 
@@ -932,46 +936,46 @@ rendimiento_data<-data.frame(observados=test.blc$rotacion,
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion ~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
 # matriz de confucion
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+niveles_prnt.blc <- ifelse(valor_prnt.blc  > 0.5, "Si","No") %>%
   factor(.)
 
-rendimiento_data<-data.frame(observados=test.blc$rotacion,
-                             predicciones= niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados=="Si")
-Negativos <- sum(rendimiento_data$observados=="No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+rendimiento_data <- data.frame(observados = test.blc$rotacion,
+                             predicciones = niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados == "Si")
+Negativos <- sum(rendimiento_data$observados == "No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
 Total <- nrow(rendimiento_data)
-VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
-VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
-FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
-FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
+VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
+FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
+FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
 
-matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
 
 rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
@@ -989,46 +993,46 @@ Finalmente estime los indicadores para el modelo 2 estimado con las bases balanc
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion ~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion ~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
 # matriz de confucion
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+niveles_prnt.blc <- ifelse(valor_prnt.blc  > 0.5, "Si","No") %>%
   factor(.)
 
-rendimiento_data<-data.frame(observados=test.blc$rotacion,
-                             predicciones= niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados=="Si")
-Negativos <- sum(rendimiento_data$observados=="No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+rendimiento_data <- data.frame(observados = test.blc$rotacion,
+                             predicciones = niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados == "Si")
+Negativos <- sum(rendimiento_data$observados == "No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
 Total <- nrow(rendimiento_data)
-VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
-VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
-FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
-FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
+VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
+FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
+FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
 
-matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
 
 rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
@@ -1041,46 +1045,46 @@ matriz_confusion
 library(paqueteMOD)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion ~ ., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion ~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
 # matriz de confucion
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
   factor(.)
 
-rendimiento_data<-data.frame(observados=test.blc$rotacion,
-                             predicciones= niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados=="Si")
-Negativos <- sum(rendimiento_data$observados=="No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+rendimiento_data <- data.frame(observados = test.blc$rotacion,
+                             predicciones = niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados == "Si")
+Negativos <- sum(rendimiento_data$observados == "No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
 Total <- nrow(rendimiento_data)
-VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
-VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
-FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
-FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
+VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
+FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
+FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
 
-matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
 
 rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
@@ -1094,53 +1098,53 @@ library(paqueteMOD)
 library(tidyverse)
 library(ROSE)
 data("datosR")
-names(datosR)= c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion=factor(datosR$rotacion)
+names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
+datosR$rotacion = factor(datosR$rotacion)
 
 ntrain <- nrow(datosR)*0.6
 ntest <- nrow(datosR)*0.4
 
 set.seed(123)
-index_train<-sample(1:nrow(datosR),size = ntrain)
-train.dat<-datosR[index_train,]  # muestra de entrenamiento
-test.dat<-datosR[-index_train,]  # muestra de prueba
+index_train <- sample(1:nrow(datosR),size = ntrain)
+train.dat <- datosR[index_train,]  # muestra de entrenamiento
+test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+train.blc <- ovun.sample(rotacion ~., data = train.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test.dat, 
-                         p=0.5, seed=1, 
-                         method="over")$data
+test.blc <- ovun.sample(rotacion ~., data = test.dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-modelo2=  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
+modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
 # matriz de confucion
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc >0.5, "Si","No") %>%
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
   factor(.)
 
-rendimiento_data<-data.frame(observados=test.blc$rotacion,
-                             predicciones= niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados=="Si")
-Negativos <- sum(rendimiento_data$observados=="No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones=="Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones=="No")
+rendimiento_data <- data.frame(observados = test.blc$rotacion,
+                             predicciones = niveles_prnt.blc)
+Positivos <- sum(rendimiento_data$observados == "Si")
+Negativos <- sum(rendimiento_data$observados == "No")
+Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
+Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
 Total <- nrow(rendimiento_data)
-VP<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="Si")
-VN<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="No")
-FP<-sum(rendimiento_data$observados=="No" & rendimiento_data$predicciones=="Si")
-FN<-sum(rendimiento_data$observados=="Si" & rendimiento_data$predicciones=="No")
+VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
+VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
+FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
+FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
 
-matriz_confusion=matrix(c(VP, FP, FN,VN), nrow=2)
+matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
 
 rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
 matriz_confusion
 
-Exactitud <- (VP+VN)/Total
-Tasa_de_Error <- (FP+FN)/Total
+Exactitud <- (VP + VN)/Total
+Tasa_de_Error <- (FP + FN)/Total
 Sensibilidad <- VP/Positivos
 Especificidad <- VN/Negativos
 Precision <- VP/Positivos_pronosticados
@@ -1148,8 +1152,8 @@ Valor_prediccion_negativo <- VN / Negativos_pronosticados
 
 indicadores <- t(data.frame(Exactitud,Tasa_de_Error,Sensibilidad,Especificidad,Precision,Valor_prediccion_negativo))
 
-colnames(indicadores)="indicadores" 
-rownames(indicadores) =c("Exactitud ", 
+colnames(indicadores) = "indicadores" 
+rownames(indicadores) = c("Exactitud ", 
                          "Tasa de Error ", 
                          "Sensibilidad", 
                          "Especificidad", 
