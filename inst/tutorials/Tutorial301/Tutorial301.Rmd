@@ -759,13 +759,13 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 
 table(test$rotacion) %>% 
   prop.table()
 
-table(train$rotacion) %>% 
+table(train.dat$rotacion) %>% 
   prop.table()
 ```
 
@@ -801,8 +801,8 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 
 ```
 
@@ -820,8 +820,8 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 
 ```
 
@@ -839,14 +839,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -877,14 +877,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -903,14 +903,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -940,14 +940,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -997,14 +997,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -1049,14 +1049,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
@@ -1102,14 +1102,14 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train<-sample(1:nrow(datosR),size = ntrain)
-train<-datosR[index_train,]  # muestra de entrenamiento
-test<-datosR[-index_train,]  # muestra de prueba
+train.dat<-datosR[index_train,]  # muestra de entrenamiento
+test.dat<-datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data=train, 
+train.blc <- ovun.sample(rotacion~., data=train.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
-test.blc <- ovun.sample(rotacion~., data=test, 
+test.blc <- ovun.sample(rotacion~., data=test.dat, 
                          p=0.5, seed=1, 
                          method="over")$data
 
