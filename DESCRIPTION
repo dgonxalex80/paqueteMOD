@@ -16,12 +16,18 @@ RoxygenNote: 7.1.2
 Imports:
     boot,
     broom,
-    GGally,
+    cubature,
+    dplyr,
     ggplot2,
     gridExtra,
+    knitr,
     learnr,
+    normtest,
+    nortest,
+    psych,
     ROSE,
-    stargazer
+    stargazer,
+    summarytools
 Suggests: 
     learnr,
     testthat (>= 3.0.0)

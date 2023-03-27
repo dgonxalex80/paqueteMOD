@@ -21,10 +21,14 @@ library(gridExtra)
 library(knitr)
 library(broom)
 library(stargazer)
-library(ROSE)
-library(tidyverse)
+library(dplyr)
 knitr::opts_chunk$set(echo = FALSE,
                  exercise.warn_invisible = FALSE)
+if(!require(ROSE)){
+  install.packages("ROSE")
+  library(ROSE)
+}  
+
 # colores
 c1 = "#FF7F00" # NARANJA COLOR PRINCIPAL
 c2 = "#034a94" # AZUL FUERTE COLOR SECUNDARIO  
@@ -528,7 +532,6 @@ Para la base de datos `rotacion` contenida en `paqueteMOD` y  seleccione una nue
 
 ```{r p1, exercise=TRUE, exercise.lines = 15}
 library(paqueteMOD)
-library(dplyr)
 data("rotacion")
 
 ```
@@ -536,7 +539,6 @@ data("rotacion")
 
 ```{r p1-hint}
 library(paqueteMOD)
-library(dplyr)
 data("rotacion")
 datos <- rotacion[, c(1,2,3,4,5)]
 ```
@@ -732,7 +734,6 @@ Segmente la base datosR en dos partes (60%-40%) y verifique si las bases estan b
 
 ```{r p5, exercise=TRUE, exercise.lines = 25}
 library(paqueteMOD)
-library(tidyverse)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -742,7 +743,6 @@ datosR$rotacion = factor(datosR$rotacion)
 
 ```{r p5-hint}
 library(paqueteMOD)
-library(tidyverse)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -756,7 +756,6 @@ ntest <- nrow(datosR)*0.4
 
 ```{r p5-solution}
 library(paqueteMOD)
-library(tidyverse)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -767,10 +766,8 @@ ntest <- nrow(datosR)*0.4
 set.seed(123)
 index_train <- sample(1:nrow(datosR),size = ntrain)
 train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-
-table(train.dat$rotacion) %>% 
-  prop.table()
+test.dat <- datosR[-index_train,]  # muestra de prueba  
+prop.table(table(train.dat$rotacion))
 ```
 
 
@@ -795,7 +792,6 @@ table(train$rotacion) %>%   prop.table()
 
 ```{r p6, exercise=TRUE, exercise.lines = 35}
 library(paqueteMOD)
-library(tidyverse)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -813,7 +809,6 @@ test.dat <- datosR[-index_train,]  # muestra de prueba
 
 ```{r p6-hint}
 library(paqueteMOD)
-library(tidyverse)
 library(ROSE)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
@@ -832,7 +827,6 @@ test.dat <- datosR[-index_train,]  # muestra de prueba
 
 ```{r p6-solution}
 library(paqueteMOD)
-library(tidyverse)
 library(ROSE)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
@@ -846,19 +840,16 @@ index_train <- sample(1:nrow(datosR),size = ntrain)
 train.dat <- datosR[index_train,]  # muestra de entrenamiento
 test.dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
-train.blc <- ovun.sample(rotacion~., data = train.dat, 
+train.blc <- ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train.dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
-test.blc <- ovun.sample(rotacion~., data = test.dat, 
+test.blc <- ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test.dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
-table(test.blc$rotacion) %>% 
-  prop.table()
-
-table(train.blc$rotacion) %>% 
-  prop.table()
+prop.table(table(test.blc$rotacion)) 
+prop.table(table(train.blc$rotacion))
 
 ```
 
@@ -921,10 +912,10 @@ test.blc <- ovun.sample(rotacion~., data = test.dat,
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confucion
+# matriz de confusión
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
-  factor(.)
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
+niveles_prnt.blc <-factor(niveles_prnt.blc)
 
 rendimiento_data <- data.frame(observados = test.blc$rotacion,
                              predicciones = niveles_prnt.blc)
@@ -958,10 +949,10 @@ test.blc <- ovun.sample(rotacion~., data = test.dat,
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confucion
+# matriz de confusión
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc  > 0.5, "Si","No") %>%
-  factor(.)
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
+niveles_prnt.blc <-factor(niveles_prnt.blc)
 
 rendimiento_data <- data.frame(observados = test.blc$rotacion,
                              predicciones = niveles_prnt.blc)
@@ -1015,10 +1006,10 @@ test.blc <- ovun.sample(rotacion ~., data = test.dat,
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confucion
+# matriz de confusión
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc  > 0.5, "Si","No") %>%
-  factor(.)
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
+niveles_prnt.blc <-factor(niveles_prnt.blc)
 
 rendimiento_data <- data.frame(observados = test.blc$rotacion,
                              predicciones = niveles_prnt.blc)
@@ -1067,10 +1058,10 @@ test.blc <- ovun.sample(rotacion ~., data = test.dat,
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confucion
+# matriz de confusión
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
-  factor(.)
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
+niveles_prnt.blc <-factor(niveles_prnt.blc)
 
 rendimiento_data <- data.frame(observados = test.blc$rotacion,
                              predicciones = niveles_prnt.blc)
@@ -1120,10 +1111,10 @@ test.blc <- ovun.sample(rotacion ~., data = test.dat,
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confucion
+# matriz de confusión
 valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") %>%
-  factor(.)
+niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
+niveles_prnt.blc <-factor(niveles_prnt.blc)
 
 rendimiento_data <- data.frame(observados = test.blc$rotacion,
                              predicciones = niveles_prnt.blc)
@@ -1159,9 +1150,7 @@ rownames(indicadores) = c("Exactitud ",
                          "Especificidad", 
                          "Precisión", 
                          "Valor predicción negativo")
-
-indicadores %>% 
-  round(.,3) 
+ round(indicadores,3) 
 
 ```
 
