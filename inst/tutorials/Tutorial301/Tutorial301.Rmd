@@ -13,6 +13,8 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                 exercise.warn_invisible = FALSE)
 library(learnr)
 library(paqueteMOD)
 library(boot)
@@ -22,12 +24,8 @@ library(knitr)
 library(broom)
 library(stargazer)
 library(dplyr)
-knitr::opts_chunk$set(echo = FALSE,
-                 exercise.warn_invisible = FALSE)
-if(!require(ROSE)){
-  install.packages("ROSE")
-  library(ROSE)
-}  
+library(ROSE)
+  
 
 # colores
 c1 = "#FF7F00" # NARANJA COLOR PRINCIPAL
@@ -49,11 +47,29 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
+train_dat <- datosR[index_train,]  # muestra de entrenamiento
+test_dat <- datosR[-index_train,]  # muestra de prueba
 # oversampling
 
+save(train_dat, file = "train_dat.RData")
+save(test_dat, file = "test_dat.RData")
+load("train_dat.RData")
+load("test_dat.RData")
 
+# oversampling
+train_blc <- ROSE::ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train_dat, 
+                               p = 0.5, seed = 1, 
+                               method = "over")$data
+
+
+test_blc <- ROSE::ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test_dat, 
+                              p = 0.5, seed = 1, 
+                              method = "over")$data
+
+save(train_blc, file = "train_blc.RData")
+save(test_blc, file = "test_blc.RData")
+# load("train_blc.RData")
+# load("test_blc.RData")
 
 
 #-------------------------------------------------------
@@ -790,6 +806,8 @@ table(train$rotacion) %>%   prop.table()
 0.8435374 0.1564626 
 </pre>
 
+**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
+
 ```{r p6, exercise=TRUE, exercise.lines = 35}
 library(paqueteMOD)
 data("datosR")
@@ -827,7 +845,6 @@ test.dat <- datosR[-index_train,]  # muestra de prueba
 
 ```{r p6-solution}
 library(paqueteMOD)
-library(ROSE)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -837,19 +854,34 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
+train_dat <- datosR[index_train,]  # muestra de entrenamiento
+test_dat <- datosR[-index_train,]  # muestra de prueba
+
+save(train_dat, file = "train_dat.RData")
+save(test_dat, file = "test_dat.RData")
+load("train_dat.RData")
+load("test_dat.RData")
+
+
+
+
 # oversampling
-train.blc <- ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train.dat, 
+train_blc <- ROSE::ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
-test.blc <- ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test.dat, 
+
+test_blc <- ROSE::ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
+
+save(train_blc, file = "train_blc.RData")
+save(test_blc, file = "test_blc.RData")
+load("train_blc.RData")
+load("test_blc.RData")
 
 prop.table(table(test.blc$rotacion)) 
-prop.table(table(train.blc$rotacion))
+prop.table(table(train_blc$rotacion))
 
 ```
 
@@ -859,6 +891,7 @@ prop.table(table(train.blc$rotacion))
 
 Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
 
+**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
 
 ```{r p7, exercise=TRUE, exercise.lines = 25}
 library(paqueteMOD)
@@ -979,7 +1012,7 @@ matriz_confusion
 
 Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
 
-**Nota** En caso de que elcódigo no corra dentro del tutorial, copielo en un script de su RStudio local y corralo. Debe funcionar
+**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
 
 
 ```{r p8, exercise=TRUE, exercise.lines = 35}
