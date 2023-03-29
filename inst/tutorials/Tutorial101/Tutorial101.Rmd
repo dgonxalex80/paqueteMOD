@@ -268,7 +268,7 @@ cor(arboles$peso,arboles$altura)
 Realice las pruebas de hipótesis con las que pueda verificar si las correlaciones entre las variables : peso, diametro y altura son diferentes de cero
 
 
-```{r p2, exercise=TRUE, exercise.lines = 5}
+```{r p2, exercise=TRUE, exercise.lines = 15}
 library(paqueteMOD)
 data("arboles")
 

@@ -300,7 +300,6 @@ A partir de la data `biomasa` contenida en `paqueteMOD` contiene información so
 
 ```{r p2, exercise=TRUE, exercise.lines = 20}
 library(paqueteMOD)
-library(lmtest)
 data(biomas)
 
 ```
@@ -308,7 +307,6 @@ data(biomas)
 
 ```{r p2-hint}
 library(paqueteMOD)
-library(lmtest)
 data(biomas)
 shapiro.test()
 gqtest()
@@ -319,12 +317,11 @@ t.test()
 
 ```{r p2-solution}
 library(paqueteMOD)
-library(lmtest)
 data(biomas)
 modelo=lm(biomasa$bio_total ~ biomasa$altura)
 shapiro.test(modelo$residuals)
-gqtest(modelo)
-dwtest(modelo)
+lmtest::gqtest(modelo)
+lmtest::dwtest(modelo)
 t.test(modelo$residuals)
 
 
@@ -346,7 +343,7 @@ data(biomasa)
 ```{r p3-hint}
 library(paqueteMOD)
 data(biomasa)
-boxcox()
+MASS::boxcox()
 
 
 ```
@@ -355,7 +352,7 @@ boxcox()
 ```{r p3-solution}
 library(paqueteMOD)
 data(biomasa)
-bc=boxcox(lm(biomasa$bio_total ~ biomasa$altura), lambda = -1:1)
+bc=MASS::boxcox(lm(biomasa$bio_total ~ biomasa$altura), lambda = -1:1)
 (lambda <- bc$x[which.max(bc$y)])
 ```
 

@@ -577,7 +577,7 @@ library(GGally)
 data(vivienda)
 vivienda$preciom=log(vivienda$preciom)
 vivienda$areaconst=log(vivienda$areaconst)
-ggpairs(vivienda[,4:8], title=" ") 
+GGally::ggpairs(vivienda[,4:8], title=" ") 
 ```
 
 
