@@ -979,6 +979,8 @@ matriz_confusion
 
 Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
 
+**Nota** En caso de que elcódigo no corra dentro del tutorial, copielo en un script de su RStudio local y corralo. Debe funcionar
+
 
 ```{r p8, exercise=TRUE, exercise.lines = 35}
 library(paqueteMOD)
