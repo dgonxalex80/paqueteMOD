@@ -35,10 +35,17 @@ c4 = "#686868" # GRIS COLOR TEXTO
 ##  <div class="content-box-blue">    </div> ## caja azul
 
 #------------------------------------------------------ 
-data("dataMat")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
+# load("train_blc.RData")
+# load("test_blc.RData")
 
+#-------------------------------------------------------
+
+```
+
+
+```{r, echo=FALSE}
+library(paqueteMOD)
+data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
 
@@ -49,32 +56,16 @@ set.seed(123)
 index_train <- sample(1:nrow(datosR),size = ntrain)
 train_dat <- datosR[index_train,]  # muestra de entrenamiento
 test_dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
 
-save(train_dat, file = "train_dat.RData")
-save(test_dat, file = "test_dat.RData")
-load("train_dat.RData")
-load("test_dat.RData")
+assign("train_data", train_dat)
+assign("test_data", test_dat)
 
 # oversampling
-train_blc <- ROSE::ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train_dat, 
-                               p = 0.5, seed = 1, 
-                               method = "over")$data
-
-
-test_blc <- ROSE::ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test_dat, 
-                              p = 0.5, seed = 1, 
-                              method = "over")$data
-
-save(train_blc, file = "train_blc.RData")
-save(test_blc, file = "test_blc.RData")
-# load("train_blc.RData")
-# load("test_blc.RData")
-
-
-#-------------------------------------------------------
 
 ```
+
+
+
 
 ## **PRESENTACIÓN**
 
@@ -787,8 +778,6 @@ prop.table(table(train.dat$rotacion))
 ```
 
 
-
-
 ### **Problema 6**
 
 Los siguientes cálculos indican que tanto la base `train` como la base `test` se encuentran desbalanceadas, lo cual afectará las estimaciones del modelo. 
@@ -806,45 +795,51 @@ table(train$rotacion) %>%   prop.table()
 0.8435374 0.1564626 
 </pre>
 
-**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
 
-```{r p6, exercise=TRUE, exercise.lines = 35}
+#### **Código R**
+
+<pre>
 library(paqueteMOD)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
+data("datosR")   ## carga los datos
+names(datosR) = c("rotacion", 
+                   "edad", 
+                   "viaje.negocios_", 
+                   "departamento_", 
+                   "distancia.casa")  # cambio de los nombre de las variables
+datosR$rotacion = factor(datosR$rotacion) # cambio a factor de la variable dependiente
 
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
+ntrain <- nrow(datosR)*0.6     # n para la muestra train 
+ntest <- nrow(datosR)*0.4      # n para la muestra test    
 
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
+set.seed(123)  # control de la generación de aleatorio
+index_train <- sample(1:nrow(datosR),size = ntrain) # indice aleatorio 
+train_dat <- datosR[index_train,]  # muestra de entrenamiento 
+test_dat <- datosR[-index_train,]  # muestra de prueba  
 
-```
+# balanceo de muestas mediante la técnica oversampling
+train_blc <- ROSE::ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train_dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
+test_blc <- ROSE::ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test_dat, 
+                         p = 0.5, seed = 1, 
+                         method = "over")$data
 
-```{r p6-hint}
+prop.table(table(test_blc$rotacion)) 
+prop.table(table(train_blc$rotacion))
+
+</pre>
+
+### **Problema 7**
+
+Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
+
+#### **Código R**
+
+<pre>
+
 library(paqueteMOD)
 library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
-
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-
-```
-
-
-```{r p6-solution}
-library(paqueteMOD)
 data("datosR")
 names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
 datosR$rotacion = factor(datosR$rotacion)
@@ -857,138 +852,30 @@ index_train <- sample(1:nrow(datosR),size = ntrain)
 train_dat <- datosR[index_train,]  # muestra de entrenamiento
 test_dat <- datosR[-index_train,]  # muestra de prueba
 
-save(train_dat, file = "train_dat.RData")
-save(test_dat, file = "test_dat.RData")
-load("train_dat.RData")
-load("test_dat.RData")
+assign("train_data", train_dat, envir = parent.frame())
+assign("test_data", test_dat, envir = parent.frame())
 
-
-
-
-# oversampling
-train_blc <- ROSE::ovun.sample(rotacion~edad + viaje.negocios_ + departamento_ + distancia.casa, data = train_dat, 
+# oversampling -----
+train_blc <- ovun.sample(rotacion ~., data = train_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
-
-test_blc <- ROSE::ovun.sample(rotacion~ edad + viaje.negocios_ + departamento_ + distancia.casa, data = test_dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-save(train_blc, file = "train_blc.RData")
-save(test_blc, file = "test_blc.RData")
-load("train_blc.RData")
-load("test_blc.RData")
-
-prop.table(table(test.blc$rotacion)) 
-prop.table(table(train_blc$rotacion))
-
-```
-
-
-
-### **Problema 7**
-
-Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
-
-**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
-
-```{r p7, exercise=TRUE, exercise.lines = 25}
-library(paqueteMOD)
-library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
-
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion ~., data = train.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-test.blc <- ovun.sample(rotacion ~., data = test.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-```
-
-
-```{r p7-hint}
-library(paqueteMOD)
-library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
-
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion~., data = train.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-test.blc <- ovun.sample(rotacion~., data = test.dat, 
+test_blc <- ovun.sample(rotacion~., data = test_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
               family = binomial(link = "logit"), data = train.blc)
 
-# matriz de confusión
-valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+# matriz de confusión ----
+valor_prnt.blc <- predict(modelo2,test_blc,type = "response")
 niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
 niveles_prnt.blc <-factor(niveles_prnt.blc)
 
-rendimiento_data <- data.frame(observados = test.blc$rotacion,
+# construcción de indicadores ----
+rendimiento_data <- data.frame(observados = test_blc$rotacion,
                              predicciones = niveles_prnt.blc)
 
-```
-
-
-```{r p7-solution}
-library(paqueteMOD)
-library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
-
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion ~., data = train.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-test.blc <- ovun.sample(rotacion~., data = test.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
-              family = binomial(link = "logit"), data = train.blc)
-
-# matriz de confusión
-valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
-niveles_prnt.blc <-factor(niveles_prnt.blc)
-
-rendimiento_data <- data.frame(observados = test.blc$rotacion,
-                             predicciones = niveles_prnt.blc)
 Positivos <- sum(rendimiento_data$observados == "Si")
 Negativos <- sum(rendimiento_data$observados == "No")
 Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
@@ -1004,122 +891,20 @@ matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
 rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
 matriz_confusion
-```
+</pre>
 
 
+</br></br>
 
 ### **Problema 8**
 
 Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
 
-**Nota** En caso de que el código no corra dentro del tutorial, cópielo en un script de su RStudio local y corralo. Debe funcionar
 
+#### **Código R**
 
-```{r p8, exercise=TRUE, exercise.lines = 35}
-library(paqueteMOD)
-library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
+<pre>
 
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion ~., data = train.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-test.blc <- ovun.sample(rotacion ~., data = test.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
-              family = binomial(link = "logit"), data = train.blc)
-
-# matriz de confusión
-valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
-niveles_prnt.blc <-factor(niveles_prnt.blc)
-
-rendimiento_data <- data.frame(observados = test.blc$rotacion,
-                             predicciones = niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados == "Si")
-Negativos <- sum(rendimiento_data$observados == "No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
-Total <- nrow(rendimiento_data)
-VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
-VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
-FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
-FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
-
-matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
-
-rownames(matriz_confusion) = c(" Si ", " No    ")
-colnames(matriz_confusion) = c("Si", "No")
-matriz_confusion
-
-```
-
-
-```{r p8-hint}
-library(paqueteMOD)
-library(ROSE)
-data("datosR")
-names(datosR) = c("rotacion", "edad", "viaje.negocios_", "departamento_", "distancia.casa")
-datosR$rotacion = factor(datosR$rotacion)
-
-ntrain <- nrow(datosR)*0.6
-ntest <- nrow(datosR)*0.4
-
-set.seed(123)
-index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion ~ ., data = train.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-test.blc <- ovun.sample(rotacion ~., data = test.dat, 
-                         p = 0.5, seed = 1, 
-                         method = "over")$data
-
-modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
-              family = binomial(link = "logit"), data = train.blc)
-
-# matriz de confusión
-valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
-niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
-niveles_prnt.blc <-factor(niveles_prnt.blc)
-
-rendimiento_data <- data.frame(observados = test.blc$rotacion,
-                             predicciones = niveles_prnt.blc)
-Positivos <- sum(rendimiento_data$observados == "Si")
-Negativos <- sum(rendimiento_data$observados == "No")
-Positivos_pronosticados <- sum(rendimiento_data$predicciones == "Si")
-Negativos_pronosticados <- sum(rendimiento_data$predicciones == "No")
-Total <- nrow(rendimiento_data)
-VP <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "Si")
-VN <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "No")
-FP <- sum(rendimiento_data$observados == "No" & rendimiento_data$predicciones == "Si")
-FN <- sum(rendimiento_data$observados == "Si" & rendimiento_data$predicciones == "No")
-
-matriz_confusion = matrix(c(VP, FP, FN,VN), nrow = 2)
-
-rownames(matriz_confusion) = c(" Si ", " No    ")
-colnames(matriz_confusion) = c("Si", "No")
-matriz_confusion
-
-```
-
-
-```{r p8-solution}
 library(paqueteMOD)
 library(tidyverse)
 library(ROSE)
@@ -1132,26 +917,33 @@ ntest <- nrow(datosR)*0.4
 
 set.seed(123)
 index_train <- sample(1:nrow(datosR),size = ntrain)
-train.dat <- datosR[index_train,]  # muestra de entrenamiento
-test.dat <- datosR[-index_train,]  # muestra de prueba
-# oversampling
-train.blc <- ovun.sample(rotacion ~., data = train.dat, 
+train_dat <- datosR[index_train,]  # muestra de entrenamiento
+test_dat <- datosR[-index_train,]  # muestra de prueba
+
+assign("train_data", train_dat)
+assign("test_data", test_dat)
+
+# oversampling ----
+train_blc <- ovun.sample(rotacion ~., data = train_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
 
-test.blc <- ovun.sample(rotacion ~., data = test.dat, 
+test_blc <- ovun.sample(rotacion ~., data = test_dat, 
                          p = 0.5, seed = 1, 
                          method = "over")$data
+
+assign("train_blc", train_blc)
+assign("test_blc", test_blc)
 
 modelo2 =  glm(rotacion ~ edad + viaje.negocios_ + departamento_ + distancia.casa, 
-              family = binomial(link = "logit"), data = train.blc)
+              family = binomial(link = "logit"), data = train_blc)
 
-# matriz de confusión
-valor_prnt.blc <- predict(modelo2,test.blc,type = "response")
+# matriz de confusión -----
+valor_prnt.blc <- predict(modelo2,test_blc,type = "response")
 niveles_prnt.blc <- ifelse(valor_prnt.blc > 0.5, "Si","No") 
 niveles_prnt.blc <-factor(niveles_prnt.blc)
 
-rendimiento_data <- data.frame(observados = test.blc$rotacion,
+rendimiento_data <- data.frame(observados = test_blc$rotacion,
                              predicciones = niveles_prnt.blc)
 Positivos <- sum(rendimiento_data$observados == "Si")
 Negativos <- sum(rendimiento_data$observados == "No")
@@ -1169,6 +961,7 @@ rownames(matriz_confusion) = c(" Si ", " No    ")
 colnames(matriz_confusion) = c("Si", "No")
 matriz_confusion
 
+# construcción de indicadores -----
 Exactitud <- (VP + VN)/Total
 Tasa_de_Error <- (FP + FN)/Total
 Sensibilidad <- VP/Positivos
@@ -1187,5 +980,7 @@ rownames(indicadores) = c("Exactitud ",
                          "Valor predicción negativo")
  round(indicadores,3) 
 
-```
+</pre>
+
+
 
