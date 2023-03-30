@@ -32,54 +32,54 @@ c4="#686868" # GRIS COLOR TEXTO
 ##  <div class="content-box-blue">    </div> ## caja azul
 ```
 
-## **PRESENTACIÓN**
+<!-- ## **PRESENTACIÓN** -->
 
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/banner2.png")
-```
-
-
-El presente tutorial contiene preguntas relacionadas con l estimación del modelo y sus supuestos, conceptos importante para la compresión los proceso relacionados con la inferencia realizada sobre los resultados obtenidos por el método de MCO.   
-
-</br>
-  
-#### **CONCEPTOS**
-  
-#### ** ** 
+<!-- ```{r, echo=FALSE, out.width="100%", fig.align = "center"} -->
+<!-- knitr::include_graphics("images/banner2.png") -->
+<!-- ``` -->
 
 
-#### ** **
+<!-- El presente tutorial contiene preguntas relacionadas con l estimación del modelo y sus supuestos, conceptos importante para la compresión los proceso relacionados con la inferencia realizada sobre los resultados obtenidos por el método de MCO.    -->
+
+<!-- </br> -->
+
+<!-- #### **CONCEPTOS** -->
+
+<!-- #### ** **  -->
 
 
-#### **Inferencia sobre los coeficientes**
+<!-- #### ** ** -->
 
 
-#### **Inferencia sobre un subconjunto de coeficientes**
+<!-- #### **Inferencia sobre los coeficientes** -->
+
+
+<!-- #### **Inferencia sobre un subconjunto de coeficientes** -->
 
 
 
-#### **Inferencia sobre pronósticos**
+<!-- #### **Inferencia sobre pronósticos** -->
 
 
-  
-</br></br>
 
-#### **MAPA** 
-  
+<!-- </br></br> -->
 
-```{r, echo=FALSE, , out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/mapa2.png")  
-
-```
+<!-- #### **MAPA**  -->
 
 
-</br></br>
+<!-- ```{r, echo=FALSE, , out.width="100%", fig.align = "center"} -->
+<!-- knitr::include_graphics("images/mapa2.png")   -->
 
-#### **CÓDIGO R**
+<!-- ``` -->
 
-| concepto                   | código                                             |
-|:---------------------------|:---------------------------------------------------|
-                         | `predict(modelo, new_obs)` |
+
+<!-- </br></br> -->
+
+<!-- #### **CÓDIGO R** -->
+
+<!-- | concepto                   | código                                             | -->
+<!-- |:---------------------------|:---------------------------------------------------| -->
+<!--                          | `predict(modelo, new_obs)` | -->
 
 ## **CUESTIONARIO**
 
