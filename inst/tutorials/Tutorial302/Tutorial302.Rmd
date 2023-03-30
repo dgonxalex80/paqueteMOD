@@ -451,14 +451,14 @@ Muestre la representación simultanea de individuos y variables en el primer pla
 ```{r p3, exercise=TRUE, exercise.lines = 5}
 library(paqueteMOD)
 data("beer2")
-ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
+# ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 
 ```
 
 ```{r p3-hint}
 library(paqueteMOD)
 data("beer2")
-factoextra::fviz_pca_biplot()
+# factoextra::fviz_pca_biplot()
 ```
 
 ```{r p3-solution}
@@ -500,16 +500,16 @@ data("animals")
 ```{r p4-hint}
 library(paqueteMOD)
 data("animals")
-distancias <- dist( , method = "euclidean")
-dendograma <- hclust( , method = "average")
+# distancias <- dist( , method = "euclidean")
+# dendograma <- hclust( , method = "average")
 ```
 
 ```{r p4-solution}
 library(paqueteMOD)
 data("animals")
-distancias <- dist(animals, method = "euclidean")
-dendograma <- hclust(distancias, method = "average")
-plot(dendograma)
+# distancias <- dist(animals, method = "euclidean")
+# dendograma <- hclust(distancias, method = "average")
+# plot(dendograma)
 ```
 
 

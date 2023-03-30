@@ -412,7 +412,7 @@ data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;beer2&quot;)
 ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
-factoextra::fviz_pca_var()</code></pre>
+# factoextra::fviz_pca_var()</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="p2-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
@@ -420,7 +420,7 @@ data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;beer2&quot;)
 ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
-factoextra::fviz_pca_var(ACP)</code></pre>
+# factoextra::fviz_pca_var(ACP)</code></pre>
 </div>
 </div>
 <div id="section-problema-3" class="section level3">
@@ -445,7 +445,7 @@ primer plano factorial</p>
 data-diagnostics="1" data-startover="1" data-lines="5">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;beer2&quot;)
-ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)</code></pre>
+# ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="tutorial-exercise-support" data-label="p3-hint"
@@ -453,7 +453,7 @@ data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;beer2&quot;)
-factoextra::fviz_pca_biplot()</code></pre>
+# factoextra::fviz_pca_biplot()</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="p3-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
@@ -461,7 +461,7 @@ data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;beer2&quot;)
 ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
-factoextra::fviz_pca_biplot(ACP)</code></pre>
+# factoextra::fviz_pca_biplot(ACP)</code></pre>
 </div>
 </div>
 <div id="section-problema-4" class="section level3">
@@ -498,17 +498,17 @@ data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;animals&quot;)
-distancias &lt;- dist( , method = &quot;euclidean&quot;)
-dendograma &lt;- hclust( , method = &quot;average&quot;)</code></pre>
+# distancias &lt;- dist( , method = &quot;euclidean&quot;)
+# dendograma &lt;- hclust( , method = &quot;average&quot;)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="p4-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>library(paqueteMOD)
 data(&quot;animals&quot;)
-distancias &lt;- dist(animals, method = &quot;euclidean&quot;)
-dendograma &lt;- hclust(distancias, method = &quot;average&quot;)
-plot(dendograma)</code></pre>
+# distancias &lt;- dist(animals, method = &quot;euclidean&quot;)
+# dendograma &lt;- hclust(distancias, method = &quot;average&quot;)
+# plot(dendograma)</code></pre>
 </div>
 <p>
 <script type="application/shiny-prerendered" data-context="server-start">
@@ -553,24 +553,24 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q1-1", question = structure("El  principal objetivo del análisis de componentes principales es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a77af45", 
+"character")), answers = list(structure(list(id = "lnr_ans_9f3f2a0", 
     option = "Modelar la variable respuesta mediante la combinación lineal de un conjunto de covariables", 
     value = "Modelar la variable respuesta mediante la combinación lineal de un conjunto de covariables", 
     label = structure("Modelar la variable respuesta mediante la combinación lineal de un conjunto de covariables", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3eafc99", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1cdb500", 
     option = "Reducir la dimensionalidad de un conjunto de datos para así poder analizarlos en una menor dimensión perdiendo la menor cantidad de información", 
     value = "Reducir la dimensionalidad de un conjunto de datos para así poder analizarlos en una menor dimensión perdiendo la menor cantidad de información", 
     label = structure("Reducir la dimensionalidad de un conjunto de datos para así poder analizarlos en una menor dimensión perdiendo la menor cantidad de información", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_97efc99", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_223a6c1", 
     option = "Pronosticar los valores futuros de una serie de tiempo mediante medias moviles", 
     value = "Pronosticar los valores futuros de una serie de tiempo mediante medias moviles", 
     label = structure("Pronosticar los valores futuros de una serie de tiempo mediante medias moviles", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_97bd15", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6b55d9b", 
     option = "Analizar los errores de un modelo de regresión lineal", 
     value = "Analizar los errores de un modelo de regresión lineal", 
     label = structure("Analizar los errores de un modelo de regresión lineal", html = TRUE, class = c("html", 
@@ -583,7 +583,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q1-1-answer", question = "q1-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 464725990.283595, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1933858847.59948, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -591,22 +591,22 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q2-1", question = structure("El tipos de datos con los que se pueden realizar un ACP son:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a97247a", 
+"character")), answers = list(structure(list(id = "lnr_ans_5dd8182", 
     option = "Datos cualitativos nominales", value = "Datos cualitativos nominales", 
     label = structure("Datos cualitativos nominales", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cbc8fcc", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_755b7d7", 
     option = "Datos en escala de intervalo", value = "Datos en escala de intervalo", 
     label = structure("Datos en escala de intervalo", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e6c37d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c92b5d2", 
     option = "Solo datos cuantitativos discretos", value = "Solo datos cuantitativos discretos", 
     label = structure("Solo datos cuantitativos discretos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b818fd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4fcbdb5", 
     option = "Datos cuantitativos, tanto continuos como discretos", 
     value = "Datos cuantitativos, tanto continuos como discretos", 
     label = structure("Datos cuantitativos, tanto continuos como discretos", html = TRUE, class = c("html", 
@@ -618,30 +618,30 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q2-1-answer", question = "q2-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1598700657.75555, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2121206022.51224, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q3-1", question = structure("El primer paso para iniciar  un ACP es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_adafd82", 
+"character")), answers = list(structure(list(id = "lnr_ans_de03a67", 
     option = "Estandarizar las variables", value = "Estandarizar las variables", 
     label = structure("Estandarizar las variables", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6fb468", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b64d6ee", 
     option = "Centrar cada variable, es decir, restarle su media", 
     value = "Centrar cada variable, es decir, restarle su media", 
     label = structure("Centrar cada variable, es decir, restarle su media", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_db7b056", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_faedf96", 
     option = "Calcular la matriz de correlaciones de las variables", 
     value = "Calcular la matriz de correlaciones de las variables", 
     label = structure("Calcular la matriz de correlaciones de las variables", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5c1b5c1", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_44a35d8", 
     option = "Calcular los vectores propios del conjunto de datos", 
     value = "Calcular los vectores propios del conjunto de datos", 
     label = structure("Calcular los vectores propios del conjunto de datos", html = TRUE, class = c("html", 
@@ -654,7 +654,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q3-1-answer", question = "q3-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 492992437.270433, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 372565875.82651, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -662,24 +662,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q4-1", question = structure("La inercia o varianza explicada :", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_4f8ca7b", 
+"character")), answers = list(structure(list(id = "lnr_ans_e6b5ee8", 
     option = "Es el porcentaje de correlación parcial de cada par de variables del conjunto de datos", 
     value = "Es el porcentaje de correlación parcial de cada par de variables del conjunto de datos", 
     label = structure("Es el porcentaje de correlación parcial de cada par de variables del conjunto de datos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b4633b0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_84f31f8", 
     option = "Es la cantidad de varianza total de las variables originales que es explicada por las componentes principales", 
     value = "Es la cantidad de varianza total de las variables originales que es explicada por las componentes principales", 
     label = structure("Es la cantidad de varianza total de las variables originales que es explicada por las componentes principales", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b4b4703", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc533b6", 
     option = "Es la contribución de cada individuo a la conformación de cada componente principal", 
     value = "Es la contribución de cada individuo a la conformación de cada componente principal", 
     label = structure("Es la contribución de cada individuo a la conformación de cada componente principal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5236047", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_11b8433", 
     option = "Es la suma de los coeficientes de correlación para cada par de variables del conjunto de datos", 
     value = "Es la suma de los coeficientes de correlación para cada par de variables del conjunto de datos", 
     label = structure("Es la suma de los coeficientes de correlación para cada par de variables del conjunto de datos", html = TRUE, class = c("html", 
@@ -692,32 +692,32 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q4-1-answer", question = "q4-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2084812052.02918, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2046046534.54724, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q5-1", question = structure("La relación que existe entre las variables originales y las componentes principales es que :", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_aefa845", 
+"character")), answers = list(structure(list(id = "lnr_ans_f03f54e", 
     option = "Las componentes principales son los valores ajustados de los modelos de regresión calculados mediante las variables originales", 
     value = "Las componentes principales son los valores ajustados de los modelos de regresión calculados mediante las variables originales", 
     label = structure("Las componentes principales son los valores ajustados de los modelos de regresión calculados mediante las variables originales", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f8be6b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bee2139", 
     option = "Las componentes principales son una productoria de la matriz de correlaciones", 
     value = "Las componentes principales son una productoria de la matriz de correlaciones", 
     label = structure("Las componentes principales son una productoria de la matriz de correlaciones", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_60c60be", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f199db8", 
     option = "Las variables originales se pueden obtener realizando producto punto entre las componentes principales", 
     value = "Las variables originales se pueden obtener realizando producto punto entre las componentes principales", 
     label = structure("Las variables originales se pueden obtener realizando producto punto entre las componentes principales", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1800850", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f1b746", 
     option = "Las componentes principales son combinaciones lineales de las variables originales estandarizadas", 
     value = "Las componentes principales son combinaciones lineales de las variables originales estandarizadas", 
     label = structure("Las componentes principales son combinaciones lineales de las variables originales estandarizadas", html = TRUE, class = c("html", 
@@ -729,7 +729,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q5-1-answer", question = "q5-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1550841817.27783, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 398121240.31461, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -737,20 +737,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q6-1", question = structure("El número del total de componentes a retener es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_90308c5", 
+"character")), answers = list(structure(list(id = "lnr_ans_cc2312d", 
     option = "n: número de individuos", value = "n: número de individuos", 
     label = structure("n: número de individuos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6dd56b0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4582e9f", 
     option = "p: número de variables", value = "p: número de variables", 
     label = structure("p: número de variables", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_18bda90", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fb5091e", 
     option = "n-p", value = "n-p", label = structure("n-p", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5a23fb0", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_14e4a05", 
     option = "n*p", value = "n*p", label = structure("n*p", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -761,29 +761,29 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q6-1-answer", question = "q6-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 280556219.869356, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1874912833.62693, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q7-1", question = structure("El objetivo principal del análisis de conglomerados es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9d4541c", 
+"character")), answers = list(structure(list(id = "lnr_ans_fcdb52f", 
     option = "Emplear técnicas de mineria de datos para encontrar componentes principales", 
     value = "Emplear técnicas de mineria de datos para encontrar componentes principales", 
     label = structure("Emplear técnicas de mineria de datos para encontrar componentes principales", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e1a4fa9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6966d4e", 
     option = "Agrupar objetos similares en categorías o clusters basándose en su similitud y diferencias en sus características o variables.", 
     value = "Agrupar objetos similares en categorías o clusters basándose en su similitud y diferencias en sus características o variables.", 
     label = structure("Agrupar objetos similares en categorías o clusters basándose en su similitud y diferencias en sus características o variables.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d4f906d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a63c5c7", 
     option = "Agrupar objetos de acuerdo a su disimilitud", value = "Agrupar objetos de acuerdo a su disimilitud", 
     label = structure("Agrupar objetos de acuerdo a su disimilitud", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_42613a2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a4c8dc0", 
     option = "Analizar los errores de un modelo de regresión lineal", 
     value = "Analizar los errores de un modelo de regresión lineal", 
     label = structure("Analizar los errores de un modelo de regresión lineal", html = TRUE, class = c("html", 
@@ -796,7 +796,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q7-1-answer", question = "q7-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1384462731.85531, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 65363734.4695626, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -804,21 +804,21 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q8-1", question = structure("El tipos de datos se pueden analizar con el análisis de conglomerados son:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_52393c3", 
+"character")), answers = list(structure(list(id = "lnr_ans_859d1de", 
     option = "Datos cuantitativos y cualitativos", value = "Datos cuantitativos y cualitativos", 
     label = structure("Datos cuantitativos y cualitativos", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2b5620", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c7edc5c", 
     option = "Solo datos cuantitativos contintuos", value = "Solo datos cuantitativos contintuos", 
     label = structure("Solo datos cuantitativos contintuos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d2f35ad", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e24e919", 
     option = "Solo datos cuantitativos discretos", value = "Solo datos cuantitativos discretos", 
     label = structure("Solo datos cuantitativos discretos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cd0c021", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6116ac9", 
     option = "Solo datos cualitativos", value = "Solo datos cualitativos", 
     label = structure("Solo datos cualitativos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
@@ -830,32 +830,32 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q8-1-answer", question = "q8-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 45908679.4786221, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 392622213.317171, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q9-1", question = structure("La medida de similitud en el análisis de conglomerados es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a8c1e4a", 
+"character")), answers = list(structure(list(id = "lnr_ans_8e75484", 
     option = "Es una medida númerica que mide la correlación entre dos individuos", 
     value = "Es una medida númerica que mide la correlación entre dos individuos", 
     label = structure("Es una medida númerica que mide la correlación entre dos individuos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c614ef2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4a2d02c", 
     option = "Es una medida en escala de intervalo que permite evaluar la similitud entre dos objetos o grupos", 
     value = "Es una medida en escala de intervalo que permite evaluar la similitud entre dos objetos o grupos", 
     label = structure("Es una medida en escala de intervalo que permite evaluar la similitud entre dos objetos o grupos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1ac98f9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f1354e3", 
     option = "Es una medida de bondad de ajuste del análisis de conglomerados", 
     value = "Es una medida de bondad de ajuste del análisis de conglomerados", 
     label = structure("Es una medida de bondad de ajuste del análisis de conglomerados", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2cbc9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9d71cc7", 
     option = "Es una medida numérica para evaluar la similitud o diferencia entre dos objetos o grupos", 
     value = "Es una medida numérica para evaluar la similitud o diferencia entre dos objetos o grupos", 
     label = structure("Es una medida numérica para evaluar la similitud o diferencia entre dos objetos o grupos", html = TRUE, class = c("html", 
@@ -867,7 +867,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q9-1-answer", question = "q9-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1136866914.97061, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1024476704.52294, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -875,24 +875,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q10-1", question = structure("El dendrograma y se interpretan :", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_684b2a3", 
+"character")), answers = list(structure(list(id = "lnr_ans_cd244c6", 
     option = "Es un tipo de diagrama de árbol utilizado para representar las correlaciones entre los n individuos de la muestra.\n                  ", 
     value = "Es un tipo de diagrama de árbol utilizado para representar las correlaciones entre los n individuos de la muestra.\n                  ", 
     label = structure("Es un tipo de diagrama de árbol utilizado para representar las correlaciones entre los n individuos de la muestra.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2344eff", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f45ed1a", 
     option = "Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre las variables y los individuos, facilitando la selección de un número k de clusters", 
     value = "Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre las variables y los individuos, facilitando la selección de un número k de clusters", 
     label = structure("Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre las variables y los individuos, facilitando la selección de un número k de clusters", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f848cd2", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_19348ab", 
     option = "Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre los grupos y para ayudar en la selección del número óptimo de grupos.\n", 
     value = "Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre los grupos y para ayudar en la selección del número óptimo de grupos.\n", 
     label = structure("Es un tipo de diagrama de árbol utilizado para representar la relación jerárquica entre los grupos y para ayudar en la selección del número óptimo de grupos.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_42f7c7f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_edfb47f", 
     option = "Es un tipo de diagrama de bosques que ayuda a visualizar el aporte de cada variable a un modelo de regresión", 
     value = "Es un tipo de diagrama de bosques que ayuda a visualizar el aporte de cada variable a un modelo de regresión", 
     label = structure("Es un tipo de diagrama de bosques que ayuda a visualizar el aporte de cada variable a un modelo de regresión", html = TRUE, class = c("html", 
@@ -905,32 +905,32 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q10-1-answer", question = "q10-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1217197880.9332, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 542831694.247224, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q11-1", question = structure("El objetivo de los k-means es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_5fa718e", 
+"character")), answers = list(structure(list(id = "lnr_ans_6355f1d", 
     option = "Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea máxima", 
     value = "Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea máxima", 
     label = structure("Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea máxima", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_85ccda5", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_409c7ba", 
     option = "Calcular un diagrama de arbol que permitirá saber el número óptimo de grupos a utilizar", 
     value = "Calcular un diagrama de arbol que permitirá saber el número óptimo de grupos a utilizar", 
     label = structure("Calcular un diagrama de arbol que permitirá saber el número óptimo de grupos a utilizar", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_310dabf", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9854d51", 
     option = "Calcular las componentes principales para así representar la nube de individuos y el circulo de correlaciones", 
     value = "Calcular las componentes principales para así representar la nube de individuos y el circulo de correlaciones", 
     label = structure("Calcular las componentes principales para así representar la nube de individuos y el circulo de correlaciones", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fc8ccb3", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6d6616f", 
     option = "Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea mínima", 
     value = "Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea mínima", 
     label = structure("Dividir un conjunto de datos en k grupos de tal manera que la suma de las distancias cuadradas entre los objetos y el centroide de su grupo correspondiente sea mínima", html = TRUE, class = c("html", 
@@ -942,7 +942,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q11-1-answer", question = "q11-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 961259854.552379, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2044947046.54775, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -950,18 +950,18 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "q12-1", question = structure("¿Cúal es el número óptimo de grupos a calcular?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_e9f108e", 
+"character")), answers = list(structure(list(id = "lnr_ans_7b8d1df", 
     option = "5", value = "5", label = structure("5", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_964523a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b84bac3", 
     option = "2", value = "2", label = structure("2", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_748bafd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_211649e", 
     option = "4", value = "4", label = structure("4", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_291be05", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_dd17ad5", 
     option = "3", value = "3", label = structure("3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -972,25 +972,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "q12-1-answer", question = "q12-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2042219429.04902, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 519635477.258026, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_13-1", question = structure("¿De acuerdo al criterio del mayor salto de nodo a nodo de las distancias euclidianas, el  número de grupos optimo es:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_cf6c56", 
+"character")), answers = list(structure(list(id = "lnr_ans_3007c42", 
     option = "10", value = "10", label = structure("10", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No, pero no…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_81c915c", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6aa41c1", 
     option = "3", value = "3", label = structure("3", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2abae", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2e8f7f0", 
     option = "4", value = "4", label = structure("4", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ce2118", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_70f6896", 
     option = "5", value = "5", label = structure("5", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…intentalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1001,7 +1001,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_13-1-answer", question = "quiz_13-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1085939514.49432, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1456299163.82186, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1076,7 +1076,7 @@ learnr:::store_exercise_cache(structure(list(label = "p2", global_setup = struct
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
     "data(\"beer2\")", "ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)", 
-    "factoextra::fviz_pca_var(ACP)"), chunk_opts = list(label = "p2-solution")), 
+    "# factoextra::fviz_pca_var(ACP)"), chunk_opts = list(label = "p2-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
@@ -1119,20 +1119,20 @@ learnr:::store_exercise_cache(structure(list(label = "p3", global_setup = struct
 "c3=\"#0eb0c6\" # AZUL CLARO COLOR TERCEARIO  ", "c4=\"#686868\" # GRIS COLOR TEXTO ", 
 "##  <div class=\"content-box-blue\">    <\u002fdiv> ## caja azul"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "p3", code = "library(paqueteMOD)\ndata(\"beer2\")\nACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)\n", 
+    chunks = list(list(label = "p3", code = "library(paqueteMOD)\ndata(\"beer2\")\n# ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)\n", 
         opts = list(label = "\"p3\"", exercise = "TRUE", exercise.lines = "5"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
     "data(\"beer2\")", "ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)", 
-    "factoextra::fviz_pca_biplot(ACP)"), chunk_opts = list(label = "p3-solution")), 
-    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, size = "normalsize", 
-        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "Tutorial302_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "Tutorial302_files/figure-html/", 
+    "# factoextra::fviz_pca_biplot(ACP)"), chunk_opts = list(
+        label = "p3-solution")), tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Tutorial302_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Tutorial302_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1143,7 +1143,7 @@ learnr:::store_exercise_cache(structure(list(label = "p3", global_setup = struct
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, exercise.warn_invisible = FALSE, label = "p3", 
         exercise = TRUE, exercise.lines = 5, code = c("library(paqueteMOD)", 
-        "data(\"beer2\")", "ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)", 
+        "data(\"beer2\")", "# ACP = factoextra::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "p3, exercise=TRUE, exercise.lines = 5", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1171,9 +1171,9 @@ learnr:::store_exercise_cache(structure(list(label = "p4", global_setup = struct
         opts = list(label = "\"p4\"", exercise = "TRUE", exercise.lines = "5"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("library(paqueteMOD)", 
-    "data(\"animals\")", "distancias <- dist(animals, method = \"euclidean\")", 
-    "dendograma <- hclust(distancias, method = \"average\")", 
-    "plot(dendograma)"), chunk_opts = list(label = "p4-solution")), 
+    "data(\"animals\")", "# distancias <- dist(animals, method = \"euclidean\")", 
+    "# dendograma <- hclust(distancias, method = \"average\")", 
+    "# plot(dendograma)"), chunk_opts = list(label = "p4-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
