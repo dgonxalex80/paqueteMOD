@@ -393,7 +393,7 @@ ACP = dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 ```{r p1-solution}
 library(paqueteMOD)
 data("beer2")
-ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
+# ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 ACP$co
 ```
 
@@ -423,14 +423,14 @@ ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 ```{r p2-hint}
 library(paqueteMOD)
 data("beer2")
-ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
+# ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 # factoextra::fviz_pca_var()
 ```
 
 ```{r p2-solution}
 library(paqueteMOD)
 data("beer2")
-ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
+# ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 # factoextra::fviz_pca_var(ACP)
 ```
 
@@ -464,7 +464,7 @@ data("beer2")
 ```{r p3-solution}
 library(paqueteMOD)
 data("beer2")
-ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
+# ACP = ade4::dudi.pca(beer2, scannf=FALSE, center = TRUE, scale = TRUE)
 # factoextra::fviz_pca_biplot(ACP)
 ```
 
