@@ -22,9 +22,7 @@ Imports:
     gridExtra,
     knitr,
     learnr,
-    normtest,
     nortest,
-    psych,
     ROSE,
     stargazer,
     summarytools
