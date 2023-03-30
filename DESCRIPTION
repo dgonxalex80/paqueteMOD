@@ -19,7 +19,6 @@ Imports:
     broom,
     cubature,
     dplyr,
-    factorextra,
     ggplot2,
     gridExtra,
     knitr,
