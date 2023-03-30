@@ -294,7 +294,7 @@ test.blc <- ovun.sample(rotacion~., data=test,
 
 quiz(
   question("En un modelo de diseño de experimentos las variables independientes deben :",
-           correct = "Correctot!.",
+           correct = "Correcto!.",
            allow_retry = TRUE,
            answer("ser variables cualitativas", message = "Cerca, pero no...intentalo de nuevo!"),
            answer("corresponder a los tratamientos realizados", message = "No...intentalo de nuevo!"),
@@ -315,7 +315,7 @@ quiz(
 
 quiz(
   question("La función que sirve de enlace en el modelo logit para la estimación de la probabilidad de ocurrencia de Y es:",
-           correct = "Respuesta y explicación!, .",
+           correct = "Correcto! .",
            allow_retry = TRUE,
            answer("función normal", message = "No...intentalo de nuevo!"),
            answer("función binomial", message = "No...intentalo de nuevo!"),
@@ -364,7 +364,7 @@ quiz(
            answer("normal", message = "No...intentalo de nuevo!"),
            answer("exponencial", message = "No...intentalo de nuevo!"),
            answer("logaritmica", correct = TRUE),
-           answer("logistica", message = "Incorrecto. Intenta de nuevo!."),
+           answer("logística", message = "Incorrecto. Intenta de nuevo!."),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -375,11 +375,13 @@ quiz(
 ```
 
 
-### **Pregunta 5**factor 0,1 yes no
+### **Pregunta 5**
 
 El siguiente resultado corresponde a la estimación de un modelo logit, a partir de los datos contenidos en la `matriculah`, contenida en `paqueteMOD`
 
 El objetivo principal del modelo corresponde a la estimación de la probabilidad de que un estudiante lobre obtener una matricula de honor a partir de su nota de matematicas obtenida en una prueba de diagnóstica.
+
+</br>
 
 <pre>
 Call:
@@ -394,7 +396,12 @@ matematicas  0.14415    0.01113   12.95   <2e-16 ***
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 </pre>
 
+</br>
+
 El estimador $\widehat{\beta}_1 = 0.14415$  se puede interpretar como:
+
+</br>
+
 ```{r quiz_5}
 
 quiz(
@@ -404,7 +411,7 @@ quiz(
            answer("Un incremento de un punto en la nota, genera un incremento de 0.14415 en la probabilidad de obtener matricula de honor", message = "No...intentalo de nuevo!"),
            answer("Corresponde al incremento obtenido subre la variable dependiente en el modelo", message = "No...intentalo de nuevo!"),
            answer("Corresponde al incremento de la varianza de los errores causados por un incremento en la nota obtenida en matemáticas", message = "Incorrecto. Intenta de nuevo!."),
-           answer("Para su interpretación es necesario transformar con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por el incremento unitario en la variable independiente", correct = TRUE),
+           answer("Para su interpretación es necesario transformar el estimador con la función exponencial (exp{0.14415}= 1.55057), indicando el incremento en la razón odds causado por un incremento unitario en la variable independiente", correct = TRUE),
            # Si no cambiamos estos textos en los botones, se mostrarán en Inglés
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
@@ -796,6 +803,13 @@ table(train$rotacion) %>%   prop.table()
 </pre>
 
 
+**Nota** : A continuación se presenta el código de la solución a la pregunta, debido a que dentro de ella se utiliza la función `ovun.sample()` del paquete `ROSE`,  la cual genera un objeto por fuera del ambiente del tutorial, generando así un error en su ejecución.
+
+Copie el código en un Script de R o dentro de un bloque de Rmd y podrá visualizar el resultado requerido
+
+</br></br>
+
+
 #### **Código R**
 
 <pre>
@@ -834,7 +848,11 @@ prop.table(table(train_blc$rotacion))
 
 Realice la estimación y la determine la capacidad discriminante del modelo a partir de las bases balanceadas
 
-#### **Código R**
+**Nota** : A continuación se presenta el código de la solución a la pregunta, debido a que dentro de ella se utiliza la función `ovun.sample()` del paquete `ROSE`,  la cual genera un objeto por fuera del ambiente del tutorial, generando así un error en su ejecución.
+
+Copie el código en un Script de R o dentro de un bloque de Rmd y podrá visualizar el resultado requerido
+
+</br></br>
 
 <pre>
 
@@ -901,7 +919,11 @@ matriz_confusion
 Finalmente estime los indicadores para el modelo 2 estimado con las bases balanceadas
 
 
-#### **Código R**
+**Nota** : A continuación se presenta el código de la solución a la pregunta, debido a que dentro de ella se utiliza la función `ovun.sample()` del paquete `ROSE`,  la cual genera un objeto por fuera del ambiente del tutorial, generando así un error en su ejecución.
+
+Copie el código en un Script de R o dentro de un bloque de Rmd y podrá visualizar el resultado requerido
+
+</br></br>
 
 <pre>
 
