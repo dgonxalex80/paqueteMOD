@@ -14,9 +14,3 @@
 #' }
 #'
 "animals"
-
-
-
-p = paqueteMOD::animals
-View(p)
-str(p)
