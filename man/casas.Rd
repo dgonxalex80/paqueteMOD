@@ -26,6 +26,6 @@ Data con 54 registros y 10 variables
   Esta data extraida mediante web scraping contiene caracteristicas de casas.
 }
 \examples{
-  casas
+  data(casas)
 }
 \keyword{datasets}

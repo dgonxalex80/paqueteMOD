@@ -19,6 +19,6 @@ Data con 15 registros y 3 variables
   Esta data contiene información sobre las ventas de empleados de una compañía.
 }
 \examples{
-  ventas
+  data(ventas)
 }
 \keyword{datasets}

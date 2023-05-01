@@ -21,6 +21,6 @@ Data con 25 registros y 5 variables
   Esta data contiene información de cinco componentes de la leche materna de 25 especies de animales.
 }
 \examples{
-  animals
+  data(animals)
 }
 \keyword{datasets}

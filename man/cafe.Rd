@@ -23,6 +23,6 @@ Data con 10 registros y 7 variables
   Esta data contiene información sobre distintos tipos de café. Todos los puntajes están en un rango de 1 a 10.
 }
 \examples{
-  cafe
+  data(cafe)
 }
 \keyword{datasets}

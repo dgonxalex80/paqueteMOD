@@ -18,6 +18,6 @@ Data con 200 registros y 2 variables
   Esta data contiene las notas del último parcial de mátematicas de estudiantes de universidad.
 }
 \examples{
-  dataMat
+  data(dataMat)
 }
 \keyword{datasets}

@@ -21,6 +21,6 @@ Data con 35 registros y 5 variables
   Esta data contiene información sobre distintos tipos de whisky.
 }
 \examples{
-  whisky
+  data(whisky)
 }
 \keyword{datasets}

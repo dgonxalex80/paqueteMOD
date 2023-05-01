@@ -21,6 +21,6 @@ Data con 1470 registros y 5 variables
   Esta data contiene información sobre trabajadores de una compañía.
 }
 \examples{
-  datosR
+  data(datosR)
 }
 \keyword{datasets}

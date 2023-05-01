@@ -40,6 +40,6 @@ Data con 1470 registros y 24 variables
   Esta data contiene información sobre trabajadores de una compañía.
 }
 \examples{
-  rotacion
+  data(rotacion)
 }
 \keyword{datasets}

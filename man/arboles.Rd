@@ -20,6 +20,6 @@ Data con 90 registros y 4 variables
   Esta data contiene caracteristicas de arboles
 }
 \examples{
-  arboles
+  data(arboles)
 }
 \keyword{datasets}

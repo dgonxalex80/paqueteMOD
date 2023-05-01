@@ -19,6 +19,6 @@ Data con 19342 registros y 3 variables
   Esta base de datos contiene diversos tópicos y métodos estadísticos que se pueden encontrar en paquetes de R.
 }
 \examples{
-  inventarioPackages
+  data(inventarioPackages)
 }
 \keyword{datasets}

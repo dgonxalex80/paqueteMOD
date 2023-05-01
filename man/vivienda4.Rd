@@ -21,6 +21,6 @@ Data con 1706 registros y 5 variables
   Esta data contiene información sobre caracteristicas de viviendas de la ciudad de Cali.
 }
 \examples{
-  vivienda4
+  data(vivienda4)
 }
 \keyword{datasets}

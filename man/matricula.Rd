@@ -18,6 +18,6 @@ Data con 200 registros y 2 variables
   Esta data contiene información sobre estudiantes graduados de un colegio.
 }
 \examples{
-  matricula
+  data(matricula)
 }
 \keyword{datasets}

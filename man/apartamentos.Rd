@@ -18,6 +18,6 @@ apartamentos
 Esta data contiene el precio y area construida de apartamentos.
 }
 \examples{
-apartamentos
+data(apartamentos)
 }
 \keyword{datasets}

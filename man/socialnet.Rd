@@ -21,6 +21,6 @@ Data con 400 registros y 5 variables
   Esta data contiene información sobre personas que han comprado productos en una red social.
 }
 \examples{
-  socialnet
+  data(socialnet)
 }
 \keyword{datasets}

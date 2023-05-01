@@ -22,6 +22,6 @@ Data con 141 registros y 2 variables
   Esta data contiene la inflación por mes y año en Colombia hasta el 2022.
 }
 \examples{
-  inflacion2022
+  data(inflacion2022)
 }
 \keyword{datasets}

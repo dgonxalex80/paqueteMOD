@@ -29,6 +29,6 @@ Data con 8322 registros y 13 variables
   Esta data extraida mediante web scraping contiene caracteristicas de viviendas de Cali.
 }
 \examples{
-  vivienda
+  data(vivienda)
 }
 \keyword{datasets}

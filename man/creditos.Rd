@@ -21,6 +21,6 @@ Data con 780 registros y 5 variables
   Esta data contiene información sobre clientes morosos y no morosos de una entidad financiera.
 }
 \examples{
-  creditos
+  data(creditos)
 }
 \keyword{datasets}

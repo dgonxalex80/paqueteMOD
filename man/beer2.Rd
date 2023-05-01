@@ -19,6 +19,6 @@ Data con 69 registros y 3 variables
   Esta data contiene caracteristicas 69 tipos de cerveza.
 }
 \examples{
-  beer2
+  data(beer2)
 }
 \keyword{datasets}
