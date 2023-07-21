@@ -3,24 +3,14 @@
 \docType{data}
 \name{animals}
 \alias{animals}
-\title{Leche materna de animales}
+\title{animals}
 \format{
-Data con 25 registros y 5 variables
-\describe{
-\item{water}{Porcentaje de agua que compone la leche materna.}
-\item{protein}{Porcentaje de agua que compone la leche materna.}
-\item{fat}{Porcentaje de grasa que compone la leche materna.}
-\item{lactose}{Porcentaje de lactosa que compone la leche materna.}
-\item{ash}{Porcentaje de ceniza que compone la leche materna.}
-}
+Un objeto de tipo data.frame.
 }
 \usage{
-  animals
+animals
 }
 \description{
-  Esta data contiene información de cinco componentes de la leche materna de 25 especies de animales.
-}
-\examples{
-  data(animals)
+Base de datos con cinco componentes de la leche materna de 25 especies de animales.
 }
 \keyword{datasets}
