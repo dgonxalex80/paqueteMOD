@@ -1,5 +1,5 @@
 ---
-title: "**ANÁLISIS DE CORRELACIÓN**"
+title: "**ANÁLISIS DE COMPONENTES PRINCIPALES**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -8,7 +8,7 @@ output:
     allow_skip: true # permite saltearse los ejercicios. 
     language:
       es: tutorial_es.json
-description: "Tutorial interactivo conceptos básicos de probabilidad" # Esta descripción se ve en el panel Tutorial de RStudio 
+description: "Tutorial interactivo conceptos básicos del análisis multivariado de datos" # Esta descripción se ve en el panel Tutorial de RStudio 
 runtime: shiny_prerendered
 ---
 
@@ -26,22 +26,6 @@ c4="#686868" # GRIS COLOR TEXTO
 #library(PerformanceAnalytics)
 #library(patchwork)
 #-----------------------------------------------
-Theme1= theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12))
-
-#-------------------------------------------------------------------------
-gen.corr.data<- function(rho,n){
-x <- rnorm(n)
-z <- rnorm(n)
-y<- rho*x + sqrt(1-rho^2)*z
-result <-cbind(y,x)
-return(result)
-}
-library(paqueteMOD)
-data("arboles")
 ##  <div class="content-box-blue">    </div> ## caja azul
 ```
 
@@ -51,161 +35,162 @@ data("arboles")
 knitr::include_graphics("images/modulo1.png")
 ```
 
-El presente tutorial contiene preguntas relacionadas con  el análisis de correlación y el modelo regresión lineal simple. A continuación se presentan un resumen  con los principales conceptos:
+El presente tutorial contiene preguntas relacionadas con  el análisis de componentes principales. A continuación se presentan un resumen  con los principales conceptos:
 
 </br>
 
 ### **CONCEPTOS**
 
-A continuación se relacionan los principales conceptos sobre correlación y el modelo de regresión lineal simple
+El análisis de componentes principales (PCA) es una técnica ampliamente utilizada para reducir la dimensionalidad de un conjunto de datos mientras mantiene la mayor cantidad de información posible. Aquí están los principales conceptos asociados con el análisis de componentes principales:
+
+<br/>
+
+#### **Reducción de dimensionalidad**: 
+
+PCA se utiliza para transformar un conjunto de datos de alta dimensionalidad en un espacio de menor dimensión, donde las nuevas variables (componentes principales) son combinaciones lineales de las variables originales. Esto ayuda a simplificar la interpretación y visualización de los datos.
+
+<br/>
+
+#### **Componentes principales**: 
+
+Son las nuevas variables que resultan de la transformación realizada por PCA. Estas componentes están ordenadas en función de la cantidad de varianza que capturan en los datos. La primera componente principal captura la mayor varianza, la segunda componente principal captura la segunda mayor varianza y así sucesivamente.
+
+<br/>
+
+#### **Varianza**: 
+
+Es una medida de dispersión de los datos alrededor de su media. Las componentes principales se seleccionan de manera que capturen la mayor cantidad posible de varianza en los datos originales.
+
+<br/>
+
+#### **Ortogonalidad**: 
+
+Las componentes principales son ortogonales entre sí, lo que significa que no están correlacionadas. Esto asegura que las nuevas variables no tengan información redundante.
+
+<br/>
+
+#### **Eigenvector y Eigenvalor**: 
+
+En el cálculo de PCA, se utilizan los eigenvectores y eigenvalores de la matriz de covarianza o matriz de correlación de los datos para obtener las componentes principales. Los eigenvectores son las direcciones de las componentes principales y los eigenvalores representan la cantidad de varianza que captura cada eigenvector.
+
+<br/>
+
+#### **Covarianza o Correlación**: 
+
+Antes de aplicar PCA, es común estandarizar los datos (restar la media y dividir por la desviación estándar) para asegurar que todas las variables contribuyan por igual al análisis. Luego, se calcula la matriz de covarianza o correlación de los datos.
+
+<br/>
+
+#### **Explicación de la varianza**: 
+
+Es importante evaluar cuánta varianza explica cada componente principal. La suma de las varianzas explicadas por todas las componentes principales da como resultado la varianza total de los datos. Esto permite determinar cuánta información se preserva al reducir la dimensión.
+
+<br/>
+
+#### **Número de componentes principales**: 
+
+Una decisión crítica en PCA es determinar cuántas componentes principales retener. Se puede utilizar la "regla del codo" o el criterio de explicación de la varianza para seleccionar el número apropiado de componentes.
+
+<br/>
+
+#### **Aplicaciones**: 
+
+PCA se utiliza en diversas aplicaciones, como reducción de dimensionalidad para visualización, compresión de imágenes, eliminación de correlación en datos antes de análisis de regresión, entre otros.
+
+<br/>
+
+#### **Limitaciones**: 
+
+Aunque PCA es una técnica poderosa, también tiene sus limitaciones. Por ejemplo, puede no ser adecuado para datos con relaciones no lineales complejas, ya que busca relaciones lineales entre variables.
+
+En resumen, el análisis de componentes principales es una herramienta valiosa para reducir la complejidad de conjuntos de datos de alta dimensión, permitiendo una mejor comprensión y análisis de la información.
 
 </br>
 
-#### **COEFICIENTE DE CORRELACION DE PEARSON**
-
-El coeficiente de correlación de Pearson mide la magnitud de la **asociación lineal** entre dos variables numéricas en escala de razón.  
-
-$$r = \dfrac{cov(x,y)}{\sqrt{s_{x}^{2}\hspace{0.1cm} s_{y}^{2}}}$$
-<center>
 
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/PlotsRho.png")
+# knitr::include_graphics("images/PlotsRho.png")
 ```
  
-</center>
-
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/Rho.png")
-```
-
-<pre>
-x=c(18.6, 20.6, 18.8, 21.5, 18.9, 18.6, 17.8, 19.9, 21.6, 22.1)
-y=c(10.4, 11.3,  9.1, 11.0,  8.6,  9.4,  8.4, 10.3, 10.5, 11.9)
-cor(x,y)
-</pre>
-
-
-```{r}
-x=c(18.6, 20.6, 18.8, 21.5, 18.9, 18.6, 17.8, 19.9, 21.6, 22.1)
-y=c(10.4, 11.3,  9.1, 11.0,  8.6,  9.4,  8.4, 10.3, 10.5, 11.9)
-cor(x,y)
-```
-
-
-</br></br>
-
-#### **COEFICIENTE DE CORRELACION SPEARMAN**
-
-Este coeficiente emplea en variables numéricas en escala de intervalo, construidas como resultado de instrumentos estandarizados para medir variables latentes, que son de observación directa
-
-
-<!-- ### **MAPA**  -->
-
-```{r, echo=FALSE, , out.width="100%", fig.align = "center"}
-#knitr::include_graphics("images/Indicadores.png")  
-
-```
-
 
 ## **CUESTIONARIO**
 
 ### **Pregunta 1**
 
-El siguente gráfico representa la relación entre dos variables $X$ y $Y$. 
-
-
-```{r, echo=FALSE, , out.width="70%", fig.align = "center"}
-knitr::include_graphics("images/RplotRho2.png")  
-```
-
-
 ```{r quiz_1}
 
 quiz(
-  question("Se puede afirmar que :" , 
-           correct = "Aunque la relación entre X y Y no es perfecta, la nube de puntos si presenta una forma que permite observar una relación lineal media, .", 
+  question("¿Qué objetivo principal tiene el análisis de componentes principales (PCA)?", 
+           correct = "Correcto!, (b) Realizar una proyección de los datos en un espacio de menor dimensión, por lo general en dos dimensiones.", 
            allow_retry = TRUE,
-           answer("La variable X y la variable Y, tienen una relación causal", message = "No, pero no...intentalo de nuevo!"),
-           answer("La variable X y la variable Y, tienen una relación lineal negativa media",  correct = TRUE),
-           answer("La variable X y la variable Y, tiene una relación alta pero no lineal", message = "Incorrecto. Intenta de nuevo!."),
-           answer("La variable X y la variable Y, no presentan ninguna relación estadística", message = "No...intentalo de nuevo!"),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
+           answer("a) Reducir el tamaño de la muestra de datos.", message = "No...inténtalo de nuevo!"),
+           answer("b) Realizar una proyección de los datos en un espacio de menor dimensión.", correct = TRUE),
+           answer("c) Aumentar la complejidad de los datos para un mejor ajuste del modelo.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Asegurar que los datos originales no se vean afectados por el análisis.", message = "No...inténtalo de nuevo!"),
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+  caption = "  "
 )
 
 ```
-
 
 ### **Pregunta 2**
 
 ```{r quiz_2}
 
 quiz(
-  question("Cuando las variables de estudio proceden de un instrumento con preguntas con respueta en escala ordinal, convertidas en escala de intervalo, el indicador apropiado para medir la asociación de la suma de resultados obtenidos por las persoanas para diferentes factores del instrumento es: ", 
-           correct = "Correcto!, el coeficiente de correlación de Spearman corresponde a un indicador no paramétrico que se utiliza en variables numéricas de escala de intervalo.", 
+  question("¿Cuál de las siguientes afirmaciones es cierta acerca de las componentes principales?",
+           correct = "Correcto|, (b) Los componentes principales resultantes son ortogonales o independientes (perpendiculares entre sí).",
            allow_retry = TRUE,
-           answer("Coeficiente de Pearson", message = "No, pero...intentalo de nuevo!"),
-           answer("Coeficiente de Spearman", correct = TRUE),
-           answer("Coeficiente Tau b de Kendal", message = "Incorrecto. Intenta de nuevo!."),
-           answer("Coeficiente Eta", message = "No...intentalo de nuevo!"),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
+           answer("a) Son iguales a las variables originales del conjunto de datos.", message = "No...inténtalo de nuevo!"),
+           answer("b) Son perpendiculares entre sí.", correct = TRUE),
+           answer("c) Son útiles solo para conjuntos de datos bidimensionales.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) No están relacionadas con la varianza de los datos.", message = "No...inténtalo de nuevo!"),
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+  caption = "  "
 )
 
-```
 
+```
 
 ### **Pregunta 3**
 
 ```{r quiz_3}
 
 quiz(
-  question("El coeficiente de correlación toma su signo positivo o negativo", 
-           correct = "Correcto!, el coeficiente se obtiena al dividir la cov(x,y) con la raiz cuadra de la multiplicación de las varianzas de X y Y. , . Donde las varianza son siempre positivas. El signo entonces está asociado con la covarianza. Cov(X,Y)=E(XY)-E(X)E(Y)", 
+  question("¿Qué propiedad de las componentes principales las ordena según su importancia?",
+           correct = "Correcto!, (a) Los componentes principales son ordenados por magnitud de la varianza que representan, de mayor a menor.",
            allow_retry = TRUE,
-           answer("Del valor esperado de X, E[X]", message = "No...intentalo de nuevo!"),
-           answer("Del valor esperado de Y, E[Y]", message = "No...intentalo de nuevo!"),
-           answer("De la varianza de X por la varianza de Y, V[X]V[Y]", message = "Incorrecto. Intenta de nuevo!."),
-           answer("Del valor esperado conjunto de X y Y , E[XY] ", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
+           answer("a) Magnitud de la varianza que representan.", correct = TRUE),
+           answer("b) Cantidad de datos que explican.", message = "No...inténtalo de nuevo!"),
+           answer("c) Número de variables originales que incluyen.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Promedio de la correlación con otras componentes.", message = "No...inténtalo de nuevo!"),
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+  caption = "  "
 )
 
 ```
 
 ### **Pregunta 4**
 
-
-```{r, echo=FALSE, , out.width="70%", fig.align = "center"}
-knitr::include_graphics("images/RplotRho3.png")  
-```
-
 ```{r quiz_4}
 
 quiz(
-  question("De la gráfica se puede afirmar", 
-           correct = "Correcto!, existe una relación cuadrática entre las variables.", 
+  question("Si utilizamos PCA para reducir la dimensión de un conjunto de datos, ¿qué información perdemos?",
+           correct = "Correcto!, (c) Algunos detalles y ruido presentes en los datos originales.",
            allow_retry = TRUE,
-           answer("Existe una relación lineal positiva", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("Existe una relación lineal negativa", message = "Nop...intentalo de nuevo!"),
-           answer("No existe una relación lineal", message = "Incorrecto. Intenta de nuevo!."),
-           answer("Existe relación no lineal", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
+           answer("a) La media y la varianza de las variables originales.", message = "No...inténtalo de nuevo!"),
+           answer("b) La media y la desviación estándar de las variables originales.", message = "No...inténtalo de nuevo!"),
+           answer("c) Algunos detalles y ruido presentes en los datos originales.", correct = TRUE),
+           answer("d) La correlación entre las variables originales.", message = "Incorrecto. Intenta de nuevo!."),
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
   caption = "  "
 )
+
 
 ```
 
@@ -215,79 +200,121 @@ quiz(
 ```{r quiz_5}
 
 quiz(
-  question("Suponga que la correlación de Pearson entre dos variables es igual a 0.56. Podemos afirmar que:", 
-           correct = "Correcto!, valores cercanos a 0.50, son considerados como una fuerza lineal media.", 
+  question("¿Cuál es una ventaja clave del análisis de componentes principales?",
+           correct = "Correcto!, (a) Aumenta la interpretación de los datos originales, permitiendo representar los registros en un plano cartesiano.",
            allow_retry = TRUE,
-           answer("No existe una relación media entre las variables", message = "No...intentalo de nuevo!"),
-           answer("La relación entre las variables es debil", message = "Nop...intentalo de nuevo!"),
-           answer("La relación entre las variables muy fuerte", message = "Incorrecto. Intenta de nuevo!."),
-           answer("La la relación entre las variables es media", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
+           answer("a) Aumenta la interpretación de los datos originales.", correct = TRUE),
+           answer("b) Mantiene inalterados los tamaños de los conjuntos de datos.", message = "No...inténtalo de nuevo!"),
+           answer("c) No requiere cálculos matemáticos complejos.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Permite identificar outliers de manera efectiva.", message = "No...inténtalo de nuevo!"),
            submit_button = "Enviar respuesta",
            try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
   caption = "  "
 )
 
-```
-
-
-## **PROBLEMAS**
-
-
-### **Problema 1**
-
-Para el grupo de datos contenidos en la base arboles (data(arboles))  determine que variable (altura o diametro) tiene más relación con la variable peso. 
-
-```{r p1, exercise=TRUE, exercise.lines = 5}
-library(paqueteMOD)
-data("arboles")
 
 ```
 
 
-```{r p1-hint}
-library(paqueteMOD)
-data("arboles")
-cor(,)
+### **Pregunta 6**
+
+```{r quiz_6}
+
+quiz(
+  question("¿Cuál es el resultado de aplicar PCA a un conjunto de datos con 100 observaciones y 10 variables?",
+           correct = "Correcto!, (b) Se obtienen 10 componentes principales, ordenados por la magnitud de la varianza que explica cada uno.",
+           allow_retry = TRUE,
+           answer("a) Se obtienen 100 componentes principales.", message = "No...inténtalo de nuevo!"),
+           answer("b) Se obtienen 10 componentes principales.", correct = TRUE),
+           answer("c) Se obtiene un único componente principal.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) El número de componentes principales depende de la varianza de los datos.", message = "No...inténtalo de nuevo!"),
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
 
 ```
 
 
-```{r p1-solution}
-library(paqueteMOD)
-data("arboles")
-cor(arboles$peso,arboles$diametro)
-cor(arboles$peso,arboles$altura)
-```
+### **Pregunta 7**
 
+```{r quiz_7}
 
+quiz(
+  question("¿Qué transformación realiza PCA sobre los datos originales antes de calcular las componentes principales?",
+           correct = "Correcto!, (a) Escalamiento de los datos a una media de cero y desviación estándar de uno.",
+           allow_retry = TRUE,
+           answer("a) Escalamiento de los datos a una media de cero y desviación estándar de uno.", correct = TRUE),
+           answer("b) Reemplazo de los valores faltantes por ceros.", message = "No...inténtalo de nuevo!"),
+           answer("c) Reducción de la dimensión del conjunto de datos.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Aplicación de un algoritmo de clasificación.", message = "No...inténtalo de nuevo!"),
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
 
-### **Problema 2**
-
-Realice las pruebas de hipótesis con las que pueda verificar si las correlaciones entre las variables : peso, diametro y altura son diferentes de cero
-
-
-```{r p2, exercise=TRUE, exercise.lines = 15}
-library(paqueteMOD)
-data("arboles")
-
-```
-
-
-```{r p2-hint}
-library(paqueteMOD)
-data("arboles")
-cor.test()
 
 ```
 
+### **Pregunta 8**
 
-```{r p2-solution}
-library(paqueteMOD)
-data("arboles")
-arboles=as.data.frame(arboles)
-cor.test(arboles$peso,arboles$diametro)
-cor.test(arboles$peso, arboles$altura)
+```{r quiz_8}
+
+quiz(
+  question("¿Cuál es una desventaja potencial del análisis de componentes principales?",
+           correct = "Correcto!, (b) Puede ser sensible a outliers presentes en los datos.",
+           allow_retry = TRUE,
+           answer("a) No se puede aplicar a conjuntos de datos con más de dos dimensiones.", message = "No...inténtalo de nuevo!"),
+           answer("b) Puede ser sensible a outliers presentes en los datos.", correct = TRUE),
+           answer("c) No permite reducir la complejidad de los modelos de aprendizaje automático.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Solo es útil para conjuntos de datos con distribuciones normales.", message = "No...inténtalo de nuevo!"),
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
+
+```
+
+### **Pregunta 9**
+
+```{r quiz_9}
+
+quiz(
+  question("¿Qué porcentaje de varianza explicada es recomendable tener en cuenta al seleccionar las primeras componentes principales?",
+           correct = "Correcto!, (d) Al menos el 95%.",
+           allow_retry = TRUE,
+           answer("a) Al menos el 50%.", message = "No...inténtalo de nuevo!"),
+           answer("b) Al menos el 25%.", message = "No...inténtalo de nuevo!"),
+           answer("c) Al menos el 80%.", message = "Incorrecto. Intenta de nuevo!."),
+           answer("d) Al menos el 95%.", correct = TRUE),
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
+
+```
+
+
+### **Pregunta 10**
+
+```{r quiz_10}
+
+quiz(
+  question("¿Cuál es una aplicación común del análisis de componentes principales?",
+           correct = "Correcto!, (c)) Reducir la dimensión de conjuntos de datos para visualización.",
+           allow_retry = TRUE,
+           answer("a) Generar datos sintéticos aleatorios.", message = "No...inténtalo de nuevo!"),
+           answer("b) Clasificar imágenes en diferentes categorías.", message = "No...inténtalo de nuevo!"),
+           answer("c) Reducir la dimensión de conjuntos de datos para visualización.", correct = TRUE),
+           answer("d) Realizar predicciones de series temporales.", message = "Incorrecto. Intenta de nuevo!."),
+           submit_button = "Enviar respuesta",
+           try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
+
 ```
 

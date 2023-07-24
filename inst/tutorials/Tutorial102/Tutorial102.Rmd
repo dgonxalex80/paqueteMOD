@@ -1,5 +1,5 @@
 ---
-title: "**REGRESIÓN LINEAL SIMPLE**"
+title: "**ANÁLISIS DE CONGLOME- RADOS**"
 author: Modelos Estadística para la toma de decisiones
 output: 
   learnr::tutorial:
@@ -29,209 +29,168 @@ c4="#686868" # GRIS COLOR TEXTO
 ## **PRESENTACIÓN**
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("images/banner2.png")
+knitr::include_graphics("images/modulo1.png")
 ```
 
-El presente tutorial contiene preguntas relacionadas con regresión lineal simple, sus  conceptos más importantes y problemas que se plantean para alcanzar los objetivos planteados en esta unidad 
+El presente tutorial contiene preguntas relacionadas con análisis de conglomerados, sus  conceptos más importantes que se plantean para alcanzar los objetivos planteados en esta unidad 
 
 </br></br>
   
 ### **CONCEPTOS**
-  
-#### **MODELO DE REGRESIÓN **
 
-$$Y= \beta_{0} + \beta_{1} X + \varepsilon$$
-Donde:
+</br>
 
-* ${Y}$: Variable respuesta o dependiente.
-* ${X}$: Variable predictora, independiente o regresora.
-* ${\varepsilon}$: Error aleatorio
-* ${\beta_0}$ es el intercepto y 
-${\beta_1}$ es la pendiente de la línea recta.
+El análisis de conglomerados o clústeres, también conocido como agrupamiento o clustering, es una técnica de aprendizaje no supervisado utilizada para agrupar objetos similares en conjuntos o clústeres. A continuación, se presentan los principales conceptos asociados con el análisis de clústeres:
 
+</br>
+
+#### **Aprendizaje no supervisado**: 
+
+El análisis de clústeres es una forma de aprendizaje no supervisado, lo que significa que no se proporcionan etiquetas o categorías para los datos de antemano. El algoritmo busca patrones o similitudes dentro de los datos sin guía externa.
+
+</br>
+
+#### **Objetos o muestras**: 
+
+Son las unidades individuales de datos en el conjunto de datos. Pueden ser puntos en un espacio n-dimensional o registros en una base de datos.
+
+</br>
+
+#### **Características o variables**: 
+
+Son las diferentes dimensiones o atributos que describen a cada objeto o muestra en el conjunto de datos. Por ejemplo, en un conjunto de datos de clientes, las características podrían ser la edad, el ingreso y la ubicación.
+
+</br>
+
+#### **Distancia o similitud**: 
+
+La medida de distancia o similitud entre dos objetos es fundamental en el análisis de clústeres. Puede ser euclidiana, de Manhattan, de correlación, etc. La elección de la distancia afecta cómo los objetos se agrupan en clústeres.
+
+</br>
+
+#### **Clústeres**: 
+
+Son grupos o conjuntos de objetos que son más similares entre sí que con los objetos en otros clústeres. El objetivo del análisis de clústeres es formar clústeres que sean homogéneos internamente y diferentes entre sí.
+
+</br>
+
+####  **Algoritmos de clústering**: 
+
+Son los métodos y procedimientos utilizados para realizar el análisis de clústeres. Algunos ejemplos populares incluyen K-Means, DBSCAN, Aglomerativo, y Mean Shift.
+
+</br>
+
+####  **Centroide**: 
+
+En el caso del algoritmo K-Means, un clúster está representado por su centroide, que es el punto medio del clúster. Los objetos se asignan al clúster con el centroide más cercano.
+
+* **K-Means**: Agrupa datos en K clústeres al encontrar centroides y asignar puntos al clúster más cercano.Es eficiente y fácil de implementar. Es adecuado para conjuntos de datos grandes.
+* **DBSCAN**: Identifica clústeres basados en la densidad de puntos cercanos, detectando también puntos de ruido. Puede manejar clústeres de diferentes formas y tamaños. No requiere especificar el número de clústeres previamente.
+* **Aglomerativo**: Es un enfoque jerárquico que fusiona clústeres cercanos de manera iterativa. Proporciona una estructura jerárquica de los clústeres, lo que permite visualizar diferentes niveles de agrupación.
+* **Mean Shift**: Encuentra los modos o máximos locales de la densidad de probabilidad para formar clústeres. No requiere especificar previamente el número de clústeres. Es adecuado para datos con formas irregulares o no esféricas.
+
+</br>
+
+####  **Dendrograma**: 
+
+Es una representación gráfica de los resultados del análisis de clúster jerárquico. Muestra cómo los objetos se agrupan en clústeres en diferentes niveles de similitud.
+
+</br>
+
+####  **Métricas de validación**: 
+
+Son medidas utilizadas para evaluar la calidad de los clústeres obtenidos. Algunas métricas comunes incluyen el índice de Silueta, la medida de Dunn, el índice Davies-Bouldin, entre otros.
+
+</br>
+
+#### **Índice de silueta**:
+
+Es una métrica que evalúa la calidad de los clústeres en el análisis de clustering. Varía entre -1 y 1, donde valores cercanos a 1 indican una buena separación entre clústeres, valores cercanos a 0 señalan ambigüedad y valores cercanos a -1 indican una mala asignación de objetos a clústeres. Es útil para comparar diferentes configuraciones de clústeres y tomar decisiones informadas sobre el número óptimo de clústeres.
+
+#### **Aplicaciones**: 
+
+El análisis de clústeres se aplica en diversas áreas, como segmentación de clientes, clasificación de imágenes, análisis de redes sociales, agrupación de documentos y detección de anomalías, entre otros.
+
+Es importante destacar que el análisis de clústeres puede ser un proceso exploratorio que ayuda a comprender la estructura subyacente de los datos y generar conocimiento útil en diversas áreas de estudio.
 
 </br></br>
 
-#### **SUPUESTOS DE MODELO DE REGRESIÓN LINEAL SIMPLE**
-
-S1. La variable respuesta $Y$ es una variable aleatoria cuyos valores para valores específicos de una variable $X$
-
-S2. La variable $X$ no se considera una variable aleatoria
-
-S3. Los datos observados ${(x_i,y_i),\ i=1,\ldots,n}$ son tomados en un rango, por fuera del cual no se deben realizar inferencias (no realizar extrapolación)
-
-S4. El modelo de regresión es lineal en los parámetros
-
-S5. Si la ecuación de regresión es correcta, las variaciones que no se explican por la ecuación corresponden a errores aleatorios
-
-S6. No existe correlación de errores $Cor[\varepsilon_{i},\varepsilon_{j}]= 0$
-
-S7. El modelo de regresión es: $Y_i = Y\vert X_i = E\left[Y \vert X_i\right] + \varepsilon_i \hspace{.8cm} i=1,2,\ldots,n$
-
-S8. Los errores se distribuyen $\large \varepsilon_{i}\sim N(0,\sigma^{2}), \hspace{0.8cm} i=1,2,\ldots,n$
-
-S9. Los errores aleatorios $\large \varepsilon_i$ son estadísticamente independientes.
-
-S10. La varianza de los errores es contante : $V[\varepsilon_{i}] = \sigma^{2}$
-
-En resumen :
-$$
-\varepsilon_i\overset{\text{iid}}{\sim} N(0,\sigma^2), \hspace{.8cm}i=1,2,\ldots,n
-$$
-
-</br></br>
-
-#### **RESUMEN**
-
-
-|                                |                           código R                           |
-|:-------------------------------|:-------------------------------------------------------------|
-| datos                          | `x = c(24.3,12.5,31.2,28,35.1,10.5,23.2,10,8.5,15.9,14.7,15)`  |
-|                                | `y = c(16.2,8.5,15,17,24.2,11.2,15,7.1,3.5,11.5,10.7,9.2)`     |
-|                                | `data = data.frame(x,y)`                                       |
-| diagrama dispersión            | `library(ggplot2)` ; `ggplot(data, aes(x,y))+ geom_point()`      |
-| correlación                    | `cor(x,y)`                                                     |
-| test de correlación Ho: Rho=0  | `cor.test(x,y)`                                                |
-| estimacion MCO                 | `modelo1 <- lm(y~x)`                                           |
-| estimación MV                  | `modelo2 <- lm(y~x)$coefficients;emv`                          |
-| visualización de resultados    | `summary(modelo1)`                                             |
-| gráfico de regresión           | `ggplot(data, aes(x,y))+ geom_point() +`                       |
-|                                |        ` geom_smooth(method ="lm", level=0.95, formula = y~x)` |
-| yhat                           | `predict(modelo1)`                                             |
-| interbalos de confianza $\beta_0$,$\beta_1$ | `confint(modelo1)`                                |
-| ANOVA                          | `anova(modelo1)`                                               |
-| residuos                       | `rstandard(modelo1)`                                           |
-| valores ajustados              | `fitted(modelo1)`                                              |
-| gráfico normalidad             | `qqnorm(modelo1)` ; `qqline(modelo1)`                          |
-| test de DW -autocorrelación    | `library("lmtest")` ; `dwtest(modelo1)`                        |
-| test de Goldfeld-Quandt - varianza constante | `gqtest(modelo1)`                                |
-| test de especificacion - Prueba RESET | `resettest(y~x, power=2, type="regressor")`             |
-| test de  White - varianza cosntante   | `modelo1=lm(residuos~x)`                                |
-
-
-```{r, echo=FALSE, , out.width="100%", fig.align = "center"}
-# knitr::include_graphics("images/tablas.png")  
-
-```
 
 ## **CUESTIONARIO**
 
 ### **Pregunta 1**
- 
- El siguiente resultado corresponde  a la estimación de un modelo de regresión lineal simple.
-<pre>
-lm(formula = ventas ~ clientes, data = ventas)
-
-Coefficients:  Estimate      Std. Error t value   Pr(>|t|)    
-(Intercept)    19.9800       4.3897     4.552     0.000544 
-clientes        0.2606       0.0420     6.205     3.19e-05 
-
-</pre>
 
 ```{r quiz_1}
+
 quiz(
-  question("La ecuación resultante de la estimación es. ", 
-           correct = "Correcto!.", 
-           allow_retry = TRUE,
-           answer("clientes = 19.9800 + 0.2606 ventas", message = "No...intentalo de nuevo!"),
-           answer("ventas = 19.9800 + 0.2606 clientes", correct = TRUE),    
-           answer("ventas = 0.2606 clientes", message = "Incorrecto. Intenta de nuevo!."),
-           answer("clientes = 4.3897 + 0.0420 ventas", message = "No...intentalo de nuevo!"),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+question("¿Qué objetivo principal tiene el análisis de clustering?", 
+correct = "Correcto!, (c) Agrupar objetos similares en clústeres.",
+allow_retry = TRUE,
+answer("a) Reducir la dimensión de los datos.", message = "No...inténtalo de nuevo!"),
+answer("b) Predecir valores continuos.", message = "No...inténtalo de nuevo!"),
+answer("c) Agrupar objetos similares en clústeres.", correct = TRUE),
+answer("d) Realizar una proyección de los datos en un espacio de menor dimensión.", message = "Incorrecto. Intenta de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
 )
 
 ```
 
-
 ### **Pregunta 2**
-
-El siguiente resultado corresponde  a la estimación de un modelo de regresión lineal simple.
-
-<pre>
-lm(formula = ventas ~ clientes, data = ventas)
-
-Coefficients:  Estimate   Std. Error t value   Pr(>|t|)    
-(Intercept)    19.9800    4.3897     4.552     0.000544 
- clientes       0.2606    0.1820     1.431780  0.175808
-</pre>
 
 ```{r quiz_2}
 
 quiz(
-  question("El modelo resultante de la estimación es:", 
-           correct = "Correcto!, el valor-p para la prueba de hipótesis relacionada con el intercepto indica que este valor es diferente de cero, mientras que para la prueba de la pendiente indica que no se rechaza que este valor sea cero.", 
-           allow_retry = TRUE,
-           answer("ventas = 19.9800", correct = TRUE),
-           answer("ventas = 0.2606 clientes", message = "No...intentalo de nuevo!"),
-           answer("ventas = 19.9800 + 0.2606 clientes", message = "Incorrecto. Intenta de nuevo!."),
-           answer("ventas =0.2606 + 19.9800 clientes", message = "No...intentalo de nuevo!"),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+question("¿Cuál de las siguientes afirmaciones sobre el análisis de clustering es cierta?",
+correct = "Correcto!, (b) Es un método de aprendizaje no supervisado.",
+allow_retry = TRUE,
+answer("a) Requiere etiquetas previas para los datos.", message = "No...inténtalo de nuevo!"),
+answer("b) Es un método de aprendizaje supervisado.", correct = TRUE),
+answer("c) Solo puede manejar variables numéricas.", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) No se ve afectado por la elección de la métrica de distancia.", message = "No...inténtalo de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
 )
 
-```
 
+```
 
 ### **Pregunta 3**
 
 ```{r quiz_3}
-
 quiz(
-  question("Del método de estimación MCO  no es posible afirmar que", 
-           correct = "Correcto!, el método de MCO es un método de optimización matemático que encuentra los valores de los parámetros que minimicen los residuales, sin importar la relación existente entre las variables X y Y.", 
-           allow_retry = TRUE,
-           answer("Las estimaciones de los parámetros son insesgadas", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("Las estimaciones son las mismasa que se encuentran por el método de máxima verosimilitud", message = "Nop...intentalo de nuevo!"),
-           answer("Son validos siempre y cuando se cumplan los supuestos sobre los errores", message = "Incorrecto. Intenta de nuevo!."),
-           answer("Si los datos no tienen una forma lineal, el método de MCO no puede encontrar valores estimados para el intercepto y la pendiente de la linea de regresión", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = "Visualización"
+question("¿Cuál de los siguientes métodos de clustering es jerárquico?",
+correct = "d) Aglomerativo",
+allow_retry = TRUE,
+answer("a) K-Means", message = "No...inténtalo de nuevo!"),
+answer("b) DBSCAN", message = "No...inténtalo de nuevo!"),
+answer("c) K-Medoids", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) Aglomerativo", correct = TRUE),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
 )
 
 ```
 
 ### **Pregunta 4**
 
-
-Al evaluar la forma funcional del modelo empleando la transformación Box-Cox, arroja el siguiente resultado
-
-```{r}
-library(paqueteMOD)
-library(MASS)
-data(beer) 
-bc=boxcox(lm(beer$precio ~ beer$poralcoh), lambda = -2:2)
-#Se repite el proceso pero esta vez entrechando el rango de valores de lambda 
-(lambda <- bc$x[which.max(bc$y)])
-
-```
-
-
 ```{r quiz_4}
-
 quiz(
-  question("El resultado indica que la mejor transformación de la variable respuesta es: ", 
-           correct = "Correcto!", 
-           allow_retry = TRUE,
-           answer("Inverso del cuadrado de Y", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("Inverso de la raiz cuadrada de  Y", message = "Nop...intentalo de nuevo!"),
-           answer("La raiz cuadrada de Y", message = "Incorrecto. Intenta de nuevo!."),
-           answer("El cuadro de Y", correct = TRUE),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+question("¿Qué método de clustering requiere que se especifique el número de clústeres de antemano?",
+correct = "a) K-Means",
+allow_retry = TRUE,
+answer("a) K-Means", correct = TRUE),
+answer("b) DBSCAN", message = "No...inténtalo de nuevo!"),
+answer("c) Aglomerativo", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) K-Medoids", message = "No...inténtalo de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
 )
+
 
 ```
 
@@ -241,149 +200,116 @@ quiz(
 ```{r quiz_5}
 
 quiz(
-  question("No es un supuesto del modelo de regresión lineal", 
-           correct = "Correcto!, aunque la varianza debe ser constante, no necesariamente será igual a uno.", 
-           allow_retry = TRUE,
-           answer("Valor esperado de los errores  igual a cero", message = "Cerca, pero no...intentalo de nuevo!"),
-           answer("Errores con distribución normal", message = "Nop...intentalo de nuevo!"),
-           answer("Varianza de los errores igual a uno", correct = TRUE),
-           answer("Independencia de los errores ", message = "Incorrecto. Intenta de nuevo!."),
-           # Si no cambiamos estos textos en los botones, se mostrarán en Inglés  
-           submit_button = "Enviar respuesta",
-           try_again_button = "Intentar de nuevo"),
-  # Si no ponemos un caption aparecerá la palabra Quiz en inglés.
-  caption = " "
+question("¿Qué método de clustering es más adecuado para manejar conjuntos de datos con diferentes tamaños y densidades de clústeres?",
+correct = "Correcto!, (b) DBSCAN",
+allow_retry = TRUE,
+answer("a) K-Means", message = "No...inténtalo de nuevo!"),
+answer("b) DBSCAN", correct = TRUE),
+answer("c) K-Medoids", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) Aglomerativo", message = "Nop...inténtalo de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
 )
 
-```
-
-
-
-## **PROBLEMAS**
-
-
-### **Problema 1**
-
-La data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  Estime el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ mediate el método de mínimos cuadrados ordinarios (MCO)
-
-```{r p1, exercise=TRUE, exercise.lines = 10}
-library(paqueteMOD)
-data("biomasa")
 
 ```
 
 
-```{r p1-hint}
-library(paqueteMOD)
-data("biomasa")
-lm
+### **Pregunta 6**
 
-```
-
-
-```{r p1-solution}
-library(paqueteMOD)
-data("biomasa")
-modelo=lm(biomasa$bio_total ~ biomasa$altura)
-summary(modelo)
-```
-
-
-
-### **Problema 2*
-A partir de la data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  se puede estimar el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ . A partir de los resultados obtenidos en la estimación valide los supuestos sobre los errores:
-
-* $\varepsilon \sim Normal$
-* $V[\varepsilon] = \sigma^{2}$
-* $Cor[\varepsilon_{i},\varepsilon_{j}] = 0$
-* $E[\varepsilon] = 0$
-
-```{r p2, exercise=TRUE, exercise.lines = 20}
-library(paqueteMOD)
-data(biomas)
-
-```
-
-
-```{r p2-hint}
-library(paqueteMOD)
-data(biomas)
-shapiro.test()
-gqtest()
-dwtest()
-t.test()
-```
-
-
-```{r p2-solution}
-library(paqueteMOD)
-data(biomas)
-modelo=lm(biomasa$bio_total ~ biomasa$altura)
-shapiro.test(modelo$residuals)
-lmtest::gqtest(modelo)
-lmtest::dwtest(modelo)
-t.test(modelo$residuals)
-
+```{r quiz_6}
+quiz(
+question("¿Cuál de los siguientes índices de validación interna se utiliza para evaluar la calidad de los clústeres?",
+correct = "Correcto!, (c) Silueta",
+allow_retry = TRUE,
+answer("a) Ajuste de Rand", message = "No...inténtalo de nuevo!"),
+answer("b) Información Mutua Normalizada", message = "No...inténtalo de nuevo!"),
+answer("c) Silueta", correct = TRUE),
+answer("d) Entropía", message = "Incorrecto. Intenta de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
 
 
 ```
 
 
-### **Problema 3**
+### **Pregunta 7**
 
-La data `biomasa` contenida en `paqueteMOD` contiene información sobre la biomasa total y la altura de 90 árboles.  Verifique el valor de $\lambda$ para la constante de la transformación Box-Cox para establecer la transformación apropiada de la variable dependiente en el modelo $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ 
+```{r quiz_7}
+quiz(
+question("¿Qué método de clustering puede asignar muestras a ruido o no asignarlas a ningún clúster?",
+correct = "Correcto!, (b) DBSCAN",
+allow_retry = TRUE,
+answer("a) K-Means", message = "No...inténtalo de nuevo!"),
+answer("b) DBSCAN", correct = TRUE),
+answer("c) K-Medoids", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) Aglomerativo", message = "No...inténtalo de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
 
-```{r p3, exercise=TRUE, exercise.lines = 20}
-library(paqueteMOD)
-data(biomasa)
+
+```
+
+### **Pregunta 8**
+
+```{r quiz_8}
+quiz(
+question("¿Qué método de clustering es más adecuado para encontrar clústeres de forma no convexa?",
+correct = "Correcto!, (c) DBSCAN",
+allow_retry = TRUE,
+answer("a) K-Means", message = "No...inténtalo de nuevo!"),
+answer("b) Aglomerativo", message = "No...inténtalo de nuevo!"),
+answer("c) DBSCAN", correct = TRUE),
+answer("d) K-Medoids", message = "Incorrecto. Intenta de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
+
+```
+
+### **Pregunta 9**
+
+```{r quiz_9}
+quiz(
+question("¿Cuál de los siguientes métodos de clustering es más sensible a la inicialización o selección de un punto inicial para iniciar el algoritmo?",
+correct = "Correcto!, (a) K-Means",
+allow_retry = TRUE,
+answer("a) K-Means", correct = TRUE),
+answer("b) DBSCAN", message = "No...inténtalo de nuevo!"),
+answer("c) Aglomerativo", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) K-Medoids", message = "No...inténtalo de nuevo!"),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
+
 
 ```
 
 
-```{r p3-hint}
-library(paqueteMOD)
-data(biomasa)
-MASS::boxcox()
+### **Pregunta 10**
+
+```{r quiz_10}
+quiz(
+question("¿Cuál de las siguientes técnicas se puede utilizar para determinar el número óptimo de clústeres?",
+correct = "Correcto!, (d) Análisis de codo",
+allow_retry = TRUE,
+answer("a) Análisis de silueta", message = "No...inténtalo de nuevo!"),
+answer("b) Índice de Davies-Bouldin", message = "No...inténtalo de nuevo!"),
+answer("c) Entropía", message = "Incorrecto. Intenta de nuevo!"),
+answer("d) Análisis de codo", correct = TRUE),
+submit_button = "Enviar respuesta",
+try_again_button = "Intentar de nuevo"),
+  caption = "  "
+)
 
 
-```
-
-
-```{r p3-solution}
-library(paqueteMOD)
-data(biomasa)
-bc=MASS::boxcox(lm(biomasa$bio_total ~ biomasa$altura), lambda = -1:1)
-(lambda <- bc$x[which.max(bc$y)])
-```
-
-
-
-### **Problema 4**
-
-Para el modelo  $\text{biomasa} = \beta_{0} + \beta_{1} \text{altura} + \varepsilon$ , obtenido a partir de la data  `biomasa` contenida en `paqueteMOD` , verifique gráficamente el cumplimiento de los supuestos sobre los errores.
-
-
-```{r p4, exercise=TRUE, exercise.lines = 20}
-library(paqueteMOD)
-data(biomasa)
-modelo=lm(biomasa$bio_total ~ biomasa$altura)
-
-```
-
-
-```{r p4-hint}
-library(paqueteMOD)
-data(biomasa)
-modelo=lm(biomasa$bio_total ~ biomasa$altura)
-
-```
-
-
-```{r p4-solution}
-library(paqueteMOD)
-data(biomasa)
-modelo=lm(biomasa$bio_total ~ biomasa$altura)
-par(mfrow = c(2,2))
-plot(modelo)
 ```
 

@@ -15,7 +15,7 @@
 <meta name="allow-skip" content="true" />
 <meta name="learnr-version-prerender" content="0.11.4" />
 
-<title>ANÁLISIS DE COMPONENTES PRINCIPALES</title>
+<title>ANÁLISIS DE CORRESPON- DENCIA</title>
 
 <!-- header-includes START -->
 <!-- HEAD_CONTENT -->
@@ -115,106 +115,97 @@ if (window.hljs) {
 <h2><strong>PRESENTACIÓN</strong></h2>
 <p><img src="images/modulo1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>El presente tutorial contiene preguntas relacionadas con el análisis
-de componentes principales. A continuación se presentan un resumen con
-los principales conceptos:</p>
+de correspondencia. A continuación se presentan un resumen con los
+principales conceptos:</p>
 <p></br></p>
 <div id="section-conceptos" class="section level3">
 <h3><strong>CONCEPTOS</strong></h3>
-<p>El análisis de componentes principales (PCA) es una técnica
-ampliamente utilizada para reducir la dimensionalidad de un conjunto de
-datos mientras mantiene la mayor cantidad de información posible. Aquí
-están los principales conceptos asociados con el análisis de componentes
-principales:</p>
-<p><br/></p>
-<div id="section-reducción-de-dimensionalidad" class="section level4">
-<h4><strong>Reducción de dimensionalidad</strong>:</h4>
-<p>PCA se utiliza para transformar un conjunto de datos de alta
-dimensionalidad en un espacio de menor dimensión, donde las nuevas
-variables (componentes principales) son combinaciones lineales de las
-variables originales. Esto ayuda a simplificar la interpretación y
-visualización de los datos.</p>
-<p><br/></p>
+<p>El análisis de correspondencia (AC) es una técnica estadística
+utilizada para explorar las relaciones entre variables categóricas en un
+conjunto de datos. Aquí están los principales conceptos asociados con el
+análisis de correspondencia:</p>
+<p></br></p>
+<div id="section-datos-categóricos" class="section level4">
+<h4><strong>Datos categóricos</strong>:</h4>
+<p>El análisis de correspondencia se aplica a conjuntos de datos que
+contienen variables categóricas, es decir, variables que representan
+categorías o grupos en lugar de valores numéricos.</p>
+<p></br></p>
 </div>
-<div id="section-componentes-principales" class="section level4">
-<h4><strong>Componentes principales</strong>:</h4>
-<p>Son las nuevas variables que resultan de la transformación realizada
-por PCA. Estas componentes están ordenadas en función de la cantidad de
-varianza que capturan en los datos. La primera componente principal
-captura la mayor varianza, la segunda componente principal captura la
-segunda mayor varianza y así sucesivamente.</p>
-<p><br/></p>
+<div id="section-tabla-de-contingencia" class="section level4">
+<h4><strong>Tabla de contingencia</strong>:</h4>
+<p>Es una tabla que muestra la frecuencia de aparición conjunta de las
+categorías de dos o más variables categóricas. Es el punto de partida
+para realizar el análisis de correspondencia.</p>
+<p></br></p>
 </div>
-<div id="section-varianza" class="section level4">
-<h4><strong>Varianza</strong>:</h4>
-<p>Es una medida de dispersión de los datos alrededor de su media. Las
-componentes principales se seleccionan de manera que capturen la mayor
-cantidad posible de varianza en los datos originales.</p>
-<p><br/></p>
+<div id="section-representación-gráfica" class="section level4">
+<h4><strong>Representación gráfica</strong>:</h4>
+<p>El análisis de correspondencia busca representar las relaciones entre
+las categorías de las variables categóricas en un espacio de baja
+dimensión. Las técnicas de visualización incluyen gráficos de
+coordenadas, gráficos de contribuciones y gráficos de barras.</p>
+<p></br></p>
 </div>
-<div id="section-ortogonalidad" class="section level4">
-<h4><strong>Ortogonalidad</strong>:</h4>
-<p>Las componentes principales son ortogonales entre sí, lo que
-significa que no están correlacionadas. Esto asegura que las nuevas
-variables no tengan información redundante.</p>
-<p><br/></p>
+<div id="section-inercia" class="section level4">
+<h4><strong>Inercia</strong>:</h4>
+<p>La inercia en el análisis de correspondencia mide la varianza total
+explicada por el número de dimensiones retenidas en el análisis. La
+inercia ayuda a seleccionar el número adecuado de dimensiones para
+retener.</p>
+<p></br></p>
 </div>
-<div id="section-eigenvector-y-eigenvalor" class="section level4">
-<h4><strong>Eigenvector y Eigenvalor</strong>:</h4>
-<p>En el cálculo de PCA, se utilizan los eigenvectores y eigenvalores de
-la matriz de covarianza o matriz de correlación de los datos para
-obtener las componentes principales. Los eigenvectores son las
-direcciones de las componentes principales y los eigenvalores
-representan la cantidad de varianza que captura cada eigenvector.</p>
-<p><br/></p>
+<div id="section-componentes-de-fila-y-columna" class="section level4">
+<h4><strong>Componentes de fila y columna</strong>:</h4>
+<p>En el análisis de correspondencia, las filas y columnas de la tabla
+de contingencia tienen componentes asociadas. Estas componentes
+describen la relación entre las filas y columnas en el espacio de
+dimensiones reducidas.</p>
+<p></br></p>
 </div>
-<div id="section-covarianza-o-correlación" class="section level4">
-<h4><strong>Covarianza o Correlación</strong>:</h4>
-<p>Antes de aplicar PCA, es común estandarizar los datos (restar la
-media y dividir por la desviación estándar) para asegurar que todas las
-variables contribuyan por igual al análisis. Luego, se calcula la matriz
-de covarianza o correlación de los datos.</p>
-<p><br/></p>
+<div id="section-independencia" class="section level4">
+<h4><strong>Independencia</strong>:</h4>
+<p>Si las variables categóricas son independientes, significa que no hay
+relación significativa entre ellas. El análisis de correspondencia puede
+ayudar a identificar si hay asociación entre las categorías de
+diferentes variables.</p>
+<p></br></p>
 </div>
-<div id="section-explicación-de-la-varianza" class="section level4">
-<h4><strong>Explicación de la varianza</strong>:</h4>
-<p>Es importante evaluar cuánta varianza explica cada componente
-principal. La suma de las varianzas explicadas por todas las componentes
-principales da como resultado la varianza total de los datos. Esto
-permite determinar cuánta información se preserva al reducir la
-dimensión.</p>
-<p><br/></p>
+<div id="section-chi-cuadrado" class="section level4">
+<h4><strong>Chi-cuadrado</strong>:</h4>
+<p>En el análisis de correspondencia, se utiliza la prueba de
+chi-cuadrado para determinar si la asociación entre las variables
+categóricas es significativa o simplemente el resultado del azar.</p>
+<p></br></p>
 </div>
-<div id="section-número-de-componentes-principales"
+<div id="section-análisis-de-correspondencia-múltiple-acm"
 class="section level4">
-<h4><strong>Número de componentes principales</strong>:</h4>
-<p>Una decisión crítica en PCA es determinar cuántas componentes
-principales retener. Se puede utilizar la “regla del codo” o el criterio
-de explicación de la varianza para seleccionar el número apropiado de
-componentes.</p>
-<p><br/></p>
+<h4><strong>Análisis de correspondencia múltiple (ACM)</strong>:</h4>
+<p>Es una extensión del análisis de correspondencia que permite estudiar
+la asociación entre múltiples tablas de contingencia. Es útil cuando se
+desean comparar relaciones entre diferentes conjuntos de datos.</p>
+<p></br></p>
+</div>
+<div id="section-imputación" class="section level4">
+<h4><strong>Imputación</strong>:</h4>
+<p>En el análisis de correspondencia, se puede realizar la imputación de
+datos faltantes utilizando diversas técnicas, como imputación por media,
+mediana o moda, para mantener la integridad del análisis.</p>
+<p></br></p>
 </div>
 <div id="section-aplicaciones" class="section level4">
 <h4><strong>Aplicaciones</strong>:</h4>
-<p>PCA se utiliza en diversas aplicaciones, como reducción de
-dimensionalidad para visualización, compresión de imágenes, eliminación
-de correlación en datos antes de análisis de regresión, entre otros.</p>
-<p><br/></p>
-</div>
-<div id="section-limitaciones" class="section level4">
-<h4><strong>Limitaciones</strong>:</h4>
-<p>Aunque PCA es una técnica poderosa, también tiene sus limitaciones.
-Por ejemplo, puede no ser adecuado para datos con relaciones no lineales
-complejas, ya que busca relaciones lineales entre variables.</p>
-<p>En resumen, el análisis de componentes principales es una herramienta
-valiosa para reducir la complejidad de conjuntos de datos de alta
-dimensión, permitiendo una mejor comprensión y análisis de la
-información.</p>
+<p>El análisis de correspondencia es ampliamente utilizado en diversas
+áreas, como ciencias sociales, marketing, biología, lingüística y muchas
+otras disciplinas donde se analizan datos categóricos para identificar
+patrones y relaciones.</p>
+<p>En resumen, el análisis de correspondencia es una técnica valiosa
+para explorar y visualizar relaciones entre variables categóricas en un
+conjunto de datos, proporcionando una herramienta útil para la
+interpretación y el análisis de datos no numéricos.</p>
 <p></br></p>
 </div>
 </div>
-</div>
-<div id="section-cuestionario" class="section level2">
-<h2><strong>CUESTIONARIO</strong></h2>
 <div id="section-pregunta-1" class="section level3">
 <h3><strong>Pregunta 1</strong></h3>
 <div class="panel-heading tutorial-quiz-title"></div>
@@ -373,366 +364,348 @@ session$onSessionEnded(function() {
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("¿Qué objetivo principal tiene el análisis de componentes principales (PCA)?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9b16e66", 
-    option = "a) Reducir el tamaño de la muestra de datos.", 
-    value = "a) Reducir el tamaño de la muestra de datos.", 
-    label = structure("a) Reducir el tamaño de la muestra de datos.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_1-1", question = structure("¿Qué tipo de datos es adecuado para el análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_8cf2b4", 
+    option = "a) Datos numéricos continuos", value = "a) Datos numéricos continuos", 
+    label = structure("a) Datos numéricos continuos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5f596b1", 
-    option = "b) Realizar una proyección de los datos en un espacio de menor dimensión.", 
-    value = "b) Realizar una proyección de los datos en un espacio de menor dimensión.", 
-    label = structure("b) Realizar una proyección de los datos en un espacio de menor dimensión.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_15115de", 
+    option = "b) Tablas de contingencia", value = "b) Tablas de contingencia", 
+    label = structure("b) Tablas de contingencia", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c20af34", 
-    option = "c) Aumentar la complejidad de los datos para un mejor ajuste del modelo.", 
-    value = "c) Aumentar la complejidad de los datos para un mejor ajuste del modelo.", 
-    label = structure("c) Aumentar la complejidad de los datos para un mejor ajuste del modelo.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_da26e70", 
+    option = "c) Datos de texto sin estructura", value = "c) Datos de texto sin estructura", 
+    label = structure("c) Datos de texto sin estructura", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_384f1b3", 
-    option = "d) Asegurar que los datos originales no se vean afectados por el análisis.", 
-    value = "d) Asegurar que los datos originales no se vean afectados por el análisis.", 
-    label = structure("d) Asegurar que los datos originales no se vean afectados por el análisis.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6a5cddf", 
+    option = "d) Datos de series temporales", value = "d) Datos de series temporales", 
+    label = structure("d) Datos de series temporales", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (b) Realizar una proyección de los datos en un espacio de menor dimensión, por lo general en dos dimensiones.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("b) Tablas de contingencia", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_1-1-answer", question = "quiz_1-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1613339273.24873, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1920119642.10587, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_2-1", question = structure("¿Cuál de las siguientes afirmaciones es cierta acerca de las componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c2576c6", 
-    option = "a) Son iguales a las variables originales del conjunto de datos.", 
-    value = "a) Son iguales a las variables originales del conjunto de datos.", 
-    label = structure("a) Son iguales a las variables originales del conjunto de datos.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_917aa1", 
-    option = "b) Son perpendiculares entre sí.", value = "b) Son perpendiculares entre sí.", 
-    label = structure("b) Son perpendiculares entre sí.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_2-1", question = structure("¿Qué objetivo principal tiene el análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_d20cbd3", 
+    option = "a) Explorar relaciones entre variables categóricas", 
+    value = "a) Explorar relaciones entre variables categóricas", 
+    label = structure("a) Explorar relaciones entre variables categóricas", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f001fdf", 
-    option = "c) Son útiles solo para conjuntos de datos bidimensionales.", 
-    value = "c) Son útiles solo para conjuntos de datos bidimensionales.", 
-    label = structure("c) Son útiles solo para conjuntos de datos bidimensionales.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_683418d", 
-    option = "d) No están relacionadas con la varianza de los datos.", 
-    value = "d) No están relacionadas con la varianza de los datos.", 
-    label = structure("d) No están relacionadas con la varianza de los datos.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6be3663", 
+    option = "b) Reducir la dimensión de los datos", value = "b) Reducir la dimensión de los datos", 
+    label = structure("b) Reducir la dimensión de los datos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5f00fd1", 
+    option = "c) Predecir valores continuos", value = "c) Predecir valores continuos", 
+    label = structure("c) Predecir valores continuos", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1419ca9", 
+    option = "d) Agrupar objetos similares en clústeres", value = "d) Agrupar objetos similares en clústeres", 
+    label = structure("d) Agrupar objetos similares en clústeres", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto|, (b) Los componentes principales resultantes son ortogonales o independientes (perpendiculares entre sí).", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("a) Explorar relaciones entre variables categóricas", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_2-1-answer", question = "quiz_2-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1623532267.24398, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 120176599.944038, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("¿Qué propiedad de las componentes principales las ordena según su importancia?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_caca489", 
-    option = "a) Magnitud de la varianza que representan.", value = "a) Magnitud de la varianza que representan.", 
-    label = structure("a) Magnitud de la varianza que representan.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_3-1", question = structure("¿Cuál de las siguientes afirmaciones es cierta acerca del análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_faf5a21", 
+    option = "a) Requiere de una variable respuesta", value = "a) Requiere de una variable respuesta", 
+    label = structure("a) Requiere de una variable respuesta", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1348e8", 
+    option = "b) Solo puede manejar dos variables categóricas", 
+    value = "b) Solo puede manejar dos variables categóricas", 
+    label = structure("b) Solo puede manejar dos variables categóricas", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9d0dede", 
+    option = "c) Es una técnica no supervisada", value = "c) Es una técnica no supervisada", 
+    label = structure("c) Es una técnica no supervisada", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_29fbb48", 
-    option = "b) Cantidad de datos que explican.", value = "b) Cantidad de datos que explican.", 
-    label = structure("b) Cantidad de datos que explican.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c4870c7", 
-    option = "c) Número de variables originales que incluyen.", 
-    value = "c) Número de variables originales que incluyen.", 
-    label = structure("c) Número de variables originales que incluyen.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_534ebb4", 
-    option = "d) Promedio de la correlación con otras componentes.", 
-    value = "d) Promedio de la correlación con otras componentes.", 
-    label = structure("d) Promedio de la correlación con otras componentes.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a489ab4", 
+    option = "d) No se ve afectado por la cantidad de datos faltantes", 
+    value = "d) No se ve afectado por la cantidad de datos faltantes", 
+    label = structure("d) No se ve afectado por la cantidad de datos faltantes", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (a) Los componentes principales son ordenados por magnitud de la varianza que representan, de mayor a menor.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("c) Es una técnica no supervisada", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_3-1-answer", question = "quiz_3-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1187874324.94685, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 237951059.889195, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_4-1", question = structure("Si utilizamos PCA para reducir la dimensión de un conjunto de datos, ¿qué información perdemos?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_b980eab", 
-    option = "a) La media y la varianza de las variables originales.", 
-    value = "a) La media y la varianza de las variables originales.", 
-    label = structure("a) La media y la varianza de las variables originales.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_4-1", question = structure("¿Cuál de las siguientes afirmaciones es cierta sobre el análisis de correspondencia múltiple?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_9ccaa0b", 
+    option = "a) Solo es útil para tablas de contingencia con dos variables categóricas", 
+    value = "a) Solo es útil para tablas de contingencia con dos variables categóricas", 
+    label = structure("a) Solo es útil para tablas de contingencia con dos variables categóricas", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d047225", 
-    option = "b) La media y la desviación estándar de las variables originales.", 
-    value = "b) La media y la desviación estándar de las variables originales.", 
-    label = structure("b) La media y la desviación estándar de las variables originales.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e756079", 
-    option = "c) Algunos detalles y ruido presentes en los datos originales.", 
-    value = "c) Algunos detalles y ruido presentes en los datos originales.", 
-    label = structure("c) Algunos detalles y ruido presentes en los datos originales.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_856bac9", 
+    option = "b) Permite el estudio de la asociación entre múltiples tablas de contingencia", 
+    value = "b) Permite el estudio de la asociación entre múltiples tablas de contingencia", 
+    label = structure("b) Permite el estudio de la asociación entre múltiples tablas de contingencia", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_702def9", 
-    option = "d) La correlación entre las variables originales.", 
-    value = "d) La correlación entre las variables originales.", 
-    label = structure("d) La correlación entre las variables originales.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4f5d7db", 
+    option = "c) Requiere de una variable respuesta", value = "c) Requiere de una variable respuesta", 
+    label = structure("c) Requiere de una variable respuesta", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_db9f427", 
+    option = "d) Es un tipo de análisis de correspondencia específico para datos faltantes", 
+    value = "d) Es un tipo de análisis de correspondencia específico para datos faltantes", 
+    label = structure("d) Es un tipo de análisis de correspondencia específico para datos faltantes", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, © Algunos detalles y ruido presentes en los datos originales.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("b) Permite el estudio de la asociación entre múltiples tablas de contingencia", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_4-1-answer", question = "quiz_4-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1522902558.29084, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 602948639.71923, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_5-1", question = structure("¿Cuál es una ventaja clave del análisis de componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_da4dbc6", 
-    option = "a) Aumenta la interpretación de los datos originales.", 
-    value = "a) Aumenta la interpretación de los datos originales.", 
-    label = structure("a) Aumenta la interpretación de los datos originales.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_5-1", question = structure("¿Cuál de los siguientes gráficos se utiliza para visualizar el análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_99936cb", 
+    option = "a) Gráfico de coordenadas", value = "a) Gráfico de coordenadas", 
+    label = structure("a) Gráfico de coordenadas", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_294a4d9", 
-    option = "b) Mantiene inalterados los tamaños de los conjuntos de datos.", 
-    value = "b) Mantiene inalterados los tamaños de los conjuntos de datos.", 
-    label = structure("b) Mantiene inalterados los tamaños de los conjuntos de datos.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f36cd9d", 
+    option = "b) Gráfico de dispersión", value = "b) Gráfico de dispersión", 
+    label = structure("b) Gráfico de dispersión", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_cb1bad0", 
-    option = "c) No requiere cálculos matemáticos complejos.", 
-    value = "c) No requiere cálculos matemáticos complejos.", 
-    label = structure("c) No requiere cálculos matemáticos complejos.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_799d5a3", 
+    option = "c) Gráfico de barras", value = "c) Gráfico de barras", 
+    label = structure("c) Gráfico de barras", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bac2acb", 
-    option = "d) Permite identificar outliers de manera efectiva.", 
-    value = "d) Permite identificar outliers de manera efectiva.", 
-    label = structure("d) Permite identificar outliers de manera efectiva.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_658154e", 
+    option = "d) Gráfico de líneas", value = "d) Gráfico de líneas", 
+    label = structure("d) Gráfico de líneas", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (a) Aumenta la interpretación de los datos originales, permitiendo representar los registros en un plano cartesiano.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("a) Gráfico de coordenadas", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_5-1-answer", question = "quiz_5-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1676380412.71937, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2046974402.5468, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_6-1", question = structure("¿Cuál es el resultado de aplicar PCA a un conjunto de datos con 100 observaciones y 10 variables?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_8e771c8", 
-    option = "a) Se obtienen 100 componentes principales.", value = "a) Se obtienen 100 componentes principales.", 
-    label = structure("a) Se obtienen 100 componentes principales.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_6-1", question = structure("¿Cuál de los siguientes métodos de análisis de correspondencia puede manejar datos faltantes?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_91925aa", 
+    option = "a) Análisis de correspondencia simple", value = "a) Análisis de correspondencia simple", 
+    label = structure("a) Análisis de correspondencia simple", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4c6411e", 
-    option = "b) Se obtienen 10 componentes principales.", value = "b) Se obtienen 10 componentes principales.", 
-    label = structure("b) Se obtienen 10 componentes principales.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4f20e1", 
+    option = "b) Análisis de correspondencia específico", value = "b) Análisis de correspondencia específico", 
+    label = structure("b) Análisis de correspondencia específico", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_42df28", 
+    option = "c) Análisis de correspondencia múltiple", value = "c) Análisis de correspondencia múltiple", 
+    label = structure("c) Análisis de correspondencia múltiple", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7f912b", 
-    option = "c) Se obtiene un único componente principal.", 
-    value = "c) Se obtiene un único componente principal.", 
-    label = structure("c) Se obtiene un único componente principal.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_294cf73", 
-    option = "d) El número de componentes principales depende de la varianza de los datos.", 
-    value = "d) El número de componentes principales depende de la varianza de los datos.", 
-    label = structure("d) El número de componentes principales depende de la varianza de los datos.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_64e25ff", 
+    option = "d) Análisis de correspondencia ordinal", value = "d) Análisis de correspondencia ordinal", 
+    label = structure("d) Análisis de correspondencia ordinal", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (b) Se obtienen 10 componentes principales, ordenados por la magnitud de la varianza que explica cada uno.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("c) Análisis de correspondencia múltiple", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_6-1-answer", question = "quiz_6-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 550943361.743447, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 211416357.401552, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_7-1", question = structure("¿Qué transformación realiza PCA sobre los datos originales antes de calcular las componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_db5443", 
-    option = "a) Escalamiento de los datos a una media de cero y desviación estándar de uno.", 
-    value = "a) Escalamiento de los datos a una media de cero y desviación estándar de uno.", 
-    label = structure("a) Escalamiento de los datos a una media de cero y desviación estándar de uno.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_7-1", question = structure("¿Cuál de las siguientes métricas se utiliza para evaluar la calidad del ajuste en el análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_cfe6d98", 
+    option = "a) Entropía", value = "a) Entropía", label = structure("a) Entropía", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a2b44b3", 
+    option = "b) Ajuste de Rand", value = "b) Ajuste de Rand", 
+    label = structure("b) Ajuste de Rand", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c159d19", 
+    option = "c) Información Mutua Normalizada", value = "c) Información Mutua Normalizada", 
+    label = structure("c) Información Mutua Normalizada", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_90200f", 
+    option = "d) Inercia", value = "d) Inercia", label = structure("d) Inercia", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_62e3ae8", 
-    option = "b) Reemplazo de los valores faltantes por ceros.", 
-    value = "b) Reemplazo de los valores faltantes por ceros.", 
-    label = structure("b) Reemplazo de los valores faltantes por ceros.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_99d8d6f", 
-    option = "c) Reducción de la dimensión del conjunto de datos.", 
-    value = "c) Reducción de la dimensión del conjunto de datos.", 
-    label = structure("c) Reducción de la dimensión del conjunto de datos.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_bed8cc7", 
-    option = "d) Aplicación de un algoritmo de clasificación.", 
-    value = "d) Aplicación de un algoritmo de clasificación.", 
-    label = structure("d) Aplicación de un algoritmo de clasificación.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (a) Escalamiento de los datos a una media de cero y desviación estándar de uno.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("d) Inercia", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_7-1-answer", question = "quiz_7-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 263013755.877525, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1786274996.6682, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_8-1", question = structure("¿Cuál es una desventaja potencial del análisis de componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_12bc8f3", 
-    option = "a) No se puede aplicar a conjuntos de datos con más de dos dimensiones.", 
-    value = "a) No se puede aplicar a conjuntos de datos con más de dos dimensiones.", 
-    label = structure("a) No se puede aplicar a conjuntos de datos con más de dos dimensiones.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_97e659b", 
-    option = "b) Puede ser sensible a outliers presentes en los datos.", 
-    value = "b) Puede ser sensible a outliers presentes en los datos.", 
-    label = structure("b) Puede ser sensible a outliers presentes en los datos.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_8-1", question = structure("¿Cuál de las siguientes afirmaciones es cierta sobre las coordenadas del análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_a7a15e9", 
+    option = "a) Representan las relaciones entre filas y columnas en un espacio de baja dimensión", 
+    value = "a) Representan las relaciones entre filas y columnas en un espacio de baja dimensión", 
+    label = structure("a) Representan las relaciones entre filas y columnas en un espacio de baja dimensión", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a0cef05", 
-    option = "c) No permite reducir la complejidad de los modelos de aprendizaje automático.", 
-    value = "c) No permite reducir la complejidad de los modelos de aprendizaje automático.", 
-    label = structure("c) No permite reducir la complejidad de los modelos de aprendizaje automático.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9c9135e", 
-    option = "d) Solo es útil para conjuntos de datos con distribuciones normales.", 
-    value = "d) Solo es útil para conjuntos de datos con distribuciones normales.", 
-    label = structure("d) Solo es útil para conjuntos de datos con distribuciones normales.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2df27f9", 
+    option = "b) Representan las variables numéricas originales", 
+    value = "b) Representan las variables numéricas originales", 
+    label = structure("b) Representan las variables numéricas originales", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_8a6b62", 
+    option = "c) Representan las filas en un espacio de alta dimensión", 
+    value = "c) Representan las filas en un espacio de alta dimensión", 
+    label = structure("c) Representan las filas en un espacio de alta dimensión", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_21dae9b", 
+    option = "d) Representan las relaciones entre variables categóricas en un espacio de alta dimensión", 
+    value = "d) Representan las relaciones entre variables categóricas en un espacio de alta dimensión", 
+    label = structure("d) Representan las relaciones entre variables categóricas en un espacio de alta dimensión", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (b) Puede ser sensible a outliers presentes en los datos.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("a) Representan las relaciones entre filas y columnas en un espacio de baja dimensión", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_8-1-answer", question = "quiz_8-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 122007824.443186, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 401375642.813095, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_9-1", question = structure("¿Qué porcentaje de varianza explicada es recomendable tener en cuenta al seleccionar las primeras componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ed550d0", 
-    option = "a) Al menos el 50%.", value = "a) Al menos el 50%.", 
-    label = structure("a) Al menos el 50%.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_9-1", question = structure("¿Qué técnica se utiliza para reducir la dimensión del análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_dddadee", 
+    option = "a) Análisis de componentes principales para datos numéricos", 
+    value = "a) Análisis de componentes principales para datos numéricos", 
+    label = structure("a) Análisis de componentes principales para datos numéricos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5c02645", 
-    option = "b) Al menos el 25%.", value = "b) Al menos el 25%.", 
-    label = structure("b) Al menos el 25%.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4e2da72", 
-    option = "c) Al menos el 80%.", value = "c) Al menos el 80%.", 
-    label = structure("c) Al menos el 80%.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2b44eb2", 
-    option = "d) Al menos el 95%.", value = "d) Al menos el 95%.", 
-    label = structure("d) Al menos el 95%.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ba53ed2", 
+    option = "b) Análisis de componentes principales para tablas de contingencia", 
+    value = "b) Análisis de componentes principales para tablas de contingencia", 
+    label = structure("b) Análisis de componentes principales para tablas de contingencia", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b2d3b2", 
+    option = "c) Análisis de conglomerados para datos categóricos", 
+    value = "c) Análisis de conglomerados para datos categóricos", 
+    label = structure("c) Análisis de conglomerados para datos categóricos", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3068557", 
+    option = "d) Análisis de conglomerados para datos numéricos", 
+    value = "d) Análisis de conglomerados para datos numéricos", 
+    label = structure("d) Análisis de conglomerados para datos numéricos", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, (d) Al menos el 95%.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("b) Análisis de componentes principales para tablas de contingencia", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_9-1-answer", question = "quiz_9-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2092759189.52548, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 285709417.366956, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_10-1", question = structure("¿Cuál es una aplicación común del análisis de componentes principales?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ea81950", 
-    option = "a) Generar datos sintéticos aleatorios.", value = "a) Generar datos sintéticos aleatorios.", 
-    label = structure("a) Generar datos sintéticos aleatorios.", html = TRUE, class = c("html", 
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_10-1", question = structure("¿Qué índice se utiliza para medir la asociación entre dos variables categóricas en el análisis de correspondencia?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_31f6a52", 
+    option = "a) Coeficiente de correlación de Pearson", value = "a) Coeficiente de correlación de Pearson", 
+    label = structure("a) Coeficiente de correlación de Pearson", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4eda728", 
-    option = "b) Clasificar imágenes en diferentes categorías.", 
-    value = "b) Clasificar imágenes en diferentes categorías.", 
-    label = structure("b) Clasificar imágenes en diferentes categorías.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("No…inténtalo de nuevo!", html = TRUE, class = c("html", 
-    "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9c9a400", 
-    option = "c) Reducir la dimensión de conjuntos de datos para visualización.", 
-    value = "c) Reducir la dimensión de conjuntos de datos para visualización.", 
-    label = structure("c) Reducir la dimensión de conjuntos de datos para visualización.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_eac6a1f", 
+    option = "b) Coeficiente de contingencia", value = "b) Coeficiente de contingencia", 
+    label = structure("b) Coeficiente de contingencia", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5cc0839", 
-    option = "d) Realizar predicciones de series temporales.", 
-    value = "d) Realizar predicciones de series temporales.", 
-    label = structure("d) Realizar predicciones de series temporales.", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!.", html = TRUE, class = c("html", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e204b1c", 
+    option = "c) Coeficiente de determinación", value = "c) Coeficiente de determinación", 
+    label = structure("c) Coeficiente de determinación", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Incorrecto. Intenta de nuevo!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_af86546", 
+    option = "d) Coeficiente de Spearman", value = "d) Coeficiente de Spearman", 
+    label = structure("d) Coeficiente de Spearman", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Nop…inténtalo de nuevo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
 "tutorial_quiz_answer"))), button_labels = list(submit = structure("Enviar respuesta", html = TRUE, class = c("html", 
 "character")), try_again = structure("Intentar de nuevo", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Correcto!, ©) Reducir la dimensión de conjuntos de datos para visualización.", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("b) Coeficiente de contingencia", html = TRUE, class = c("html", 
 "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "quiz_10-1-answer", question = "quiz_10-1"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1776385606.67281, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1781882001.17025, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -760,7 +733,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
 <h1 class="title toc-ignore" style="display:none;"><strong>ANÁLISIS DE
-COMPONENTES PRINCIPALES</strong></h1>
+CORRESPON- DENCIA</strong></h1>
 <h4 class="author"><em>Modelos Estadística para la toma de
 decisiones</em></h4>
 </div>
