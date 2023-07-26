@@ -1,22 +1,12 @@
-Package: paqueteMOD
-Title: Paquete curso Modelos Estadísticos para la toma de decisiones  
-Version: 0.0.0.1
-Authors@R: person("Daniel Enrique", 
-                  "Gonzalez Gomez", , 
-                  "dgonzalez@javerianacali.edu.co", 
-                  role = c("aut", "cre"),
-                  comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Paquete creado como apoyo al curso de Modelos Estadísticos para la toma de decisiones, Pontificia Universidad Javeriana Cali.
-             Contiene tambien tutoriales  y test como apoyo a los diferentes módulos del curso.  
+Package: paqueteDAT
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: dgonzalez80
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+             Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
-Imports:
-    boot,
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
-Depends: 
-    R (>= 3.5.0)
+Depends: R (>= 3.6.0)
