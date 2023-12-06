@@ -35,13 +35,13 @@ c4="#686868" # GRIS COLOR TEXTO
 knitr::include_graphics("images/modulo1.png")
 ```
 
-El presente tutorial contiene preguntas relacionadas con  el análisis de componentes principales. A continuación se presentan un resumen  con los principales conceptos:
+El presente tutorial contiene preguntas relacionadas con  el **Análisis de Componentes Principales** (ACP). A continuación se presentan un resumen  con los principales conceptos:
 
 </br>
 
 ### **CONCEPTOS**
 
-El análisis de componentes principales (PCA) es una técnica ampliamente utilizada para reducir la dimensionalidad de un conjunto de datos mientras mantiene la mayor cantidad de información posible. Aquí están los principales conceptos asociados con el análisis de componentes principales:
+El Análisis de Componentes Principales (ACP o PCA por su nombre in inglés) es una técnica ampliamente utilizada para reducir la dimensionalidad de un conjunto de datos mientras mantiene la mayor cantidad de información posible. Aquí están los principales conceptos asociados con el análisis de componentes principales:
 
 <br/>
 
