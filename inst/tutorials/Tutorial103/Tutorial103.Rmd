@@ -105,6 +105,11 @@ El análisis de correspondencia es ampliamente utilizado en diversas áreas, com
 
 En resumen, el análisis de correspondencia es una técnica valiosa para explorar y visualizar relaciones entre variables categóricas en un conjunto de datos, proporcionando una herramienta útil para la interpretación y el análisis de datos no numéricos.
 
+
+</br></br>
+
+## **PREGUNTAS**
+
 </br>
 
 ### **Pregunta 1**
